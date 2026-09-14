@@ -177,6 +177,7 @@ var tob_item_beforeClock;
 var tob_text_before;
 var tob_slider_before;
 var tob_hint_before;
+var tob_key_before;
 var choice_instrClock;
 var TXT_CHOICE_EASY;
 var TXT_CHOICE_HARD;
@@ -207,6 +208,7 @@ var tob_item_afterClock;
 var tob_text_after;
 var tob_slider_after;
 var tob_hint_after;
+var tob_key_after;
 var suspicionClock;
 var susp_text;
 var susp_box;
@@ -448,6 +450,8 @@ async function experimentInit() {
     color: new util.Color('lightgrey'),  opacity: undefined,
     depth: -2.0 
   });
+  
+  tob_key_before = new core.Keyboard({psychoJS: psychoJS, clock: new util.Clock(), waitForStart: true});
   
   // Initialize components for Routine "choice_instr"
   choice_instrClock = new util.Clock();
@@ -770,6 +774,8 @@ async function experimentInit() {
     color: new util.Color('lightgrey'),  opacity: undefined,
     depth: -2.0 
   });
+  
+  tob_key_after = new core.Keyboard({psychoJS: psychoJS, clock: new util.Clock(), waitForStart: true});
   
   // Initialize components for Routine "suspicion"
   suspicionClock = new util.Clock();
@@ -2046,7 +2052,10 @@ function tob_instr_beforeRoutineEnd(snapshot) {
 
 
 var tob_item_beforeMaxDurationReached;
+var _tob_key_before_allKeys;
 var resp;
+var sliderSeen;
+var keyI;
 var tob_item_beforeMaxDuration;
 var tob_item_beforeComponents;
 function tob_item_beforeRoutineBegin(snapshot) {
@@ -2065,9 +2074,13 @@ function tob_item_beforeRoutineBegin(snapshot) {
     // update component parameters for each repeat
     tob_text_before.setText(text);
     tob_slider_before.reset()
+    tob_key_before.keys = undefined;
+    tob_key_before.rt = undefined;
+    _tob_key_before_allKeys = [];
     // Run 'Begin Routine' code from code_tob_before
     resp = null;
-    psychoJS.eventManager.clearEvents();
+    sliderSeen = null;
+    keyI = 0;
     
     psychoJS.experiment.addData('tob_item_before.started', globalClock.getTime());
     tob_item_beforeMaxDuration = null
@@ -2076,6 +2089,7 @@ function tob_item_beforeRoutineBegin(snapshot) {
     tob_item_beforeComponents.push(tob_text_before);
     tob_item_beforeComponents.push(tob_slider_before);
     tob_item_beforeComponents.push(tob_hint_before);
+    tob_item_beforeComponents.push(tob_key_before);
     
     for (const thisComponent of tob_item_beforeComponents)
       if ('status' in thisComponent)
@@ -2137,16 +2151,45 @@ function tob_item_beforeRoutineEachFrame() {
     if (tob_hint_before.status === PsychoJS.Status.STARTED) {
     }
     
-    // Run 'Each Frame' code from code_tob_before
-    var keys = psychoJS.eventManager.getKeys({keyList: ['left', 'right', 'space', '1', '2', '3', '4', '5', '6', '7']});
-    for (var i = 0; i < keys.length; i++) {
-      var k = keys[i];
-      if (['1','2','3','4','5','6','7'].indexOf(k) >= 0) { resp = parseInt(k); }
-      else if (k === 'left') { resp = (resp === null) ? 4 : Math.max(1, resp - 1); }
-      else if (k === 'right') { resp = (resp === null) ? 4 : Math.min(7, resp + 1); }
-      else if (k === 'space' && resp !== null) { continueRoutine = false; }
-      if (resp !== null) { tob_slider_before.setMarkerPos(resp); }
+    
+    // *tob_key_before* updates
+    if (t >= 0.0 && tob_key_before.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      tob_key_before.tStart = t;  // (not accounting for frame time here)
+      tob_key_before.frameNStart = frameN;  // exact frame index
+      
+      // keyboard checking is just starting
+      psychoJS.window.callOnFlip(function() { tob_key_before.clock.reset(); });  // t=0 on next screen flip
+      psychoJS.window.callOnFlip(function() { tob_key_before.start(); }); // start on screen flip
+      psychoJS.window.callOnFlip(function() { tob_key_before.clearEvents(); });
     }
+    
+    // if tob_key_before is active this frame...
+    if (tob_key_before.status === PsychoJS.Status.STARTED) {
+      let theseKeys = tob_key_before.getKeys({keyList: ['left','right','space','1','2','3','4','5','6','7'], waitRelease: false});
+      _tob_key_before_allKeys = _tob_key_before_allKeys.concat(theseKeys);
+      if (_tob_key_before_allKeys.length > 0) {
+        tob_key_before.keys = _tob_key_before_allKeys[_tob_key_before_allKeys.length - 1].name;  // just the last key pressed
+        tob_key_before.rt = _tob_key_before_allKeys[_tob_key_before_allKeys.length - 1].rt;
+        tob_key_before.duration = _tob_key_before_allKeys[_tob_key_before_allKeys.length - 1].duration;
+      }
+    }
+    
+    // Run 'Each Frame' code from code_tob_before
+    var _r = tob_slider_before.getRating();
+    if (typeof _r !== 'undefined' && _r !== null && _r !== sliderSeen) {
+      sliderSeen = _r;
+      resp = Math.round(_r);
+    }
+    while (keyI < _tob_key_before_allKeys.length) {
+      var _k = _tob_key_before_allKeys[keyI].name;
+      keyI += 1;
+      if (['1','2','3','4','5','6','7'].indexOf(_k) >= 0) { resp = parseInt(_k); }
+      else if (_k === 'left') { resp = ((resp === null) || (typeof resp === 'undefined')) ? 4 : Math.max(1, resp - 1); }
+      else if (_k === 'right') { resp = ((resp === null) || (typeof resp === 'undefined')) ? 4 : Math.min(7, resp + 1); }
+      else if (_k === 'space' && resp !== null && typeof resp !== 'undefined') { continueRoutine = false; }
+    }
+    if (resp !== null && typeof resp !== 'undefined') { tob_slider_before.setMarkerPos(resp); }
     
     // check for quit (typically the Esc key)
     if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
@@ -2187,6 +2230,7 @@ function tob_item_beforeRoutineEnd(snapshot) {
     psychoJS.experiment.addData('tob_item_before.stopped', globalClock.getTime());
     psychoJS.experiment.addData('tob_slider_before.response', tob_slider_before.getRating());
     psychoJS.experiment.addData('tob_slider_before.rt', tob_slider_before.getRT());
+    tob_key_before.stop();
     // Run 'End Routine' code from code_tob_before
     tob_resp[Number(item_n)] = resp;
     psychoJS.experiment.addData('tob_' + String(item_n), resp);
@@ -3153,6 +3197,7 @@ function tob_instr_afterRoutineEnd(snapshot) {
 
 
 var tob_item_afterMaxDurationReached;
+var _tob_key_after_allKeys;
 var tob_item_afterMaxDuration;
 var tob_item_afterComponents;
 function tob_item_afterRoutineBegin(snapshot) {
@@ -3171,9 +3216,13 @@ function tob_item_afterRoutineBegin(snapshot) {
     // update component parameters for each repeat
     tob_text_after.setText(text);
     tob_slider_after.reset()
+    tob_key_after.keys = undefined;
+    tob_key_after.rt = undefined;
+    _tob_key_after_allKeys = [];
     // Run 'Begin Routine' code from code_tob_after
     resp = null;
-    psychoJS.eventManager.clearEvents();
+    sliderSeen = null;
+    keyI = 0;
     
     psychoJS.experiment.addData('tob_item_after.started', globalClock.getTime());
     tob_item_afterMaxDuration = null
@@ -3182,6 +3231,7 @@ function tob_item_afterRoutineBegin(snapshot) {
     tob_item_afterComponents.push(tob_text_after);
     tob_item_afterComponents.push(tob_slider_after);
     tob_item_afterComponents.push(tob_hint_after);
+    tob_item_afterComponents.push(tob_key_after);
     
     for (const thisComponent of tob_item_afterComponents)
       if ('status' in thisComponent)
@@ -3243,16 +3293,45 @@ function tob_item_afterRoutineEachFrame() {
     if (tob_hint_after.status === PsychoJS.Status.STARTED) {
     }
     
-    // Run 'Each Frame' code from code_tob_after
-    var keys = psychoJS.eventManager.getKeys({keyList: ['left', 'right', 'space', '1', '2', '3', '4', '5', '6', '7']});
-    for (var i = 0; i < keys.length; i++) {
-      var k = keys[i];
-      if (['1','2','3','4','5','6','7'].indexOf(k) >= 0) { resp = parseInt(k); }
-      else if (k === 'left') { resp = (resp === null) ? 4 : Math.max(1, resp - 1); }
-      else if (k === 'right') { resp = (resp === null) ? 4 : Math.min(7, resp + 1); }
-      else if (k === 'space' && resp !== null) { continueRoutine = false; }
-      if (resp !== null) { tob_slider_after.setMarkerPos(resp); }
+    
+    // *tob_key_after* updates
+    if (t >= 0.0 && tob_key_after.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      tob_key_after.tStart = t;  // (not accounting for frame time here)
+      tob_key_after.frameNStart = frameN;  // exact frame index
+      
+      // keyboard checking is just starting
+      psychoJS.window.callOnFlip(function() { tob_key_after.clock.reset(); });  // t=0 on next screen flip
+      psychoJS.window.callOnFlip(function() { tob_key_after.start(); }); // start on screen flip
+      psychoJS.window.callOnFlip(function() { tob_key_after.clearEvents(); });
     }
+    
+    // if tob_key_after is active this frame...
+    if (tob_key_after.status === PsychoJS.Status.STARTED) {
+      let theseKeys = tob_key_after.getKeys({keyList: ['left','right','space','1','2','3','4','5','6','7'], waitRelease: false});
+      _tob_key_after_allKeys = _tob_key_after_allKeys.concat(theseKeys);
+      if (_tob_key_after_allKeys.length > 0) {
+        tob_key_after.keys = _tob_key_after_allKeys[_tob_key_after_allKeys.length - 1].name;  // just the last key pressed
+        tob_key_after.rt = _tob_key_after_allKeys[_tob_key_after_allKeys.length - 1].rt;
+        tob_key_after.duration = _tob_key_after_allKeys[_tob_key_after_allKeys.length - 1].duration;
+      }
+    }
+    
+    // Run 'Each Frame' code from code_tob_after
+    var _r = tob_slider_after.getRating();
+    if (typeof _r !== 'undefined' && _r !== null && _r !== sliderSeen) {
+      sliderSeen = _r;
+      resp = Math.round(_r);
+    }
+    while (keyI < _tob_key_after_allKeys.length) {
+      var _k = _tob_key_after_allKeys[keyI].name;
+      keyI += 1;
+      if (['1','2','3','4','5','6','7'].indexOf(_k) >= 0) { resp = parseInt(_k); }
+      else if (_k === 'left') { resp = ((resp === null) || (typeof resp === 'undefined')) ? 4 : Math.max(1, resp - 1); }
+      else if (_k === 'right') { resp = ((resp === null) || (typeof resp === 'undefined')) ? 4 : Math.min(7, resp + 1); }
+      else if (_k === 'space' && resp !== null && typeof resp !== 'undefined') { continueRoutine = false; }
+    }
+    if (resp !== null && typeof resp !== 'undefined') { tob_slider_after.setMarkerPos(resp); }
     
     // check for quit (typically the Esc key)
     if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
@@ -3293,6 +3372,7 @@ function tob_item_afterRoutineEnd(snapshot) {
     psychoJS.experiment.addData('tob_item_after.stopped', globalClock.getTime());
     psychoJS.experiment.addData('tob_slider_after.response', tob_slider_after.getRating());
     psychoJS.experiment.addData('tob_slider_after.rt', tob_slider_after.getRT());
+    tob_key_after.stop();
     // Run 'End Routine' code from code_tob_after
     tob_resp[Number(item_n)] = resp;
     psychoJS.experiment.addData('tob_' + String(item_n), resp);

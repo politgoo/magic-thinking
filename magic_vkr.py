@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on Mon Sep 14 23:09:18 2026
+    on Tue Sep 15 02:03:33 2026
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -64,7 +64,7 @@ or run the experiment with `--pilot` as an argument. To change what pilot
 PILOTING = core.setPilotModeFromArgs()
 # start off with values from experiment settings
 _fullScr = True
-_winSize = [1710, 1107]
+_winSize = (1024, 768)
 # if in pilot mode, apply overrides according to preferences
 if PILOTING:
     # force windowed mode
@@ -130,7 +130,7 @@ def setupData(expInfo, dataDir=None):
     thisExp = data.ExperimentHandler(
         name=expName, version=expVersion,
         extraInfo=expInfo, runtimeInfo=None,
-        originPath='/Users/arinasevruk/Desktop/Магия/ВКР_эксперимент_PsychoPy/magic_vkr.py',
+        originPath='magic_vkr.py',
         savePickle=True, saveWideText=True,
         dataFileName=dataDir + os.sep + filename, sortColumns='time'
     )
@@ -272,6 +272,12 @@ def setupDevices(expInfo, thisExp, win):
             deviceClass='keyboard',
             deviceName='tob_instr_key_before',
         )
+    if deviceManager.getDevice('tob_key_before') is None:
+        # initialise tob_key_before
+        tob_key_before = deviceManager.addDevice(
+            deviceClass='keyboard',
+            deviceName='tob_key_before',
+        )
     if deviceManager.getDevice('choice_instr_key') is None:
         # initialise choice_instr_key
         choice_instr_key = deviceManager.addDevice(
@@ -283,6 +289,12 @@ def setupDevices(expInfo, thisExp, win):
         tob_instr_key_after = deviceManager.addDevice(
             deviceClass='keyboard',
             deviceName='tob_instr_key_after',
+        )
+    if deviceManager.getDevice('tob_key_after') is None:
+        # initialise tob_key_after
+        tob_key_after = deviceManager.addDevice(
+            deviceClass='keyboard',
+            deviceName='tob_key_after',
         )
     if deviceManager.getDevice('thanks_key') is None:
         # initialise thanks_key
@@ -399,7 +411,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     
     # --- Initialize components for Routine "welcome" ---
     welcome_text = visual.TextStim(win=win, name='welcome_text',
-        text='Добрый день! Приглашаем принять участие в исследовании принятия решений.\n\nУчастие займёт около 10 минут. Данные анонимны и используются только в обобщённом виде. Продолжая, вы даёте согласие на участие.\n\nПожалуйста, проходите исследование на компьютере или ноутбуке. \n\nЧтобы начать, нажмите пробел.',
+        text='Добрый день! Приглашаем принять участие в исследовании принятия решений.\n\nУчастие займёт около 10 минут. Данные анонимны и используются только в обобщённом виде. Продолжая, вы даёте согласие на участие.\n\nПожалуйста, проходите исследование на компьютере или ноутбуке.\n\nЧтобы начать, нажмите пробел.',
         font='Arial',
         pos=(0, 0), draggable=False, height=0.035, wrapWidth=1.4, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
@@ -549,7 +561,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         style='rating', styleTweaks=[], opacity=None,
         labelColor='white', markerColor='Red', lineColor='White', colorSpace='rgb',
         font='Arial', labelHeight=0.025,
-        flip=False, ori=0.0, depth=-1, readOnly=True)
+        flip=False, ori=0.0, depth=-1, readOnly=False)
     tob_hint_before = visual.TextStim(win=win, name='tob_hint_before',
         text='Стрелки влево и вправо или клавиши 1–7: выбрать ответ.  Пробел: подтвердить',
         font='Arial',
@@ -557,6 +569,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         color='lightgrey', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=-2.0);
+    tob_key_before = keyboard.Keyboard(deviceName='tob_key_before')
     
     # --- Initialize components for Routine "choice_instr" ---
     # Run 'Begin Experiment' code from code_choice_instr
@@ -759,7 +772,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         style='rating', styleTweaks=[], opacity=None,
         labelColor='white', markerColor='Red', lineColor='White', colorSpace='rgb',
         font='Arial', labelHeight=0.025,
-        flip=False, ori=0.0, depth=-1, readOnly=True)
+        flip=False, ori=0.0, depth=-1, readOnly=False)
     tob_hint_after = visual.TextStim(win=win, name='tob_hint_after',
         text='Стрелки влево и вправо или клавиши 1–7: выбрать ответ.  Пробел: подтвердить',
         font='Arial',
@@ -767,6 +780,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         color='lightgrey', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=-2.0);
+    tob_key_after = keyboard.Keyboard(deviceName='tob_key_after')
     
     # --- Initialize components for Routine "suspicion" ---
     susp_text = visual.TextStim(win=win, name='susp_text',
@@ -1729,16 +1743,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             # create an object to store info about Routine tob_item_before
             tob_item_before = data.Routine(
                 name='tob_item_before',
-                components=[tob_text_before, tob_slider_before, tob_hint_before],
+                components=[tob_text_before, tob_slider_before, tob_hint_before, tob_key_before],
             )
             tob_item_before.status = NOT_STARTED
             continueRoutine = True
             # update component parameters for each repeat
             tob_text_before.setText(text)
             tob_slider_before.reset()
+            # create starting attributes for tob_key_before
+            tob_key_before.keys = []
+            tob_key_before.rt = []
+            _tob_key_before_allKeys = []
             # Run 'Begin Routine' code from code_tob_before
             resp = None
-            event.clearEvents()
+            slider_seen = None
+            key_i = 0
             
             # store start times for tob_item_before
             tob_item_before.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
@@ -1832,19 +1851,50 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 if tob_hint_before.status == STARTED:
                     # update params
                     pass
+                
+                # *tob_key_before* updates
+                waitOnFlip = False
+                
+                # if tob_key_before is starting this frame...
+                if tob_key_before.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # keep track of start time/frame for later
+                    tob_key_before.frameNStart = frameN  # exact frame index
+                    tob_key_before.tStart = t  # local t and not account for scr refresh
+                    tob_key_before.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(tob_key_before, 'tStartRefresh')  # time at next scr refresh
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'tob_key_before.started')
+                    # update status
+                    tob_key_before.status = STARTED
+                    # keyboard checking is just starting
+                    waitOnFlip = True
+                    win.callOnFlip(tob_key_before.clock.reset)  # t=0 on next screen flip
+                    win.callOnFlip(tob_key_before.clearEvents, eventType='keyboard')  # clear events on next screen flip
+                if tob_key_before.status == STARTED and not waitOnFlip:
+                    theseKeys = tob_key_before.getKeys(keyList=['left','right','space','1','2','3','4','5','6','7'], ignoreKeys=["escape"], waitRelease=False)
+                    _tob_key_before_allKeys.extend(theseKeys)
+                    if len(_tob_key_before_allKeys):
+                        tob_key_before.keys = _tob_key_before_allKeys[-1].name  # just the last key pressed
+                        tob_key_before.rt = _tob_key_before_allKeys[-1].rt
+                        tob_key_before.duration = _tob_key_before_allKeys[-1].duration
                 # Run 'Each Frame' code from code_tob_before
-                keys = event.getKeys(keyList=['left', 'right', 'space', '1', '2', '3', '4', '5', '6', '7'])
-                for k in keys:
-                    if k in ['1', '2', '3', '4', '5', '6', '7']:
-                        resp = int(k)
-                    elif k == 'left':
+                _r = tob_slider_before.getRating()
+                if _r is not None and _r != slider_seen:
+                    slider_seen = _r
+                    resp = int(round(_r))
+                while key_i < len(_tob_key_before_allKeys):
+                    _k = _tob_key_before_allKeys[key_i].name
+                    key_i += 1
+                    if _k in ['1', '2', '3', '4', '5', '6', '7']:
+                        resp = int(_k)
+                    elif _k == 'left':
                         resp = 4 if resp is None else max(1, resp - 1)
-                    elif k == 'right':
+                    elif _k == 'right':
                         resp = 4 if resp is None else min(7, resp + 1)
-                    elif k == 'space' and resp is not None:
+                    elif _k == 'space' and resp is not None:
                         continueRoutine = False
-                    if resp is not None:
-                        tob_slider_before.markerPos = resp
+                if resp is not None:
+                    tob_slider_before.markerPos = resp
                 
                 
                 # check for quit (typically the Esc key)
@@ -2995,16 +3045,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             # create an object to store info about Routine tob_item_after
             tob_item_after = data.Routine(
                 name='tob_item_after',
-                components=[tob_text_after, tob_slider_after, tob_hint_after],
+                components=[tob_text_after, tob_slider_after, tob_hint_after, tob_key_after],
             )
             tob_item_after.status = NOT_STARTED
             continueRoutine = True
             # update component parameters for each repeat
             tob_text_after.setText(text)
             tob_slider_after.reset()
+            # create starting attributes for tob_key_after
+            tob_key_after.keys = []
+            tob_key_after.rt = []
+            _tob_key_after_allKeys = []
             # Run 'Begin Routine' code from code_tob_after
             resp = None
-            event.clearEvents()
+            slider_seen = None
+            key_i = 0
             
             # store start times for tob_item_after
             tob_item_after.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
@@ -3098,19 +3153,50 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 if tob_hint_after.status == STARTED:
                     # update params
                     pass
+                
+                # *tob_key_after* updates
+                waitOnFlip = False
+                
+                # if tob_key_after is starting this frame...
+                if tob_key_after.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # keep track of start time/frame for later
+                    tob_key_after.frameNStart = frameN  # exact frame index
+                    tob_key_after.tStart = t  # local t and not account for scr refresh
+                    tob_key_after.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(tob_key_after, 'tStartRefresh')  # time at next scr refresh
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'tob_key_after.started')
+                    # update status
+                    tob_key_after.status = STARTED
+                    # keyboard checking is just starting
+                    waitOnFlip = True
+                    win.callOnFlip(tob_key_after.clock.reset)  # t=0 on next screen flip
+                    win.callOnFlip(tob_key_after.clearEvents, eventType='keyboard')  # clear events on next screen flip
+                if tob_key_after.status == STARTED and not waitOnFlip:
+                    theseKeys = tob_key_after.getKeys(keyList=['left','right','space','1','2','3','4','5','6','7'], ignoreKeys=["escape"], waitRelease=False)
+                    _tob_key_after_allKeys.extend(theseKeys)
+                    if len(_tob_key_after_allKeys):
+                        tob_key_after.keys = _tob_key_after_allKeys[-1].name  # just the last key pressed
+                        tob_key_after.rt = _tob_key_after_allKeys[-1].rt
+                        tob_key_after.duration = _tob_key_after_allKeys[-1].duration
                 # Run 'Each Frame' code from code_tob_after
-                keys = event.getKeys(keyList=['left', 'right', 'space', '1', '2', '3', '4', '5', '6', '7'])
-                for k in keys:
-                    if k in ['1', '2', '3', '4', '5', '6', '7']:
-                        resp = int(k)
-                    elif k == 'left':
+                _r = tob_slider_after.getRating()
+                if _r is not None and _r != slider_seen:
+                    slider_seen = _r
+                    resp = int(round(_r))
+                while key_i < len(_tob_key_after_allKeys):
+                    _k = _tob_key_after_allKeys[key_i].name
+                    key_i += 1
+                    if _k in ['1', '2', '3', '4', '5', '6', '7']:
+                        resp = int(_k)
+                    elif _k == 'left':
                         resp = 4 if resp is None else max(1, resp - 1)
-                    elif k == 'right':
+                    elif _k == 'right':
                         resp = 4 if resp is None else min(7, resp + 1)
-                    elif k == 'space' and resp is not None:
+                    elif _k == 'space' and resp is not None:
                         continueRoutine = False
-                    if resp is not None:
-                        tob_slider_after.markerPos = resp
+                if resp is not None:
+                    tob_slider_after.markerPos = resp
                 
                 
                 # check for quit (typically the Esc key)

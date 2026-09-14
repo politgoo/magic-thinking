@@ -214,45 +214,53 @@ def add_tobacyk_block(tag, nrepsVar):
     sl = slider(rt, 'tob_slider_' + tag, '(1, 2, 3, 4, 5, 6, 7)',
            "'1\\nабсолютно\\nне согласен', '2\\nне согласен', '3\\nскорее\\nне согласен', '4\\nне знаю,\\nне уверен', '5\\nскорее\\nсогласен', '6\\nсогласен', '7\\nабсолютно\\nсогласен'",
            pos=(0, -0.12), size=(1.3, 0.06), style='rating', end=False)
-    sl.params['readOnly'].val = True
-    text(rt, 'tob_hint_' + tag, 'Стрелки влево и вправо или клавиши 1–7: выбрать ответ.  Пробел: подтвердить', pos=(0, -0.4), h=0.026, color='lightgrey')
+    # readOnly=False: ответ мышью работает и офлайн, и онлайн (PsychoJS всё равно игнорирует readOnly)
+    sl.params['readOnly'].val = False
+    text(rt, 'tob_hint_' + tag, 'Стрелки влево и вправо или клавиши 1\u20137: выбрать ответ.  Пробел: подтвердить', pos=(0, -0.4), h=0.026, color='lightgrey')
+    # отдельный Keyboard-компонент: он читает event.code и работает при любой раскладке,
+    # в отличие от event.getKeys()/eventManager (там пробел ловится ненадёжно)
+    kb = key(rt, 'tob_key_' + tag, keys="'left','right','space','1','2','3','4','5','6','7'")
+    kb.params['forceEndRoutine'].val = False
+    kb.params['store'].val = 'nothing'
+    kb.params['storeCorrect'].val = False
+    sname = 'tob_slider_' + tag
+    kname = '_tob_key_' + tag + '_allKeys'
     code(rt, 'code_tob_' + tag,
-         **{'Begin Routine': "resp = None\nslider_seen = None\nevent.clearEvents()\n",
-            'Begin JS Routine': "resp = null;\nsliderSeen = null;\npsychoJS.eventManager.clearEvents();\n",
-            'Each Frame': """_r = %s.getRating()
+         **{'Begin Routine': "resp = None\nslider_seen = None\nkey_i = 0\n",
+            'Begin JS Routine': "resp = null;\nsliderSeen = null;\nkeyI = 0;\n",
+            'Each Frame': """_r = {s}.getRating()
 if _r is not None and _r != slider_seen:
     slider_seen = _r
     resp = int(round(_r))
-    %s.markerPos = resp
-keys = event.getKeys(keyList=['left', 'right', 'space', '1', '2', '3', '4', '5', '6', '7'])
-for k in keys:
-    if k in ['1', '2', '3', '4', '5', '6', '7']:
-        resp = int(k)
-    elif k == 'left':
+while key_i < len({k}):
+    _k = {k}[key_i].name
+    key_i += 1
+    if _k in ['1', '2', '3', '4', '5', '6', '7']:
+        resp = int(_k)
+    elif _k == 'left':
         resp = 4 if resp is None else max(1, resp - 1)
-    elif k == 'right':
+    elif _k == 'right':
         resp = 4 if resp is None else min(7, resp + 1)
-    elif k == 'space' and resp is not None:
+    elif _k == 'space' and resp is not None:
         continueRoutine = False
-    if resp is not None:
-        %s.markerPos = resp
-""" % ('tob_slider_' + tag, 'tob_slider_' + tag, 'tob_slider_' + tag),
-            'Each JS Frame': """var _r = %s.getRating();
-if (typeof _r !== 'undefined' && _r !== null && _r !== sliderSeen) {
+if resp is not None:
+    {s}.markerPos = resp
+""".format(s=sname, k=kname),
+            'Each JS Frame': """var _r = {s}.getRating();
+if (typeof _r !== 'undefined' && _r !== null && _r !== sliderSeen) {{
   sliderSeen = _r;
   resp = Math.round(_r);
-  %s.setMarkerPos(resp);
-}
-var keys = psychoJS.eventManager.getKeys({keyList: ['left', 'right', 'space', '1', '2', '3', '4', '5', '6', '7']});
-for (var i = 0; i < keys.length; i++) {
-  var k = keys[i];
-  if (['1','2','3','4','5','6','7'].indexOf(k) >= 0) { resp = parseInt(k); }
-  else if (k === 'left') { resp = (resp === null) ? 4 : Math.max(1, resp - 1); }
-  else if (k === 'right') { resp = (resp === null) ? 4 : Math.min(7, resp + 1); }
-  else if (k === 'space' && resp !== null) { continueRoutine = false; }
-  if (resp !== null) { %s.setMarkerPos(resp); }
-}
-""" % ('tob_slider_' + tag, 'tob_slider_' + tag, 'tob_slider_' + tag),
+}}
+while (keyI < {k}.length) {{
+  var _k = {k}[keyI].name;
+  keyI += 1;
+  if (['1','2','3','4','5','6','7'].indexOf(_k) >= 0) {{ resp = parseInt(_k); }}
+  else if (_k === 'left') {{ resp = ((resp === null) || (typeof resp === 'undefined')) ? 4 : Math.max(1, resp - 1); }}
+  else if (_k === 'right') {{ resp = ((resp === null) || (typeof resp === 'undefined')) ? 4 : Math.min(7, resp + 1); }}
+  else if (_k === 'space' && resp !== null && typeof resp !== 'undefined') {{ continueRoutine = false; }}
+}}
+if (resp !== null && typeof resp !== 'undefined') {{ {s}.setMarkerPos(resp); }}
+""".format(s=sname, k=kname),
             'End Routine': "tob_resp[int(item_n)] = resp\nthisExp.addData('tob_' + str(item_n), resp)\nthisExp.addData('tob_rt_' + str(item_n), t)\n",
             'End JS Routine': "tob_resp[Number(item_n)] = resp;\npsychoJS.experiment.addData('tob_' + String(item_n), resp);\npsychoJS.experiment.addData('tob_rt_' + String(item_n), t);\n"})
     outer = TrialHandler(exp, name='tob_block_' + tag, loopType='sequential', nReps=nrepsVar, isTrials=False); outer.params['nReps'].valType='code'
