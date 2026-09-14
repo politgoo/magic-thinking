@@ -1,0 +1,994 @@
+1.6320 	WARNING 	Requested audio device 'LG HDR QHD' that is not available on this hardware. The 'audioDevice' preference should be one of ['HG638J47', 'ZoomAudioDevice', 'Динамики MacBook Air']
+13.3353 	WARNING 	Font Manager failed to load file /System/Library/PrivateFrameworks/FontServices.framework/Resources/Reserved/PingFangUI.ttc
+13.3756 	WARNING 	Font Manager failed to load file /System/Library/PrivateFrameworks/FontServices.framework/Resources/Reserved/PingFangUI.ttc
+18.2230 	INFO 	Loaded monitor calibration from ['2025_10_28 18:09']
+18.2315 	WARNING 	User requested fullscreen with size [1024  768], but screen is actually [1710, 1107]. Using actual size
+18.3486 	INFO 	Using renderer 'Apple M4' for graphics
+18.3487 	INFO 	OpenGL version supported by driver is 2..
+18.3786 	EXP 	Created window1 = Window(allowGUI=False, allowStencil=True, autoLog=True, backendConf=UNKNOWN, backgroundFit=<method-wrapper '__getattribute__' of attributeSetter object at 0x15c37e830>, backgroundImage=<method-wrapper '__getattribute__' of attributeSetter object at 0x15c37e890>, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.2314, -0.2314, -0.2314]), colorSpace='rgb', depthBits=8, fullscr=True, gamma=None, gammaErrorPolicy='raise', infoMsg=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x15c370790>, multiSample=False, name='window1', numSamples=2, pos=[np.float64(0.0), np.float64(0.0)], screen=0, size=array([3420, 2214]), stencilBits=8, stereo=False, title='PsychoPy', units='height', useFBO=True, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+18.3787 	EXP 	window1: backgroundImage = ''
+18.3787 	EXP 	window1: backgroundFit = 'none'
+18.6054 	EXP 	window1: Attempting to measure frame rate of screen (0) ...
+18.6055 	EXP 	window1: recordFrameIntervals = False
+18.7512 	EXP 	window1: recordFrameIntervals = True
+19.0311 	EXP 	Screen (0) actual frame rate measured at 118.75Hz
+19.0311 	EXP 	window1: recordFrameIntervals = False
+19.9970 	INFO 	keyboard.Keyboard is using ptb backend.
+20.1690 	INFO 	keyboard.Keyboard is using ptb backend.
+20.3416 	INFO 	keyboard.Keyboard is using ptb backend.
+20.5105 	INFO 	keyboard.Keyboard is using ptb backend.
+20.6813 	INFO 	keyboard.Keyboard is using ptb backend.
+20.6813 	EXP 	magic_vkr: status = STARTED
+20.7130 	EXP 	Created welcome_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.035), italic=False, languageStyle='LTR', name='welcome_text', opacity=1, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+20.7153 	EXP 	Created demo_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.035), italic=False, languageStyle='LTR', name='demo_text', opacity=1, ori=0.0, pos=array([0.  , 0.35]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+20.7171 	EXP 	Created lbl_sex = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.030000000000000002), italic=False, languageStyle='LTR', name='lbl_sex', opacity=1, ori=0.0, pos=array([-0.45,  0.2 ]), rgb=UNKNOWN, text='Пол:', units='height', win=Window(...), wrapWidth=1.4)
+20.7747 	EXP 	Created sex = Slider(__class__=<class 'psychopy.visual.slider.Slider'>, autoDraw=False, autoLog=True, borderColor=None, color=None, colorSpace='rgb', depth=-2, fillColor=None, flip=False, font='Arial', granularity=1.0, labelColor=None, labelHeight=np.float64(0.025), labelWrapWidth=None, labels=['женский', 'мужской', 'другое'], lineColor=None, markerColor=None, name='sex', opacity=None, ori=0.0, pos=array([0.15, 0.2 ]), readOnly=False, self=UNKNOWN, size=array([0.6 , 0.05]), startValue=None, style='radio', styleTweaks=[], ticks=array([0, 1, 2]), units='height', win=Window(...))
+20.7780 	EXP 	Created lbl_age = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-3.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.030000000000000002), italic=False, languageStyle='LTR', name='lbl_age', opacity=1, ori=0.0, pos=array([-0.45,  0.05]), rgb=UNKNOWN, text='Возраст (число):', units='height', win=Window(...), wrapWidth=1.4)
+20.7965 	EXP 	Created lbl_study = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-5.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.030000000000000002), italic=False, languageStyle='LTR', name='lbl_study', opacity=1, ori=0.0, pos=array([-0.45, -0.1 ]), rgb=UNKNOWN, text='Направление обучения и курс:', units='height', win=Window(...), wrapWidth=1.4)
+20.8333 	EXP 	Created tob_instr_text_before = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.035), italic=False, languageStyle='LTR', name='tob_instr_text_before', opacity=1, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+20.8338 	EXP 	Created tob_text_before = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.04, italic=False, languageStyle='LTR', name='tob_text_before', opacity=1, ori=0.0, pos=array([0. , 0.2]), rgb=UNKNOWN, text='', units='height', win=Window(...), wrapWidth=1.4)
+20.9005 	EXP 	Created tob_slider_before = Slider(__class__=<class 'psychopy.visual.slider.Slider'>, autoDraw=False, autoLog=True, borderColor=None, color=None, colorSpace='rgb', depth=-1, fillColor=None, flip=False, font='Arial', granularity=1.0, labelColor=None, labelHeight=np.float64(0.025), labelWrapWidth=None, labels=list(...), lineColor=None, markerColor=None, name='tob_slider_before', opacity=None, ori=0.0, pos=array([ 0. , -0.3]), readOnly=False, self=UNKNOWN, size=array([1.2 , 0.08]), startValue=None, style='rating', styleTweaks=[], ticks=array([1, 2, 3, 4, 5, 6, 7]), units='height', win=Window(...))
+20.9009 	EXP 	Created choice_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.035, italic=False, languageStyle='LTR', name='choice_text', opacity=1, ori=0.0, pos=array([0. , 0.2]), rgb=UNKNOWN, text='', units='height', win=Window(...), wrapWidth=1.4)
+20.9368 	EXP 	Created effort_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.032), italic=False, languageStyle='LTR', name='effort_text', opacity=1, ori=0.0, pos=array([0. , 0.3]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+20.9547 	EXP 	Created rating_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.035), italic=False, languageStyle='LTR', name='rating_text', opacity=1, ori=0.0, pos=array([0.  , 0.38]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+20.9581 	EXP 	Created lbl_imp = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.030000000000000002), italic=False, languageStyle='LTR', name='lbl_imp', opacity=1, ori=0.0, pos=array([0.  , 0.22]), rgb=UNKNOWN, text='Насколько это событие для вас важно?', units='height', win=Window(...), wrapWidth=1.4)
+20.9756 	EXP 	Created importance = Slider(__class__=<class 'psychopy.visual.slider.Slider'>, autoDraw=False, autoLog=True, borderColor=None, color=None, colorSpace='rgb', depth=-2, fillColor=None, flip=False, font='Arial', granularity=1.0, labelColor=None, labelHeight=np.float64(0.025), labelWrapWidth=None, labels=['совсем не важно', 'крайне важно'], lineColor=None, markerColor=None, name='importance', opacity=None, ori=0.0, pos=array([0. , 0.1]), readOnly=False, self=UNKNOWN, size=array([1.  , 0.05]), startValue=50, style='slider', styleTweaks=[], ticks=array([  0, 100]), units='height', win=Window(...))
+20.9778 	EXP 	Created lbl_ctrl = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-3.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.030000000000000002), italic=False, languageStyle='LTR', name='lbl_ctrl', opacity=1, ori=0.0, pos=array([ 0.  , -0.08]), rgb=UNKNOWN, text='Насколько его исход зависит от вас самих?', units='height', win=Window(...), wrapWidth=1.4)
+20.9969 	EXP 	Created control = Slider(__class__=<class 'psychopy.visual.slider.Slider'>, autoDraw=False, autoLog=True, borderColor=None, color=None, colorSpace='rgb', depth=-4, fillColor=None, flip=False, font='Arial', granularity=1.0, labelColor=None, labelHeight=np.float64(0.025), labelWrapWidth=None, labels=['совсем не зависит', 'полностью зависит'], lineColor=None, markerColor=None, name='control', opacity=None, ori=0.0, pos=array([ 0. , -0.2]), readOnly=False, self=UNKNOWN, size=array([1.  , 0.05]), startValue=50, style='slider', styleTweaks=[], ticks=array([  0, 100]), units='height', win=Window(...))
+21.0074 	EXP 	Created tob_instr_text_after = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.035), italic=False, languageStyle='LTR', name='tob_instr_text_after', opacity=1, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+21.0077 	EXP 	Created tob_text_after = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.04, italic=False, languageStyle='LTR', name='tob_text_after', opacity=1, ori=0.0, pos=array([0. , 0.2]), rgb=UNKNOWN, text='', units='height', win=Window(...), wrapWidth=1.4)
+21.0541 	EXP 	Created tob_slider_after = Slider(__class__=<class 'psychopy.visual.slider.Slider'>, autoDraw=False, autoLog=True, borderColor=None, color=None, colorSpace='rgb', depth=-1, fillColor=None, flip=False, font='Arial', granularity=1.0, labelColor=None, labelHeight=np.float64(0.025), labelWrapWidth=None, labels=list(...), lineColor=None, markerColor=None, name='tob_slider_after', opacity=None, ori=0.0, pos=array([ 0. , -0.3]), readOnly=False, self=UNKNOWN, size=array([1.2 , 0.08]), startValue=None, style='rating', styleTweaks=[], ticks=array([1, 2, 3, 4, 5, 6, 7]), units='height', win=Window(...))
+21.0569 	EXP 	Created susp_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.032), italic=False, languageStyle='LTR', name='susp_text', opacity=1, ori=0.0, pos=array([0. , 0.3]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+21.0723 	EXP 	Created thanks_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.035), italic=False, languageStyle='LTR', name='thanks_text', opacity=1, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+0.0103 	EXP 	sex: autoLog = True
+0.0103 	EXP 	sex: ticks = <class 'numpy.ndarray'>
+0.0103 	EXP 	sex: styleTweaks = []
+0.0103 	EXP 	sex: styleTweaks = []
+0.0103 	EXP 	sex: styleTweaks = []
+0.0103 	EXP 	sex: styleTweaks = []
+0.0103 	EXP 	sex: ticks = <class 'numpy.ndarray'>
+0.0103 	EXP 	sex: contrast = 1.0
+0.0103 	EXP 	sex: markerPos = None
+0.0103 	EXP 	sex: autoLog = True
+0.0103 	EXP 	age: autoLog = True
+0.0103 	EXP 	study: autoLog = True
+0.0103 	EXP 	tob_slider_before: autoLog = True
+0.0103 	EXP 	tob_slider_before: styleTweaks = []
+0.0103 	EXP 	tob_slider_before: styleTweaks = []
+0.0103 	EXP 	tob_slider_before: styleTweaks = []
+0.0103 	EXP 	tob_slider_before: styleTweaks = []
+0.0103 	EXP 	tob_slider_before: contrast = 1.0
+0.0103 	EXP 	tob_slider_before: markerPos = None
+0.0103 	EXP 	tob_slider_before: autoLog = True
+0.0103 	EXP 	effort_box: autoLog = True
+0.0103 	EXP 	importance: autoLog = True
+0.0103 	EXP 	importance: styleTweaks = []
+0.0103 	EXP 	importance: styleTweaks = []
+0.0103 	EXP 	importance: styleTweaks = []
+0.0103 	EXP 	importance: styleTweaks = []
+0.0103 	EXP 	importance: contrast = 1.0
+0.0103 	EXP 	importance: markerPos = 50
+0.0103 	EXP 	importance: autoLog = True
+0.0103 	EXP 	control: autoLog = True
+0.0103 	EXP 	control: styleTweaks = []
+0.0103 	EXP 	control: styleTweaks = []
+0.0103 	EXP 	control: styleTweaks = []
+0.0103 	EXP 	control: styleTweaks = []
+0.0103 	EXP 	control: contrast = 1.0
+0.0103 	EXP 	control: markerPos = 50
+0.0103 	EXP 	control: autoLog = True
+0.0103 	EXP 	tob_slider_after: autoLog = True
+0.0103 	EXP 	tob_slider_after: styleTweaks = []
+0.0103 	EXP 	tob_slider_after: styleTweaks = []
+0.0103 	EXP 	tob_slider_after: styleTweaks = []
+0.0103 	EXP 	tob_slider_after: styleTweaks = []
+0.0103 	EXP 	tob_slider_after: contrast = 1.0
+0.0103 	EXP 	tob_slider_after: markerPos = None
+0.0103 	EXP 	tob_slider_after: autoLog = True
+0.0103 	EXP 	susp_box: autoLog = True
+0.0178 	INFO 	Keyboard events cleared
+0.0177 	EXP 	welcome_text: autoDraw = True
+10.5204 	EXP 	Device response: <KeyPress from None: t=9.790948957997898, value=space, duration=None>
+10.5205 	EXP 	Device response: <KeyPress from None: t=9.790948957997898, value=space, duration=0.062289875000715256>
+10.5242 	DATA 	Keypress: space
+10.5442 	EXP 	welcome_text: autoDraw = False
+10.5442 	EXP 	sex: markerPos = None
+10.5442 	EXP 	sex: markerPos = None
+10.5442 	EXP 	demo_text: autoDraw = True
+10.5442 	EXP 	lbl_sex: autoDraw = True
+10.5442 	EXP 	sex: autoDraw = True
+10.5442 	EXP 	lbl_age: autoDraw = True
+10.5442 	EXP 	age: autoDraw = True
+10.5442 	EXP 	lbl_study: autoDraw = True
+10.5442 	EXP 	study: autoDraw = True
+22.5562 	DATA 	Mouse: Left button down, pos=(963,905)
+22.6240 	DATA 	Mouse:  Left button up, pos=(963,905)
+25.1239 	DATA 	Keypress: 4
+25.1249 	EXP 	Device response: <KeyPress from None: t=25.10362837499997, value=4, duration=None>
+25.1993 	EXP 	Device response: <KeyPress from None: t=25.10362837499997, value=4, duration=0.08627200000046287>
+25.2930 	DATA 	Keypress: 5
+25.2936 	EXP 	Device response: <KeyPress from None: t=25.280595332998928, value=5, duration=None>
+25.3896 	EXP 	Device response: <KeyPress from None: t=25.280595332998928, value=5, duration=0.08829654199871584>
+27.5498 	DATA 	Mouse: Left button down, pos=(0,1107)
+27.6433 	DATA 	Mouse:  Left button up, pos=(0,1107)
+28.8493 	DATA 	Mouse: Left button down, pos=(708,785)
+28.8596 	EXP 	sex: markerPos = np.float64(0.057362240289069555)
+28.8714 	EXP 	sex: markerPos = np.float64(0.057362240289069555)
+28.8818 	EXP 	sex: markerPos = np.float64(0.057362240289069555)
+28.8927 	EXP 	sex: markerPos = np.float64(0.057362240289069555)
+28.9056 	EXP 	sex: markerPos = np.float64(0.057362240289069555)
+28.9162 	EXP 	sex: markerPos = np.float64(0.057362240289069555)
+28.9263 	EXP 	sex: markerPos = np.float64(0.057362240289069555)
+28.9381 	EXP 	sex: markerPos = np.float64(0.057362240289069555)
+28.9383 	DATA 	Mouse:  Left button up, pos=(708,785)
+28.9486 	EXP 	sex: markerPos = np.int64(0)
+32.9063 	DATA 	Mouse: Left button down, pos=(862,151)
+32.9233 	EXP 	demo_text: autoDraw = False
+32.9233 	EXP 	lbl_sex: autoDraw = False
+32.9233 	EXP 	sex: autoDraw = False
+32.9233 	EXP 	lbl_age: autoDraw = False
+32.9233 	EXP 	age: autoDraw = False
+32.9233 	EXP 	lbl_study: autoDraw = False
+32.9233 	EXP 	study: autoDraw = False
+32.9233 	EXP 	choice_text: height = np.float64(0.035)
+32.9233 	EXP 	choice_text: height = np.float64(0.035)
+32.9233 	EXP 	choice_text: height = np.float64(0.035)
+32.9233 	EXP 	choice_text: text = 'В качестве бонуса за участие вы можете нажать на кнопку «Магия» и тем самым повысить вероятность того, что какое-то важное для вас приятное событие произойдёт в ближайшее время. Для этого нужно будет напечатать букву М не менее 30 раз, чем больше, тем выше вероятность события. Либо нажмите на кнопку «Пропустить» и перейдите к следующему этапу.'
+32.9233 	EXP 	choice_text: autoDraw = True
+32.9895 	DATA 	Mouse:  Left button up, pos=(862,151)
+44.2573 	DATA 	Mouse: Left button down, pos=(580,264)
+44.2639 	EXP 	New trial (rep=0, index=0): <Trial 0 (0 in rep 0) data={'thisN': 0, 'thisTrialN': 0, 'thisRepN': 0}>
+44.2739 	EXP 	choice_text: autoDraw = False
+44.2739 	EXP 	effort_text: autoDraw = True
+44.2739 	EXP 	effort_box: autoDraw = True
+44.3617 	DATA 	Mouse:  Left button up, pos=(580,264)
+45.4406 	DATA 	Mouse: Left button down, pos=(989,425)
+45.5309 	DATA 	Mouse:  Left button up, pos=(989,425)
+46.7106 	EXP 	Device response: <KeyPress from None: t=46.696501665999676, value=v, duration=None>
+46.7563 	EXP 	Device response: <KeyPress from None: t=46.696501665999676, value=v, duration=0.050292500000068685>
+46.8561 	EXP 	Device response: <KeyPress from None: t=46.85349962499822, value=v, duration=None>
+46.9062 	EXP 	Device response: <KeyPress from None: t=46.85349962499822, value=v, duration=0.04831012499926146>
+47.0229 	EXP 	Device response: <KeyPress from None: t=47.02150254099979, value=v, duration=None>
+47.0383 	EXP 	Device response: <KeyPress from None: t=47.02150254099979, value=v, duration=0.016293874999973923>
+47.1787 	EXP 	Device response: <KeyPress from None: t=47.17548974999954, value=v, duration=None>
+47.2125 	EXP 	Device response: <KeyPress from None: t=47.17548974999954, value=v, duration=0.03633987499779323>
+47.3462 	EXP 	Device response: <KeyPress from None: t=47.343470374999015, value=v, duration=None>
+47.4066 	EXP 	Device response: <KeyPress from None: t=47.343470374999015, value=v, duration=0.05239004100076272>
+47.5286 	EXP 	Device response: <KeyPress from None: t=47.5274940829986, value=v, duration=None>
+47.5728 	EXP 	Device response: <KeyPress from None: t=47.5274940829986, value=v, duration=0.04429458300000988>
+47.7142 	EXP 	Device response: <KeyPress from None: t=47.708468458000425, value=v, duration=None>
+47.7629 	EXP 	Device response: <KeyPress from None: t=47.708468458000425, value=v, duration=0.04831008299879613>
+47.8967 	EXP 	Device response: <KeyPress from None: t=47.895486582998274, value=v, duration=None>
+47.9563 	EXP 	Device response: <KeyPress from None: t=47.895486582998274, value=v, duration=0.05230583299999125>
+48.1123 	EXP 	Device response: <KeyPress from None: t=48.11046541599717, value=v, duration=None>
+48.1725 	EXP 	Device response: <KeyPress from None: t=48.11046541599717, value=v, duration=0.056305292000615736>
+48.3571 	EXP 	Device response: <KeyPress from None: t=48.34545887499917, value=v, duration=None>
+48.4057 	EXP 	Device response: <KeyPress from None: t=48.34545887499917, value=v, duration=0.057152916000632104>
+48.5728 	EXP 	Device response: <KeyPress from None: t=48.56942629100013, value=v, duration=None>
+48.6298 	EXP 	Device response: <KeyPress from None: t=48.56942629100013, value=v, duration=0.056337916998018045>
+48.8059 	EXP 	Device response: <KeyPress from None: t=48.79946858299809, value=v, duration=None>
+48.8730 	EXP 	Device response: <KeyPress from None: t=48.79946858299809, value=v, duration=0.07231345800028066>
+49.2728 	EXP 	Device response: <KeyPress from None: t=49.265432500000315, value=v, duration=None>
+49.3391 	EXP 	Device response: <KeyPress from None: t=49.265432500000315, value=v, duration=0.06898229099897435>
+49.5290 	EXP 	Device response: <KeyPress from None: t=49.52741529099876, value=v, duration=None>
+49.5963 	EXP 	Device response: <KeyPress from None: t=49.52741529099876, value=v, duration=0.06837308399917674>
+49.7807 	EXP 	Device response: <KeyPress from None: t=49.77558654099994, value=v, duration=None>
+49.8394 	EXP 	Device response: <KeyPress from None: t=49.77558654099994, value=v, duration=0.060141999998450046>
+50.0240 	EXP 	Device response: <KeyPress from None: t=50.01640566599963, value=v, duration=None>
+50.0795 	EXP 	Device response: <KeyPress from None: t=50.01640566599963, value=v, duration=0.060319416999846>
+50.2903 	EXP 	Device response: <KeyPress from None: t=50.279401749998215, value=v, duration=None>
+50.3462 	EXP 	Device response: <KeyPress from None: t=50.279401749998215, value=v, duration=0.0643145829999412>
+50.5905 	EXP 	Device response: <KeyPress from None: t=50.580396665998705, value=v, duration=None>
+50.6460 	EXP 	Device response: <KeyPress from None: t=50.580396665998705, value=v, duration=0.060319167001580354>
+50.9239 	EXP 	Device response: <KeyPress from None: t=50.917382707997604, value=v, duration=None>
+50.9894 	EXP 	Device response: <KeyPress from None: t=50.917382707997604, value=v, duration=0.06834212499961723>
+51.2800 	EXP 	Device response: <KeyPress from None: t=51.27940754099836, value=v, duration=None>
+51.3453 	EXP 	Device response: <KeyPress from None: t=51.27940754099836, value=v, duration=0.06432570900142309>
+51.6393 	EXP 	Device response: <KeyPress from None: t=51.63238420799826, value=v, duration=None>
+51.6951 	EXP 	Device response: <KeyPress from None: t=51.63238420799826, value=v, duration=0.06029987500005518>
+51.9645 	EXP 	Device response: <KeyPress from None: t=51.9573555829993, value=v, duration=None>
+52.0283 	EXP 	Device response: <KeyPress from None: t=51.9573555829993, value=v, duration=0.06430504200034193>
+52.2404 	EXP 	Device response: <KeyPress from None: t=52.23236937500042, value=v, duration=None>
+52.3060 	EXP 	Device response: <KeyPress from None: t=52.23236937500042, value=v, duration=0.0682955829979619>
+52.5230 	EXP 	Device response: <KeyPress from None: t=52.51733970799978, value=v, duration=None>
+52.5894 	EXP 	Device response: <KeyPress from None: t=52.51733970799978, value=v, duration=0.06441187499876833>
+52.8216 	EXP 	Device response: <KeyPress from None: t=52.81733766599791, value=v, duration=None>
+52.8893 	EXP 	Device response: <KeyPress from None: t=52.81733766599791, value=v, duration=0.0683242090017302>
+53.1306 	EXP 	Device response: <KeyPress from None: t=53.12833983299788, value=v, duration=None>
+53.2059 	EXP 	Device response: <KeyPress from None: t=53.12833983299788, value=v, duration=0.07230133300254238>
+53.4621 	EXP 	Device response: <KeyPress from None: t=53.45932329099742, value=v, duration=None>
+53.5385 	EXP 	Device response: <KeyPress from None: t=53.45932329099742, value=v, duration=0.07231016700097825>
+53.7785 	EXP 	Device response: <KeyPress from None: t=53.778307000000495, value=v, duration=None>
+53.8561 	EXP 	Device response: <KeyPress from None: t=53.778307000000495, value=v, duration=0.07232645799740567>
+54.1405 	EXP 	Device response: <KeyPress from None: t=54.12830649999887, value=v, duration=None>
+54.2126 	EXP 	Device response: <KeyPress from None: t=54.12830649999887, value=v, duration=0.080331582998042>
+54.4894 	EXP 	Device response: <KeyPress from None: t=54.483309249997546, value=v, duration=None>
+54.5725 	EXP 	Device response: <KeyPress from None: t=54.483309249997546, value=v, duration=0.08030479100125376>
+54.8637 	EXP 	Device response: <KeyPress from None: t=54.857285082998715, value=v, duration=None>
+54.9452 	EXP 	Device response: <KeyPress from None: t=54.857285082998715, value=v, duration=0.08434270799989463>
+56.7810 	DATA 	Mouse: Left button down, pos=(842,154)
+56.8035 	EXP 	effort_text: autoDraw = False
+56.8035 	EXP 	effort_box: autoDraw = False
+56.8035 	EXP 	importance: markerPos = None
+56.8035 	EXP 	importance: markerPos = 50
+56.8035 	EXP 	control: markerPos = None
+56.8035 	EXP 	control: markerPos = 50
+56.8035 	EXP 	rating_text: autoDraw = True
+56.8035 	EXP 	lbl_imp: autoDraw = True
+56.8035 	EXP 	importance: autoDraw = True
+56.8035 	EXP 	lbl_ctrl: autoDraw = True
+56.8035 	EXP 	control: autoDraw = True
+56.8920 	DATA 	Mouse:  Left button up, pos=(842,154)
+64.6381 	DATA 	Mouse: Left button down, pos=(858,661)
+64.6469 	EXP 	importance: markerPos = np.float64(50.271002710027105)
+64.6558 	EXP 	importance: markerPos = np.float64(50.271002710027105)
+64.6645 	EXP 	importance: markerPos = np.float64(50.271002710027105)
+64.6734 	EXP 	importance: markerPos = np.float64(50.271002710027105)
+64.6819 	EXP 	importance: markerPos = np.float64(50.271002710027105)
+64.7054 	EXP 	importance: markerPos = np.float64(50.271002710027105)
+64.7140 	EXP 	importance: markerPos = np.float64(50.36133694670279)
+64.7234 	EXP 	importance: markerPos = np.float64(50.36133694670279)
+64.7327 	EXP 	importance: markerPos = np.float64(50.36133694670279)
+64.7419 	EXP 	importance: markerPos = np.float64(50.6323396567299)
+64.7557 	EXP 	importance: markerPos = np.float64(50.7226738934056)
+64.7648 	EXP 	importance: markerPos = np.float64(50.903342366757)
+64.7750 	EXP 	importance: markerPos = np.float64(50.993676603432704)
+64.7890 	EXP 	importance: markerPos = np.float64(51.0840108401084)
+64.7983 	EXP 	importance: markerPos = np.float64(51.445347786811205)
+64.8086 	EXP 	importance: markerPos = np.float64(51.445347786811205)
+64.8223 	EXP 	importance: markerPos = np.float64(51.98735320686541)
+64.8316 	EXP 	importance: markerPos = np.float64(52.4390243902439)
+64.8415 	EXP 	importance: markerPos = np.float64(52.4390243902439)
+64.8557 	EXP 	importance: markerPos = np.float64(52.529358626919596)
+64.8651 	EXP 	importance: markerPos = np.float64(52.619692863595304)
+64.8747 	EXP 	importance: markerPos = np.float64(52.619692863595304)
+64.8891 	EXP 	importance: markerPos = np.float64(52.710027100271006)
+64.8983 	EXP 	importance: markerPos = np.float64(52.8003613369467)
+64.9082 	EXP 	importance: markerPos = np.float64(52.8003613369467)
+64.9223 	EXP 	importance: markerPos = np.float64(52.8003613369467)
+64.9315 	EXP 	importance: markerPos = np.float64(52.8003613369467)
+64.9562 	EXP 	importance: markerPos = np.float64(52.8003613369467)
+64.9664 	EXP 	importance: markerPos = np.float64(52.8003613369467)
+64.9760 	EXP 	importance: markerPos = np.float64(52.8003613369467)
+64.9900 	EXP 	importance: markerPos = np.float64(52.8003613369467)
+65.0004 	EXP 	importance: markerPos = np.float64(52.8003613369467)
+65.0110 	EXP 	importance: markerPos = np.float64(52.8003613369467)
+65.0226 	EXP 	importance: markerPos = np.float64(52.8003613369467)
+65.0339 	EXP 	importance: markerPos = np.float64(52.8003613369467)
+65.0442 	EXP 	importance: markerPos = np.float64(52.8003613369467)
+65.0549 	EXP 	importance: markerPos = np.float64(52.8003613369467)
+65.0651 	EXP 	importance: markerPos = np.float64(52.8906955736224)
+65.0756 	EXP 	importance: markerPos = np.float64(52.8906955736224)
+65.0891 	EXP 	importance: markerPos = np.float64(52.8906955736224)
+65.0990 	EXP 	importance: markerPos = np.float64(52.98102981029811)
+65.1095 	EXP 	importance: markerPos = np.float64(52.98102981029811)
+65.1221 	EXP 	importance: markerPos = np.float64(53.16169828364951)
+65.1317 	EXP 	importance: markerPos = np.float64(53.2520325203252)
+65.1418 	EXP 	importance: markerPos = np.float64(53.432700993676605)
+65.1556 	EXP 	importance: markerPos = np.float64(53.794037940379404)
+65.1648 	EXP 	importance: markerPos = np.float64(54.245709123757905)
+65.1891 	EXP 	importance: markerPos = np.float64(54.42637759710931)
+65.1983 	EXP 	importance: markerPos = np.float64(56.05239385727191)
+65.2083 	EXP 	importance: markerPos = np.float64(57.0460704607046)
+65.2225 	EXP 	importance: markerPos = np.float64(58.67208672086721)
+65.2325 	EXP 	importance: markerPos = np.float64(61.382113821138205)
+65.2424 	EXP 	importance: markerPos = np.float64(62.19512195121951)
+65.2564 	EXP 	importance: markerPos = np.float64(65.80849141824751)
+65.2670 	EXP 	importance: markerPos = np.float64(69.06052393857271)
+65.2778 	EXP 	importance: markerPos = np.float64(70.50587172538391)
+65.2888 	EXP 	importance: markerPos = np.float64(72.58355916892502)
+65.2989 	EXP 	importance: markerPos = np.float64(75.11291779584462)
+65.3091 	EXP 	importance: markerPos = np.float64(77.28093947606143)
+65.3225 	EXP 	importance: markerPos = np.float64(80.08130081300813)
+65.3322 	EXP 	importance: markerPos = np.float64(80.98464317976513)
+65.3423 	EXP 	importance: markerPos = np.float64(82.79132791327913)
+65.3558 	EXP 	importance: markerPos = np.float64(83.87533875338752)
+65.3651 	EXP 	importance: markerPos = np.float64(85.23035230352303)
+65.3750 	EXP 	importance: markerPos = np.float64(85.59168925022583)
+65.3891 	EXP 	importance: markerPos = np.float64(86.13369467028004)
+65.3981 	EXP 	importance: markerPos = np.float64(86.40469738030714)
+65.4224 	EXP 	importance: markerPos = np.float64(86.49503161698284)
+65.4311 	EXP 	importance: markerPos = np.float64(86.58536585365853)
+65.4393 	EXP 	importance: markerPos = np.float64(86.58536585365853)
+65.4485 	EXP 	importance: markerPos = np.float64(86.58536585365853)
+65.4585 	EXP 	importance: markerPos = np.float64(86.58536585365853)
+65.4728 	EXP 	importance: markerPos = np.float64(86.58536585365853)
+65.4825 	EXP 	importance: markerPos = np.float64(86.58536585365853)
+65.4931 	EXP 	importance: markerPos = np.float64(86.58536585365853)
+65.5045 	EXP 	importance: markerPos = np.float64(86.58536585365853)
+65.5144 	EXP 	importance: markerPos = np.float64(86.58536585365853)
+65.5398 	EXP 	importance: markerPos = np.float64(86.58536585365853)
+65.5507 	EXP 	importance: markerPos = np.float64(86.58536585365853)
+65.5612 	EXP 	importance: markerPos = np.float64(86.58536585365853)
+65.5729 	EXP 	importance: markerPos = np.float64(86.58536585365853)
+65.5838 	EXP 	importance: markerPos = np.float64(86.58536585365853)
+65.5948 	EXP 	importance: markerPos = np.float64(86.58536585365853)
+65.6070 	EXP 	importance: markerPos = np.float64(86.49503161698284)
+65.6179 	EXP 	importance: markerPos = np.float64(86.49503161698284)
+65.6284 	EXP 	importance: markerPos = np.float64(86.49503161698284)
+65.6396 	EXP 	importance: markerPos = np.float64(86.49503161698284)
+65.6501 	EXP 	importance: markerPos = np.float64(86.40469738030714)
+65.6596 	EXP 	importance: markerPos = np.float64(86.31436314363144)
+65.6723 	EXP 	importance: markerPos = np.float64(86.22402890695572)
+65.6817 	EXP 	importance: markerPos = np.float64(86.22402890695572)
+65.6921 	EXP 	importance: markerPos = np.float64(86.13369467028004)
+65.7056 	EXP 	importance: markerPos = np.float64(86.04336043360435)
+65.7148 	EXP 	importance: markerPos = np.float64(85.95302619692863)
+65.7391 	EXP 	importance: markerPos = np.float64(85.95302619692863)
+65.7482 	EXP 	importance: markerPos = np.float64(85.77235772357723)
+65.7725 	EXP 	importance: markerPos = np.float64(85.77235772357723)
+65.7828 	EXP 	importance: markerPos = np.float64(85.77235772357723)
+65.7928 	EXP 	importance: markerPos = np.float64(85.77235772357723)
+65.8048 	EXP 	importance: markerPos = np.float64(85.77235772357723)
+65.8151 	EXP 	importance: markerPos = np.float64(85.77235772357723)
+65.8270 	EXP 	importance: markerPos = np.float64(85.77235772357723)
+65.8390 	EXP 	importance: markerPos = np.float64(85.77235772357723)
+65.8501 	EXP 	importance: markerPos = np.float64(85.77235772357723)
+65.8607 	EXP 	importance: markerPos = np.float64(85.77235772357723)
+65.8609 	DATA 	Mouse:  Left button up, pos=(1251,661)
+65.8715 	EXP 	importance: markerPos = 86.0
+68.1716 	DATA 	Mouse: Left button down, pos=(853,320)
+68.1805 	EXP 	control: markerPos = np.float64(49.819331526648604)
+68.1897 	EXP 	control: markerPos = np.float64(49.819331526648604)
+68.1984 	EXP 	control: markerPos = np.float64(49.819331526648604)
+68.2219 	EXP 	control: markerPos = np.float64(49.9096657633243)
+68.2305 	EXP 	control: markerPos = np.float64(50.0903342366757)
+68.2402 	EXP 	control: markerPos = np.float64(50.271002710027105)
+68.2494 	EXP 	control: markerPos = np.float64(50.993676603432704)
+68.2589 	EXP 	control: markerPos = np.float64(51.445347786811205)
+68.2724 	EXP 	control: markerPos = np.float64(52.1680216802168)
+68.2820 	EXP 	control: markerPos = np.float64(53.794037940379404)
+68.2922 	EXP 	control: markerPos = np.float64(55.058717253839205)
+68.3057 	EXP 	control: markerPos = np.float64(56.77506775067751)
+68.3147 	EXP 	control: markerPos = np.float64(58.40108401084011)
+68.3392 	EXP 	control: markerPos = np.float64(61.29177958446251)
+68.3491 	EXP 	control: markerPos = np.float64(65.89882565492321)
+68.3590 	EXP 	control: markerPos = np.float64(66.98283649503162)
+68.3731 	EXP 	control: markerPos = np.float64(67.88617886178862)
+68.3836 	EXP 	control: markerPos = np.float64(70.32520325203252)
+68.3933 	EXP 	control: markerPos = np.float64(72.31255645889793)
+68.4058 	EXP 	control: markerPos = np.float64(72.67389340560072)
+68.4164 	EXP 	control: markerPos = np.float64(73.03523035230353)
+68.4261 	EXP 	control: markerPos = np.float64(73.12556458897922)
+68.4383 	EXP 	control: markerPos = np.float64(73.12556458897922)
+68.4484 	EXP 	control: markerPos = np.float64(73.21589882565492)
+68.4594 	EXP 	control: markerPos = np.float64(73.21589882565492)
+68.4728 	EXP 	control: markerPos = np.float64(73.21589882565492)
+68.4829 	EXP 	control: markerPos = np.float64(73.30623306233062)
+68.4926 	EXP 	control: markerPos = np.float64(73.48690153568202)
+68.5057 	EXP 	control: markerPos = np.float64(73.48690153568202)
+68.5158 	EXP 	control: markerPos = np.float64(74.39024390243902)
+68.5254 	EXP 	control: markerPos = np.float64(74.93224932249322)
+68.5387 	EXP 	control: markerPos = np.float64(75.74525745257452)
+68.5482 	EXP 	control: markerPos = np.float64(76.10659439927733)
+68.5579 	EXP 	control: markerPos = np.float64(76.64859981933152)
+68.5725 	EXP 	control: markerPos = np.float64(77.00993676603433)
+68.5813 	EXP 	control: markerPos = np.float64(77.28093947606143)
+68.6058 	EXP 	control: markerPos = np.float64(77.37127371273714)
+68.6157 	EXP 	control: markerPos = np.float64(77.64227642276423)
+68.6260 	EXP 	control: markerPos = np.float64(77.73261065943993)
+68.6393 	EXP 	control: markerPos = np.float64(77.73261065943993)
+68.6489 	EXP 	control: markerPos = np.float64(77.73261065943993)
+68.6596 	EXP 	control: markerPos = np.float64(77.73261065943993)
+68.6598 	DATA 	Mouse:  Left button up, pos=(1162,334)
+68.6734 	EXP 	control: markerPos = 78.0
+69.0752 	DATA 	Mouse: Left button down, pos=(846,128)
+69.0828 	EXP 	New trial (rep=0, index=0): <Trial 0 (0 in rep 0) data={'thisN': 0, 'thisTrialN': 0, 'thisRepN': 0}>
+69.0881 	INFO 	Keyboard events cleared
+69.0880 	EXP 	rating_text: autoDraw = False
+69.0880 	EXP 	lbl_imp: autoDraw = False
+69.0880 	EXP 	importance: autoDraw = False
+69.0880 	EXP 	lbl_ctrl: autoDraw = False
+69.0880 	EXP 	control: autoDraw = False
+69.0880 	EXP 	tob_instr_text_after: autoDraw = True
+69.1903 	DATA 	Mouse:  Left button up, pos=(846,127)
+71.0020 	DATA 	Mouse: Left button down, pos=(765,731)
+71.0503 	DATA 	Mouse:  Left button up, pos=(765,731)
+71.5845 	EXP 	Device response: <KeyPress from None: t=71.58040233299835, value=space, duration=None>
+71.6005 	EXP 	Imported tobacyk.xlsx as conditions, 26 conditions, 4 params
+71.6010 	EXP 	New trial (rep=0, index=0): <Trial 0 (0 in rep 0) data={'item_n': 1, 'text': 'ВСТАВИТЬ пункт 1 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'TRB', 'reverse': 0, 'thisN': 0, 'thisTrialN': 0, 'thisRepN': 0}>
+71.6156 	DATA 	Keypress: space
+71.6349 	EXP 	tob_instr_text_after: autoDraw = False
+71.6349 	EXP 	tob_text_after: height = np.float64(0.04)
+71.6349 	EXP 	tob_text_after: height = np.float64(0.04)
+71.6349 	EXP 	tob_text_after: height = np.float64(0.04)
+71.6349 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 1 шкалы веры в паранормальное (Григорьев, 2015)'
+71.6349 	EXP 	tob_slider_after: markerPos = None
+71.6349 	EXP 	tob_slider_after: markerPos = None
+71.6349 	EXP 	tob_text_after: autoDraw = True
+71.6349 	EXP 	tob_slider_after: autoDraw = True
+71.6470 	EXP 	Device response: <KeyPress from None: t=71.58040233299835, value=space, duration=0.06224983300126041>
+73.7797 	EXP 	Device response: <KeyPress from None: t=73.77728654099701, value=space, duration=None>
+73.7807 	DATA 	Keypress: space
+73.8805 	EXP 	Device response: <KeyPress from None: t=73.77728654099701, value=space, duration=0.10031679200255894>
+74.5215 	DATA 	Mouse: Left button down, pos=(442,166)
+74.6048 	DATA 	Mouse:  Left button up, pos=(443,166)
+74.8251 	DATA 	Mouse: Left button down, pos=(391,264)
+74.8387 	EXP 	tob_slider_after: markerPos = np.float64(1.9042457091237577)
+74.8471 	EXP 	tob_slider_after: markerPos = np.float64(1.9042457091237577)
+74.8562 	EXP 	tob_slider_after: markerPos = np.float64(1.9042457091237577)
+74.8648 	EXP 	tob_slider_after: markerPos = np.float64(1.9042457091237577)
+74.8890 	EXP 	tob_slider_after: markerPos = np.float64(1.9042457091237577)
+74.8975 	EXP 	tob_slider_after: markerPos = np.float64(1.9087624209575427)
+74.9067 	EXP 	tob_slider_after: markerPos = np.float64(1.9087624209575427)
+74.9157 	EXP 	tob_slider_after: markerPos = np.float64(1.9087624209575427)
+74.9248 	EXP 	tob_slider_after: markerPos = np.float64(1.9087624209575427)
+74.9390 	EXP 	tob_slider_after: markerPos = np.float64(1.9087624209575427)
+74.9393 	DATA 	Mouse:  Left button up, pos=(392,263)
+74.9480 	EXP 	tob_slider_after: markerPos = 2.0
+74.9483 	EXP 	New trial (rep=0, index=1): <Trial 1 (1 in rep 0) data={'item_n': 2, 'text': 'ВСТАВИТЬ пункт 2 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Psi', 'reverse': 0, 'thisN': 1, 'thisTrialN': 1, 'thisRepN': 0}>
+74.9629 	EXP 	tob_text_after: autoDraw = False
+74.9629 	EXP 	tob_slider_after: autoDraw = False
+74.9629 	EXP 	tob_text_after: height = np.float64(0.04)
+74.9629 	EXP 	tob_text_after: height = np.float64(0.04)
+74.9629 	EXP 	tob_text_after: height = np.float64(0.04)
+74.9629 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 2 шкалы веры в паранормальное (Григорьев, 2015)'
+74.9629 	EXP 	tob_slider_after: markerPos = None
+74.9629 	EXP 	tob_slider_after: markerPos = None
+74.9629 	EXP 	tob_text_after: autoDraw = True
+74.9629 	EXP 	tob_slider_after: autoDraw = True
+75.1831 	EXP 	Device response: <KeyPress from None: t=75.17927491599767, value=space, duration=None>
+75.1843 	DATA 	Keypress: space
+75.2607 	EXP 	Device response: <KeyPress from None: t=75.17927491599767, value=space, duration=0.07230875000095693>
+75.6729 	DATA 	Mouse: Left button down, pos=(640,230)
+75.6831 	EXP 	tob_slider_after: markerPos = np.float64(3.028906955736224)
+75.6924 	EXP 	tob_slider_after: markerPos = np.float64(3.028906955736224)
+75.7063 	EXP 	tob_slider_after: markerPos = np.float64(3.028906955736224)
+75.7163 	EXP 	tob_slider_after: markerPos = np.float64(3.028906955736224)
+75.7258 	EXP 	tob_slider_after: markerPos = np.float64(3.028906955736224)
+75.7397 	EXP 	tob_slider_after: markerPos = np.float64(3.028906955736224)
+75.7497 	EXP 	tob_slider_after: markerPos = np.float64(3.028906955736224)
+75.7589 	EXP 	tob_slider_after: markerPos = np.float64(3.028906955736224)
+75.7593 	DATA 	Mouse:  Left button up, pos=(640,230)
+75.7725 	EXP 	tob_slider_after: markerPos = 3.0
+75.7729 	EXP 	New trial (rep=0, index=2): <Trial 2 (2 in rep 0) data={'item_n': 3, 'text': 'ВСТАВИТЬ пункт 3 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Witch', 'reverse': 0, 'thisN': 2, 'thisTrialN': 2, 'thisRepN': 0}>
+75.7848 	EXP 	tob_text_after: autoDraw = False
+75.7848 	EXP 	tob_slider_after: autoDraw = False
+75.7848 	EXP 	tob_text_after: height = np.float64(0.04)
+75.7848 	EXP 	tob_text_after: height = np.float64(0.04)
+75.7848 	EXP 	tob_text_after: height = np.float64(0.04)
+75.7848 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 3 шкалы веры в паранормальное (Григорьев, 2015)'
+75.7848 	EXP 	tob_slider_after: markerPos = None
+75.7848 	EXP 	tob_slider_after: markerPos = None
+75.7848 	EXP 	tob_text_after: autoDraw = True
+75.7848 	EXP 	tob_slider_after: autoDraw = True
+76.1583 	DATA 	Mouse: Left button down, pos=(899,207)
+76.1715 	EXP 	tob_slider_after: markerPos = np.float64(4.1987353206865405)
+76.1799 	EXP 	tob_slider_after: markerPos = np.float64(4.1987353206865405)
+76.1891 	EXP 	tob_slider_after: markerPos = np.float64(4.1987353206865405)
+76.1976 	EXP 	tob_slider_after: markerPos = np.float64(4.1987353206865405)
+76.2065 	EXP 	tob_slider_after: markerPos = np.float64(4.1987353206865405)
+76.2149 	EXP 	tob_slider_after: markerPos = np.float64(4.1987353206865405)
+76.2390 	EXP 	tob_slider_after: markerPos = np.float64(4.1987353206865405)
+76.2478 	EXP 	tob_slider_after: markerPos = np.float64(4.1987353206865405)
+76.2570 	EXP 	tob_slider_after: markerPos = np.float64(4.1987353206865405)
+76.2662 	EXP 	tob_slider_after: markerPos = np.float64(4.1987353206865405)
+76.2665 	DATA 	Mouse:  Left button up, pos=(899,207)
+76.2754 	EXP 	tob_slider_after: markerPos = 4.0
+76.2757 	EXP 	New trial (rep=0, index=3): <Trial 3 (3 in rep 0) data={'item_n': 4, 'text': 'ВСТАВИТЬ пункт 4 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Super', 'reverse': 0, 'thisN': 3, 'thisTrialN': 3, 'thisRepN': 0}>
+76.2878 	EXP 	tob_text_after: autoDraw = False
+76.2878 	EXP 	tob_slider_after: autoDraw = False
+76.2878 	EXP 	tob_text_after: height = np.float64(0.04)
+76.2878 	EXP 	tob_text_after: height = np.float64(0.04)
+76.2878 	EXP 	tob_text_after: height = np.float64(0.04)
+76.2878 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 4 шкалы веры в паранормальное (Григорьев, 2015)'
+76.2878 	EXP 	tob_slider_after: markerPos = None
+76.2878 	EXP 	tob_slider_after: markerPos = None
+76.2878 	EXP 	tob_text_after: autoDraw = True
+76.2878 	EXP 	tob_slider_after: autoDraw = True
+76.6015 	DATA 	Mouse: Left button down, pos=(1101,222)
+76.6160 	EXP 	tob_slider_after: markerPos = np.float64(5.111111111111112)
+76.6249 	EXP 	tob_slider_after: markerPos = np.float64(5.115627822944896)
+76.6388 	EXP 	tob_slider_after: markerPos = np.float64(5.115627822944896)
+76.6473 	EXP 	tob_slider_after: markerPos = np.float64(5.115627822944896)
+76.6565 	EXP 	tob_slider_after: markerPos = np.float64(5.115627822944896)
+76.6650 	EXP 	tob_slider_after: markerPos = np.float64(5.115627822944896)
+76.6888 	EXP 	tob_slider_after: markerPos = np.float64(5.115627822944896)
+76.6977 	EXP 	tob_slider_after: markerPos = np.float64(5.115627822944896)
+76.7226 	EXP 	tob_slider_after: markerPos = np.float64(5.115627822944896)
+76.7229 	DATA 	Mouse:  Left button up, pos=(1102,222)
+76.7326 	EXP 	tob_slider_after: markerPos = 5.0
+76.7329 	EXP 	New trial (rep=0, index=4): <Trial 4 (4 in rep 0) data={'item_n': 5, 'text': 'ВСТАВИТЬ пункт 5 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Spirit', 'reverse': 0, 'thisN': 4, 'thisTrialN': 4, 'thisRepN': 0}>
+76.7447 	EXP 	tob_text_after: autoDraw = False
+76.7447 	EXP 	tob_slider_after: autoDraw = False
+76.7447 	EXP 	tob_text_after: height = np.float64(0.04)
+76.7447 	EXP 	tob_text_after: height = np.float64(0.04)
+76.7447 	EXP 	tob_text_after: height = np.float64(0.04)
+76.7447 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 5 шкалы веры в паранормальное (Григорьев, 2015)'
+76.7447 	EXP 	tob_slider_after: markerPos = None
+76.7447 	EXP 	tob_slider_after: markerPos = None
+76.7447 	EXP 	tob_text_after: autoDraw = True
+76.7447 	EXP 	tob_slider_after: autoDraw = True
+77.3277 	DATA 	Mouse: Left button down, pos=(1347,230)
+77.3438 	EXP 	tob_slider_after: markerPos = np.float64(6.217705510388438)
+77.3561 	EXP 	tob_slider_after: markerPos = np.float64(6.217705510388438)
+77.3665 	EXP 	tob_slider_after: markerPos = np.float64(6.217705510388438)
+77.3761 	EXP 	tob_slider_after: markerPos = np.float64(6.213188798554652)
+77.3881 	EXP 	tob_slider_after: markerPos = np.float64(6.213188798554652)
+77.3984 	EXP 	tob_slider_after: markerPos = np.float64(6.213188798554652)
+77.4035 	DATA 	Mouse:  Left button up, pos=(1345,230)
+77.4091 	EXP 	tob_slider_after: markerPos = np.float64(6.213188798554652)
+77.4227 	EXP 	tob_slider_after: markerPos = 6.0
+77.4230 	EXP 	New trial (rep=0, index=5): <Trial 5 (5 in rep 0) data={'item_n': 6, 'text': 'ВСТАВИТЬ пункт 6 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'ELF', 'reverse': 0, 'thisN': 5, 'thisTrialN': 5, 'thisRepN': 0}>
+77.4347 	EXP 	tob_text_after: autoDraw = False
+77.4347 	EXP 	tob_slider_after: autoDraw = False
+77.4347 	EXP 	tob_text_after: height = np.float64(0.04)
+77.4347 	EXP 	tob_text_after: height = np.float64(0.04)
+77.4347 	EXP 	tob_text_after: height = np.float64(0.04)
+77.4347 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 6 шкалы веры в паранормальное (Григорьев, 2015)'
+77.4347 	EXP 	tob_slider_after: markerPos = None
+77.4347 	EXP 	tob_slider_after: markerPos = None
+77.4347 	EXP 	tob_text_after: autoDraw = True
+77.4347 	EXP 	tob_slider_after: autoDraw = True
+78.0421 	DATA 	Mouse: Left button down, pos=(179,220)
+78.0558 	EXP 	tob_slider_after: markerPos = np.float64(0.9467028003613367)
+78.0652 	EXP 	tob_slider_after: markerPos = np.float64(0.9467028003613367)
+78.0750 	EXP 	tob_slider_after: markerPos = np.float64(0.9467028003613367)
+78.0890 	EXP 	tob_slider_after: markerPos = np.float64(0.9467028003613367)
+78.0982 	EXP 	tob_slider_after: markerPos = np.float64(0.9467028003613367)
+78.1085 	EXP 	tob_slider_after: markerPos = np.float64(0.9467028003613367)
+78.1223 	EXP 	tob_slider_after: markerPos = np.float64(0.9467028003613367)
+78.1314 	EXP 	tob_slider_after: markerPos = np.float64(0.9467028003613367)
+78.1317 	DATA 	Mouse:  Left button up, pos=(179,220)
+78.1412 	EXP 	tob_slider_after: markerPos = 1.0
+78.1415 	EXP 	New trial (rep=0, index=6): <Trial 6 (6 in rep 0) data={'item_n': 7, 'text': 'ВСТАВИТЬ пункт 7 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Precog', 'reverse': 0, 'thisN': 6, 'thisTrialN': 6, 'thisRepN': 0}>
+78.1554 	EXP 	tob_text_after: autoDraw = False
+78.1554 	EXP 	tob_slider_after: autoDraw = False
+78.1554 	EXP 	tob_text_after: height = np.float64(0.04)
+78.1554 	EXP 	tob_text_after: height = np.float64(0.04)
+78.1554 	EXP 	tob_text_after: height = np.float64(0.04)
+78.1554 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 7 шкалы веры в паранормальное (Григорьев, 2015)'
+78.1554 	EXP 	tob_slider_after: markerPos = None
+78.1554 	EXP 	tob_slider_after: markerPos = None
+78.1554 	EXP 	tob_text_after: autoDraw = True
+78.1554 	EXP 	tob_slider_after: autoDraw = True
+78.7274 	DATA 	Mouse: Left button down, pos=(1518,213)
+78.7421 	EXP 	tob_slider_after: markerPos = np.float64(6.999096657633244)
+78.7558 	EXP 	tob_slider_after: markerPos = np.float64(6.999096657633244)
+78.7654 	EXP 	tob_slider_after: markerPos = np.float64(6.999096657633244)
+78.7751 	EXP 	tob_slider_after: markerPos = np.float64(6.999096657633244)
+78.7890 	EXP 	tob_slider_after: markerPos = np.float64(6.999096657633244)
+78.7982 	EXP 	tob_slider_after: markerPos = np.float64(6.999096657633244)
+78.8079 	EXP 	tob_slider_after: markerPos = np.float64(6.999096657633244)
+78.8222 	EXP 	tob_slider_after: markerPos = np.float64(6.999096657633244)
+78.8225 	DATA 	Mouse:  Left button up, pos=(1519,214)
+78.8311 	EXP 	tob_slider_after: markerPos = 7.0
+78.8313 	EXP 	New trial (rep=0, index=7): <Trial 7 (7 in rep 0) data={'item_n': 8, 'text': 'ВСТАВИТЬ пункт 8 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'TRB', 'reverse': 0, 'thisN': 7, 'thisTrialN': 7, 'thisRepN': 0}>
+78.8418 	EXP 	tob_text_after: autoDraw = False
+78.8418 	EXP 	tob_slider_after: autoDraw = False
+78.8418 	EXP 	tob_text_after: height = np.float64(0.04)
+78.8418 	EXP 	tob_text_after: height = np.float64(0.04)
+78.8418 	EXP 	tob_text_after: height = np.float64(0.04)
+78.8418 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 8 шкалы веры в паранормальное (Григорьев, 2015)'
+78.8418 	EXP 	tob_slider_after: markerPos = None
+78.8418 	EXP 	tob_slider_after: markerPos = None
+78.8418 	EXP 	tob_text_after: autoDraw = True
+78.8418 	EXP 	tob_slider_after: autoDraw = True
+79.6229 	DATA 	Mouse: Left button down, pos=(419,223)
+79.6315 	EXP 	tob_slider_after: markerPos = np.float64(2.0307136404697377)
+79.6557 	EXP 	tob_slider_after: markerPos = np.float64(2.0307136404697377)
+79.6645 	EXP 	tob_slider_after: markerPos = np.float64(2.0307136404697377)
+79.6743 	EXP 	tob_slider_after: markerPos = np.float64(2.0307136404697377)
+79.6891 	EXP 	tob_slider_after: markerPos = np.float64(2.0307136404697377)
+79.6985 	EXP 	tob_slider_after: markerPos = np.float64(2.0307136404697377)
+79.7034 	DATA 	Mouse:  Left button up, pos=(419,223)
+79.7091 	EXP 	tob_slider_after: markerPos = np.float64(2.0307136404697377)
+79.7230 	EXP 	tob_slider_after: markerPos = 2.0
+79.7233 	EXP 	New trial (rep=0, index=8): <Trial 8 (8 in rep 0) data={'item_n': 9, 'text': 'ВСТАВИТЬ пункт 9 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Psi', 'reverse': 0, 'thisN': 8, 'thisTrialN': 8, 'thisRepN': 0}>
+79.7352 	EXP 	tob_text_after: autoDraw = False
+79.7352 	EXP 	tob_slider_after: autoDraw = False
+79.7352 	EXP 	tob_text_after: height = np.float64(0.04)
+79.7352 	EXP 	tob_text_after: height = np.float64(0.04)
+79.7352 	EXP 	tob_text_after: height = np.float64(0.04)
+79.7352 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 9 шкалы веры в паранормальное (Григорьев, 2015)'
+79.7352 	EXP 	tob_slider_after: markerPos = None
+79.7352 	EXP 	tob_slider_after: markerPos = None
+79.7352 	EXP 	tob_text_after: autoDraw = True
+79.7352 	EXP 	tob_slider_after: autoDraw = True
+80.0037 	DATA 	Mouse: Left button down, pos=(635,217)
+80.0231 	EXP 	tob_slider_after: markerPos = np.float64(3.006323396567299)
+80.0340 	EXP 	tob_slider_after: markerPos = np.float64(3.006323396567299)
+80.0446 	EXP 	tob_slider_after: markerPos = np.float64(3.006323396567299)
+80.0557 	EXP 	tob_slider_after: markerPos = np.float64(3.006323396567299)
+80.0660 	EXP 	tob_slider_after: markerPos = np.float64(3.006323396567299)
+80.0756 	EXP 	tob_slider_after: markerPos = np.float64(3.006323396567299)
+80.0896 	EXP 	tob_slider_after: markerPos = np.float64(3.006323396567299)
+80.0899 	DATA 	Mouse:  Left button up, pos=(635,217)
+80.0994 	EXP 	tob_slider_after: markerPos = 3.0
+80.0997 	EXP 	New trial (rep=0, index=9): <Trial 9 (9 in rep 0) data={'item_n': 10, 'text': 'ВСТАВИТЬ пункт 10 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Witch', 'reverse': 0, 'thisN': 9, 'thisTrialN': 9, 'thisRepN': 0}>
+80.1106 	EXP 	tob_text_after: autoDraw = False
+80.1106 	EXP 	tob_slider_after: autoDraw = False
+80.1106 	EXP 	tob_text_after: height = np.float64(0.04)
+80.1106 	EXP 	tob_text_after: height = np.float64(0.04)
+80.1106 	EXP 	tob_text_after: height = np.float64(0.04)
+80.1106 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 10 шкалы веры в паранормальное (Григорьев, 2015)'
+80.1106 	EXP 	tob_slider_after: markerPos = None
+80.1106 	EXP 	tob_slider_after: markerPos = None
+80.1106 	EXP 	tob_text_after: autoDraw = True
+80.1106 	EXP 	tob_slider_after: autoDraw = True
+80.3669 	DATA 	Mouse: Left button down, pos=(822,219)
+80.3769 	EXP 	tob_slider_after: markerPos = np.float64(3.850948509485095)
+80.3880 	EXP 	tob_slider_after: markerPos = np.float64(3.850948509485095)
+80.3980 	EXP 	tob_slider_after: markerPos = np.float64(3.850948509485095)
+80.4085 	EXP 	tob_slider_after: markerPos = np.float64(3.850948509485095)
+80.4227 	EXP 	tob_slider_after: markerPos = np.float64(3.850948509485095)
+80.4323 	EXP 	tob_slider_after: markerPos = np.float64(3.850948509485095)
+80.4417 	EXP 	tob_slider_after: markerPos = np.float64(3.850948509485095)
+80.4556 	EXP 	tob_slider_after: markerPos = np.float64(3.850948509485095)
+80.4649 	EXP 	tob_slider_after: markerPos = np.float64(3.850948509485095)
+80.4747 	EXP 	tob_slider_after: markerPos = np.float64(3.850948509485095)
+80.4750 	DATA 	Mouse:  Left button up, pos=(822,219)
+80.4888 	EXP 	tob_slider_after: markerPos = 4.0
+80.4891 	EXP 	New trial (rep=0, index=10): <Trial 10 (10 in rep 0) data={'item_n': 11, 'text': 'ВСТАВИТЬ пункт 11 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Super', 'reverse': 0, 'thisN': 10, 'thisTrialN': 10, 'thisRepN': 0}>
+80.4988 	EXP 	tob_text_after: autoDraw = False
+80.4988 	EXP 	tob_slider_after: autoDraw = False
+80.4988 	EXP 	tob_text_after: height = np.float64(0.04)
+80.4988 	EXP 	tob_text_after: height = np.float64(0.04)
+80.4988 	EXP 	tob_text_after: height = np.float64(0.04)
+80.4988 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 11 шкалы веры в паранормальное (Григорьев, 2015)'
+80.4988 	EXP 	tob_slider_after: markerPos = None
+80.4988 	EXP 	tob_slider_after: markerPos = None
+80.4988 	EXP 	tob_text_after: autoDraw = True
+80.4988 	EXP 	tob_slider_after: autoDraw = True
+80.7898 	DATA 	Mouse: Left button down, pos=(1048,212)
+80.8001 	EXP 	tob_slider_after: markerPos = np.float64(4.871725383920506)
+80.8097 	EXP 	tob_slider_after: markerPos = np.float64(4.876242095754291)
+80.8236 	EXP 	tob_slider_after: markerPos = np.float64(4.876242095754291)
+80.8335 	EXP 	tob_slider_after: markerPos = np.float64(4.876242095754291)
+80.8441 	EXP 	tob_slider_after: markerPos = np.float64(4.876242095754291)
+80.8558 	EXP 	tob_slider_after: markerPos = np.float64(4.876242095754291)
+80.8667 	EXP 	tob_slider_after: markerPos = np.float64(4.876242095754291)
+80.8770 	EXP 	tob_slider_after: markerPos = np.float64(4.876242095754291)
+80.8820 	DATA 	Mouse:  Left button up, pos=(1049,212)
+80.8891 	EXP 	tob_slider_after: markerPos = np.float64(4.876242095754291)
+80.8991 	EXP 	tob_slider_after: markerPos = 5.0
+80.8994 	EXP 	New trial (rep=0, index=11): <Trial 11 (11 in rep 0) data={'item_n': 12, 'text': 'ВСТАВИТЬ пункт 12 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Spirit', 'reverse': 0, 'thisN': 11, 'thisTrialN': 11, 'thisRepN': 0}>
+80.9102 	EXP 	tob_text_after: autoDraw = False
+80.9102 	EXP 	tob_slider_after: autoDraw = False
+80.9102 	EXP 	tob_text_after: height = np.float64(0.04)
+80.9102 	EXP 	tob_text_after: height = np.float64(0.04)
+80.9102 	EXP 	tob_text_after: height = np.float64(0.04)
+80.9102 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 12 шкалы веры в паранормальное (Григорьев, 2015)'
+80.9102 	EXP 	tob_slider_after: markerPos = None
+80.9102 	EXP 	tob_slider_after: markerPos = None
+80.9102 	EXP 	tob_text_after: autoDraw = True
+80.9102 	EXP 	tob_slider_after: autoDraw = True
+81.5125 	DATA 	Mouse: Left button down, pos=(640,226)
+81.5310 	EXP 	tob_slider_after: markerPos = np.float64(3.028906955736224)
+81.5399 	EXP 	tob_slider_after: markerPos = np.float64(3.028906955736224)
+81.5485 	EXP 	tob_slider_after: markerPos = np.float64(3.028906955736224)
+81.5722 	EXP 	tob_slider_after: markerPos = np.float64(3.028906955736224)
+81.5810 	EXP 	tob_slider_after: markerPos = np.float64(3.028906955736224)
+81.6059 	EXP 	tob_slider_after: markerPos = np.float64(3.028906955736224)
+81.6062 	DATA 	Mouse:  Left button up, pos=(640,226)
+81.6161 	EXP 	tob_slider_after: markerPos = 3.0
+81.6164 	EXP 	New trial (rep=0, index=12): <Trial 12 (12 in rep 0) data={'item_n': 13, 'text': 'ВСТАВИТЬ пункт 13 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'ELF', 'reverse': 0, 'thisN': 12, 'thisTrialN': 12, 'thisRepN': 0}>
+81.6286 	EXP 	tob_text_after: autoDraw = False
+81.6286 	EXP 	tob_slider_after: autoDraw = False
+81.6286 	EXP 	tob_text_after: height = np.float64(0.04)
+81.6286 	EXP 	tob_text_after: height = np.float64(0.04)
+81.6286 	EXP 	tob_text_after: height = np.float64(0.04)
+81.6286 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 13 шкалы веры в паранормальное (Григорьев, 2015)'
+81.6286 	EXP 	tob_slider_after: markerPos = None
+81.6286 	EXP 	tob_slider_after: markerPos = None
+81.6286 	EXP 	tob_text_after: autoDraw = True
+81.6286 	EXP 	tob_slider_after: autoDraw = True
+81.8615 	DATA 	Mouse: Left button down, pos=(425,218)
+81.8755 	EXP 	tob_slider_after: markerPos = np.float64(2.0578139114724476)
+81.8888 	EXP 	tob_slider_after: markerPos = np.float64(2.0578139114724476)
+81.8974 	EXP 	tob_slider_after: markerPos = np.float64(2.0578139114724476)
+81.9064 	EXP 	tob_slider_after: markerPos = np.float64(2.0578139114724476)
+81.9148 	EXP 	tob_slider_after: markerPos = np.float64(2.0578139114724476)
+81.9387 	EXP 	tob_slider_after: markerPos = np.float64(2.0578139114724476)
+81.9433 	DATA 	Mouse:  Left button up, pos=(425,218)
+81.9479 	EXP 	tob_slider_after: markerPos = np.float64(2.0578139114724476)
+81.9576 	EXP 	tob_slider_after: markerPos = 2.0
+81.9579 	EXP 	New trial (rep=0, index=13): <Trial 13 (13 in rep 0) data={'item_n': 14, 'text': 'ВСТАВИТЬ пункт 14 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Precog', 'reverse': 0, 'thisN': 13, 'thisTrialN': 13, 'thisRepN': 0}>
+81.9723 	EXP 	tob_text_after: autoDraw = False
+81.9723 	EXP 	tob_slider_after: autoDraw = False
+81.9723 	EXP 	tob_text_after: height = np.float64(0.04)
+81.9723 	EXP 	tob_text_after: height = np.float64(0.04)
+81.9723 	EXP 	tob_text_after: height = np.float64(0.04)
+81.9723 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 14 шкалы веры в паранормальное (Григорьев, 2015)'
+81.9723 	EXP 	tob_slider_after: markerPos = None
+81.9723 	EXP 	tob_slider_after: markerPos = None
+81.9723 	EXP 	tob_text_after: autoDraw = True
+81.9723 	EXP 	tob_slider_after: autoDraw = True
+82.2101 	DATA 	Mouse: Left button down, pos=(233,226)
+82.2246 	EXP 	tob_slider_after: markerPos = np.float64(1.190605239385727)
+82.2390 	EXP 	tob_slider_after: markerPos = np.float64(1.190605239385727)
+82.2481 	EXP 	tob_slider_after: markerPos = np.float64(1.190605239385727)
+82.2578 	EXP 	tob_slider_after: markerPos = np.float64(1.190605239385727)
+82.2723 	EXP 	tob_slider_after: markerPos = np.float64(1.190605239385727)
+82.2811 	EXP 	tob_slider_after: markerPos = np.float64(1.190605239385727)
+82.3062 	EXP 	tob_slider_after: markerPos = np.float64(1.190605239385727)
+82.3065 	DATA 	Mouse:  Left button up, pos=(233,226)
+82.3158 	EXP 	tob_slider_after: markerPos = 1.0
+82.3161 	EXP 	New trial (rep=0, index=14): <Trial 14 (14 in rep 0) data={'item_n': 15, 'text': 'ВСТАВИТЬ пункт 15 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'TRB', 'reverse': 0, 'thisN': 14, 'thisTrialN': 14, 'thisRepN': 0}>
+82.3269 	EXP 	tob_text_after: autoDraw = False
+82.3269 	EXP 	tob_slider_after: autoDraw = False
+82.3269 	EXP 	tob_text_after: height = np.float64(0.04)
+82.3269 	EXP 	tob_text_after: height = np.float64(0.04)
+82.3269 	EXP 	tob_text_after: height = np.float64(0.04)
+82.3269 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 15 шкалы веры в паранормальное (Григорьев, 2015)'
+82.3269 	EXP 	tob_slider_after: markerPos = None
+82.3269 	EXP 	tob_slider_after: markerPos = None
+82.3269 	EXP 	tob_text_after: autoDraw = True
+82.3269 	EXP 	tob_slider_after: autoDraw = True
+82.5737 	DATA 	Mouse: Left button down, pos=(484,213)
+82.5842 	EXP 	tob_slider_after: markerPos = np.float64(2.324299909665763)
+82.5947 	EXP 	tob_slider_after: markerPos = np.float64(2.324299909665763)
+82.6064 	EXP 	tob_slider_after: markerPos = np.float64(2.324299909665763)
+82.6162 	EXP 	tob_slider_after: markerPos = np.float64(2.324299909665763)
+82.6272 	EXP 	tob_slider_after: markerPos = np.float64(2.324299909665763)
+82.6381 	EXP 	tob_slider_after: markerPos = np.float64(2.324299909665763)
+82.6482 	EXP 	tob_slider_after: markerPos = np.float64(2.324299909665763)
+82.6532 	DATA 	Mouse:  Left button up, pos=(484,213)
+82.6586 	EXP 	tob_slider_after: markerPos = np.float64(2.324299909665763)
+82.6723 	EXP 	tob_slider_after: markerPos = 2.0
+82.6727 	EXP 	New trial (rep=0, index=15): <Trial 15 (15 in rep 0) data={'item_n': 16, 'text': 'ВСТАВИТЬ пункт 16 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Psi', 'reverse': 0, 'thisN': 15, 'thisTrialN': 15, 'thisRepN': 0}>
+82.6838 	EXP 	tob_text_after: autoDraw = False
+82.6838 	EXP 	tob_slider_after: autoDraw = False
+82.6838 	EXP 	tob_text_after: height = np.float64(0.04)
+82.6838 	EXP 	tob_text_after: height = np.float64(0.04)
+82.6838 	EXP 	tob_text_after: height = np.float64(0.04)
+82.6838 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 16 шкалы веры в паранормальное (Григорьев, 2015)'
+82.6838 	EXP 	tob_slider_after: markerPos = None
+82.6838 	EXP 	tob_slider_after: markerPos = None
+82.6838 	EXP 	tob_text_after: autoDraw = True
+82.6838 	EXP 	tob_slider_after: autoDraw = True
+82.8983 	DATA 	Mouse: Left button down, pos=(696,210)
+82.9170 	EXP 	tob_slider_after: markerPos = np.float64(3.281842818428184)
+82.9275 	EXP 	tob_slider_after: markerPos = np.float64(3.281842818428184)
+82.9381 	EXP 	tob_slider_after: markerPos = np.float64(3.281842818428184)
+82.9483 	EXP 	tob_slider_after: markerPos = np.float64(3.281842818428184)
+82.9589 	EXP 	tob_slider_after: markerPos = np.float64(3.281842818428184)
+82.9725 	EXP 	tob_slider_after: markerPos = np.float64(3.281842818428184)
+82.9819 	EXP 	tob_slider_after: markerPos = np.float64(3.281842818428184)
+82.9867 	DATA 	Mouse:  Left button up, pos=(696,210)
+82.9917 	EXP 	tob_slider_after: markerPos = np.float64(3.281842818428184)
+83.0057 	EXP 	tob_slider_after: markerPos = 3.0
+83.0060 	EXP 	New trial (rep=0, index=16): <Trial 16 (16 in rep 0) data={'item_n': 17, 'text': 'ВСТАВИТЬ пункт 17 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Witch', 'reverse': 0, 'thisN': 16, 'thisTrialN': 16, 'thisRepN': 0}>
+83.0169 	EXP 	tob_text_after: autoDraw = False
+83.0169 	EXP 	tob_slider_after: autoDraw = False
+83.0169 	EXP 	tob_text_after: height = np.float64(0.04)
+83.0169 	EXP 	tob_text_after: height = np.float64(0.04)
+83.0169 	EXP 	tob_text_after: height = np.float64(0.04)
+83.0169 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 17 шкалы веры в паранормальное (Григорьев, 2015)'
+83.0169 	EXP 	tob_slider_after: markerPos = None
+83.0169 	EXP 	tob_slider_after: markerPos = None
+83.0169 	EXP 	tob_text_after: autoDraw = True
+83.0169 	EXP 	tob_slider_after: autoDraw = True
+83.2729 	DATA 	Mouse: Left button down, pos=(895,209)
+83.2823 	EXP 	tob_slider_after: markerPos = np.float64(4.180668473351401)
+83.2920 	EXP 	tob_slider_after: markerPos = np.float64(4.180668473351401)
+83.3057 	EXP 	tob_slider_after: markerPos = np.float64(4.180668473351401)
+83.3150 	EXP 	tob_slider_after: markerPos = np.float64(4.180668473351401)
+83.3248 	EXP 	tob_slider_after: markerPos = np.float64(4.180668473351401)
+83.3391 	EXP 	tob_slider_after: markerPos = np.float64(4.180668473351401)
+83.3481 	EXP 	tob_slider_after: markerPos = np.float64(4.180668473351401)
+83.3578 	EXP 	tob_slider_after: markerPos = np.float64(4.180668473351401)
+83.3723 	EXP 	tob_slider_after: markerPos = np.float64(4.180668473351401)
+83.3811 	EXP 	tob_slider_after: markerPos = np.float64(4.180668473351401)
+83.3858 	DATA 	Mouse:  Left button up, pos=(895,209)
+83.4060 	EXP 	tob_slider_after: markerPos = np.float64(4.180668473351401)
+83.4157 	EXP 	tob_slider_after: markerPos = 4.0
+83.4160 	EXP 	New trial (rep=0, index=17): <Trial 17 (17 in rep 0) data={'item_n': 18, 'text': 'ВСТАВИТЬ пункт 18 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Super', 'reverse': 0, 'thisN': 17, 'thisTrialN': 17, 'thisRepN': 0}>
+83.4270 	EXP 	tob_text_after: autoDraw = False
+83.4270 	EXP 	tob_slider_after: autoDraw = False
+83.4270 	EXP 	tob_text_after: height = np.float64(0.04)
+83.4270 	EXP 	tob_text_after: height = np.float64(0.04)
+83.4270 	EXP 	tob_text_after: height = np.float64(0.04)
+83.4270 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 18 шкалы веры в паранормальное (Григорьев, 2015)'
+83.4270 	EXP 	tob_slider_after: markerPos = None
+83.4270 	EXP 	tob_slider_after: markerPos = None
+83.4270 	EXP 	tob_text_after: autoDraw = True
+83.4270 	EXP 	tob_slider_after: autoDraw = True
+83.6191 	DATA 	Mouse: Left button down, pos=(1068,209)
+83.6390 	EXP 	tob_slider_after: markerPos = np.float64(4.9620596205962055)
+83.6482 	EXP 	tob_slider_after: markerPos = np.float64(4.9620596205962055)
+83.6582 	EXP 	tob_slider_after: markerPos = np.float64(4.9620596205962055)
+83.6723 	EXP 	tob_slider_after: markerPos = np.float64(4.9620596205962055)
+83.6813 	EXP 	tob_slider_after: markerPos = np.float64(4.9620596205962055)
+83.7058 	EXP 	tob_slider_after: markerPos = np.float64(4.9620596205962055)
+83.7153 	EXP 	tob_slider_after: markerPos = np.float64(4.9620596205962055)
+83.7255 	EXP 	tob_slider_after: markerPos = np.float64(4.9620596205962055)
+83.7305 	DATA 	Mouse:  Left button up, pos=(1068,209)
+83.7395 	EXP 	tob_slider_after: markerPos = np.float64(4.9620596205962055)
+83.7495 	EXP 	tob_slider_after: markerPos = 5.0
+83.7498 	EXP 	New trial (rep=0, index=18): <Trial 18 (18 in rep 0) data={'item_n': 19, 'text': 'ВСТАВИТЬ пункт 19 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Spirit', 'reverse': 0, 'thisN': 18, 'thisTrialN': 18, 'thisRepN': 0}>
+83.7617 	EXP 	tob_text_after: autoDraw = False
+83.7617 	EXP 	tob_slider_after: autoDraw = False
+83.7617 	EXP 	tob_text_after: height = np.float64(0.04)
+83.7617 	EXP 	tob_text_after: height = np.float64(0.04)
+83.7617 	EXP 	tob_text_after: height = np.float64(0.04)
+83.7617 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 19 шкалы веры в паранормальное (Григорьев, 2015)'
+83.7617 	EXP 	tob_slider_after: markerPos = None
+83.7617 	EXP 	tob_slider_after: markerPos = None
+83.7617 	EXP 	tob_text_after: autoDraw = True
+83.7617 	EXP 	tob_slider_after: autoDraw = True
+83.9733 	DATA 	Mouse: Left button down, pos=(1259,208)
+83.9830 	EXP 	tob_slider_after: markerPos = np.float64(5.824751580849142)
+83.9930 	EXP 	tob_slider_after: markerPos = np.float64(5.824751580849142)
+84.0059 	EXP 	tob_slider_after: markerPos = np.float64(5.824751580849142)
+84.0167 	EXP 	tob_slider_after: markerPos = np.float64(5.824751580849142)
+84.0268 	EXP 	tob_slider_after: markerPos = np.float64(5.824751580849142)
+84.0401 	EXP 	tob_slider_after: markerPos = np.float64(5.824751580849142)
+84.0503 	EXP 	tob_slider_after: markerPos = np.float64(5.824751580849142)
+84.0607 	EXP 	tob_slider_after: markerPos = np.float64(5.824751580849142)
+84.0724 	EXP 	tob_slider_after: markerPos = np.float64(5.824751580849142)
+84.0775 	DATA 	Mouse:  Left button up, pos=(1259,208)
+84.0829 	EXP 	tob_slider_after: markerPos = np.float64(5.824751580849142)
+84.0924 	EXP 	tob_slider_after: markerPos = 6.0
+84.0927 	EXP 	New trial (rep=0, index=19): <Trial 19 (19 in rep 0) data={'item_n': 20, 'text': 'ВСТАВИТЬ пункт 20 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'ELF', 'reverse': 0, 'thisN': 19, 'thisTrialN': 19, 'thisRepN': 0}>
+84.1046 	EXP 	tob_text_after: autoDraw = False
+84.1046 	EXP 	tob_slider_after: autoDraw = False
+84.1046 	EXP 	tob_text_after: height = np.float64(0.04)
+84.1046 	EXP 	tob_text_after: height = np.float64(0.04)
+84.1046 	EXP 	tob_text_after: height = np.float64(0.04)
+84.1046 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 20 шкалы веры в паранормальное (Григорьев, 2015)'
+84.1046 	EXP 	tob_slider_after: markerPos = None
+84.1046 	EXP 	tob_slider_after: markerPos = None
+84.1046 	EXP 	tob_text_after: autoDraw = True
+84.1046 	EXP 	tob_slider_after: autoDraw = True
+84.2727 	DATA 	Mouse: Left button down, pos=(1456,224)
+84.2812 	EXP 	tob_slider_after: markerPos = np.float64(6.714543812104788)
+84.2899 	EXP 	tob_slider_after: markerPos = np.float64(6.714543812104788)
+84.2984 	EXP 	tob_slider_after: markerPos = np.float64(6.714543812104788)
+84.3222 	EXP 	tob_slider_after: markerPos = np.float64(6.714543812104788)
+84.3306 	EXP 	tob_slider_after: markerPos = np.float64(6.714543812104788)
+84.3401 	EXP 	tob_slider_after: markerPos = np.float64(6.714543812104788)
+84.3490 	EXP 	tob_slider_after: markerPos = np.float64(6.714543812104788)
+84.3585 	EXP 	tob_slider_after: markerPos = np.float64(6.714543812104788)
+84.3723 	EXP 	tob_slider_after: markerPos = np.float64(6.714543812104788)
+84.3726 	DATA 	Mouse:  Left button up, pos=(1456,224)
+84.3815 	EXP 	tob_slider_after: markerPos = 7.0
+84.3818 	EXP 	New trial (rep=0, index=20): <Trial 20 (20 in rep 0) data={'item_n': 21, 'text': 'ВСТАВИТЬ пункт 21 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Precog', 'reverse': 0, 'thisN': 20, 'thisTrialN': 20, 'thisRepN': 0}>
+84.3922 	EXP 	tob_text_after: autoDraw = False
+84.3922 	EXP 	tob_slider_after: autoDraw = False
+84.3922 	EXP 	tob_text_after: height = np.float64(0.04)
+84.3922 	EXP 	tob_text_after: height = np.float64(0.04)
+84.3922 	EXP 	tob_text_after: height = np.float64(0.04)
+84.3922 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 21 шкалы веры в паранормальное (Григорьев, 2015)'
+84.3922 	EXP 	tob_slider_after: markerPos = None
+84.3922 	EXP 	tob_slider_after: markerPos = None
+84.3922 	EXP 	tob_text_after: autoDraw = True
+84.3922 	EXP 	tob_slider_after: autoDraw = True
+84.6603 	DATA 	Mouse: Left button down, pos=(969,215)
+84.6889 	EXP 	tob_slider_after: markerPos = np.float64(4.51490514905149)
+84.6973 	EXP 	tob_slider_after: markerPos = np.float64(4.51490514905149)
+84.7066 	EXP 	tob_slider_after: markerPos = np.float64(4.51490514905149)
+84.7161 	EXP 	tob_slider_after: markerPos = np.float64(4.51490514905149)
+84.7248 	EXP 	tob_slider_after: markerPos = np.float64(4.51490514905149)
+84.7390 	EXP 	tob_slider_after: markerPos = np.float64(4.51490514905149)
+84.7488 	EXP 	tob_slider_after: markerPos = np.float64(4.51490514905149)
+84.7589 	EXP 	tob_slider_after: markerPos = np.float64(4.51490514905149)
+84.7592 	DATA 	Mouse:  Left button up, pos=(969,215)
+84.7725 	EXP 	tob_slider_after: markerPos = 5.0
+84.7728 	EXP 	New trial (rep=0, index=21): <Trial 21 (21 in rep 0) data={'item_n': 22, 'text': 'ВСТАВИТЬ пункт 22 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'TRB', 'reverse': 0, 'thisN': 21, 'thisTrialN': 21, 'thisRepN': 0}>
+84.7835 	EXP 	tob_text_after: autoDraw = False
+84.7835 	EXP 	tob_slider_after: autoDraw = False
+84.7835 	EXP 	tob_text_after: height = np.float64(0.04)
+84.7835 	EXP 	tob_text_after: height = np.float64(0.04)
+84.7835 	EXP 	tob_text_after: height = np.float64(0.04)
+84.7835 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 22 шкалы веры в паранормальное (Григорьев, 2015)'
+84.7835 	EXP 	tob_slider_after: markerPos = None
+84.7835 	EXP 	tob_slider_after: markerPos = None
+84.7835 	EXP 	tob_text_after: autoDraw = True
+84.7835 	EXP 	tob_slider_after: autoDraw = True
+85.0164 	DATA 	Mouse: Left button down, pos=(807,194)
+85.0256 	EXP 	tob_slider_after: markerPos = np.float64(3.7831978319783195)
+85.0396 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.0494 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.0589 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.0728 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.0822 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.0922 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.1058 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.1061 	DATA 	Mouse:  Left button up, pos=(806,194)
+85.1151 	EXP 	tob_slider_after: markerPos = 4.0
+85.1154 	EXP 	New trial (rep=0, index=22): <Trial 22 (22 in rep 0) data={'item_n': 23, 'text': 'ВСТАВИТЬ пункт 23 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Psi', 'reverse': 1, 'thisN': 22, 'thisTrialN': 22, 'thisRepN': 0}>
+85.1257 	EXP 	tob_text_after: autoDraw = False
+85.1257 	EXP 	tob_slider_after: autoDraw = False
+85.1257 	EXP 	tob_text_after: height = np.float64(0.04)
+85.1257 	EXP 	tob_text_after: height = np.float64(0.04)
+85.1257 	EXP 	tob_text_after: height = np.float64(0.04)
+85.1257 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 23 шкалы веры в паранормальное (Григорьев, 2015)'
+85.1257 	EXP 	tob_slider_after: markerPos = None
+85.1257 	EXP 	tob_slider_after: markerPos = None
+85.1257 	EXP 	tob_text_after: autoDraw = True
+85.1257 	EXP 	tob_slider_after: autoDraw = True
+85.2023 	DATA 	Mouse: Left button down, pos=(806,194)
+85.2330 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.2426 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.2554 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.2658 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.2765 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.2768 	DATA 	Mouse:  Left button up, pos=(806,194)
+85.2893 	EXP 	tob_slider_after: markerPos = 4.0
+85.2896 	EXP 	New trial (rep=0, index=23): <Trial 23 (23 in rep 0) data={'item_n': 24, 'text': 'ВСТАВИТЬ пункт 24 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Witch', 'reverse': 0, 'thisN': 23, 'thisTrialN': 23, 'thisRepN': 0}>
+85.3012 	EXP 	tob_text_after: autoDraw = False
+85.3012 	EXP 	tob_slider_after: autoDraw = False
+85.3012 	EXP 	tob_text_after: height = np.float64(0.04)
+85.3012 	EXP 	tob_text_after: height = np.float64(0.04)
+85.3012 	EXP 	tob_text_after: height = np.float64(0.04)
+85.3012 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 24 шкалы веры в паранормальное (Григорьев, 2015)'
+85.3012 	EXP 	tob_slider_after: markerPos = None
+85.3012 	EXP 	tob_slider_after: markerPos = None
+85.3012 	EXP 	tob_text_after: autoDraw = True
+85.3012 	EXP 	tob_slider_after: autoDraw = True
+85.3564 	DATA 	Mouse: Left button down, pos=(806,194)
+85.3665 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.3764 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.3887 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.3986 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.4091 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.4230 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.4278 	DATA 	Mouse:  Left button up, pos=(806,194)
+85.4326 	EXP 	tob_slider_after: markerPos = np.float64(3.778681120144535)
+85.4422 	EXP 	tob_slider_after: markerPos = 4.0
+85.4425 	EXP 	New trial (rep=0, index=24): <Trial 24 (24 in rep 0) data={'item_n': 25, 'text': 'ВСТАВИТЬ пункт 25 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Spirit', 'reverse': 0, 'thisN': 24, 'thisTrialN': 24, 'thisRepN': 0}>
+85.4546 	EXP 	tob_text_after: autoDraw = False
+85.4546 	EXP 	tob_slider_after: autoDraw = False
+85.4546 	EXP 	tob_text_after: height = np.float64(0.04)
+85.4546 	EXP 	tob_text_after: height = np.float64(0.04)
+85.4546 	EXP 	tob_text_after: height = np.float64(0.04)
+85.4546 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 25 шкалы веры в паранормальное (Григорьев, 2015)'
+85.4546 	EXP 	tob_slider_after: markerPos = None
+85.4546 	EXP 	tob_slider_after: markerPos = None
+85.4546 	EXP 	tob_text_after: autoDraw = True
+85.4546 	EXP 	tob_slider_after: autoDraw = True
+85.5176 	DATA 	Mouse: Left button down, pos=(807,194)
+85.5313 	EXP 	tob_slider_after: markerPos = np.float64(3.7831978319783195)
+85.5555 	EXP 	tob_slider_after: markerPos = np.float64(3.7831978319783195)
+85.5644 	EXP 	tob_slider_after: markerPos = np.float64(3.7831978319783195)
+85.5892 	EXP 	tob_slider_after: markerPos = np.float64(3.7831978319783195)
+85.5951 	DATA 	Mouse:  Left button up, pos=(808,194)
+85.5997 	EXP 	tob_slider_after: markerPos = np.float64(3.787714543812105)
+85.6093 	EXP 	tob_slider_after: markerPos = 4.0
+85.6096 	EXP 	New trial (rep=0, index=25): <Trial 25 (25 in rep 0) data={'item_n': 26, 'text': 'ВСТАВИТЬ пункт 26 шкалы веры в паранормальное (Григорьев, 2015)', 'subscale': 'Precog', 'reverse': 0, 'thisN': 25, 'thisTrialN': 25, 'thisRepN': 0}>
+85.6222 	EXP 	tob_text_after: autoDraw = False
+85.6222 	EXP 	tob_slider_after: autoDraw = False
+85.6222 	EXP 	tob_text_after: height = np.float64(0.04)
+85.6222 	EXP 	tob_text_after: height = np.float64(0.04)
+85.6222 	EXP 	tob_text_after: height = np.float64(0.04)
+85.6222 	EXP 	tob_text_after: text = 'ВСТАВИТЬ пункт 26 шкалы веры в паранормальное (Григорьев, 2015)'
+85.6222 	EXP 	tob_slider_after: markerPos = None
+85.6222 	EXP 	tob_slider_after: markerPos = None
+85.6222 	EXP 	tob_text_after: autoDraw = True
+85.6222 	EXP 	tob_slider_after: autoDraw = True
+85.6804 	DATA 	Mouse: Left button down, pos=(814,195)
+85.6994 	EXP 	tob_slider_after: markerPos = np.float64(3.8193315266485994)
+85.7087 	EXP 	tob_slider_after: markerPos = np.float64(3.823848238482385)
+85.7224 	EXP 	tob_slider_after: markerPos = np.float64(3.823848238482385)
+85.7320 	EXP 	tob_slider_after: markerPos = np.float64(3.8283649503161694)
+85.7418 	EXP 	tob_slider_after: markerPos = np.float64(3.8283649503161694)
+85.7556 	EXP 	tob_slider_after: markerPos = np.float64(3.8283649503161694)
+85.7647 	EXP 	tob_slider_after: markerPos = np.float64(3.8283649503161694)
+85.7743 	EXP 	tob_slider_after: markerPos = np.float64(3.8283649503161694)
+85.7888 	EXP 	tob_slider_after: markerPos = np.float64(3.8283649503161694)
+85.7891 	DATA 	Mouse:  Left button up, pos=(817,196)
+85.7978 	EXP 	tob_slider_after: markerPos = 4.0
+85.8085 	EXP 	tob_text_after: autoDraw = False
+85.8085 	EXP 	tob_slider_after: autoDraw = False
+85.8085 	EXP 	susp_text: autoDraw = True
+85.8085 	EXP 	susp_box: autoDraw = True
+85.8621 	DATA 	Mouse: Left button down, pos=(817,196)
+85.8722 	INFO 	Keyboard events cleared
+85.8722 	EXP 	susp_text: autoDraw = False
+85.8722 	EXP 	susp_box: autoDraw = False
+85.8722 	EXP 	thanks_text: autoDraw = True
+85.9466 	DATA 	Mouse:  Left button up, pos=(817,196)
+96.6102 	DATA 	Mouse: Left button down, pos=(816,299)
+96.7448 	DATA 	Mouse:  Left button up, pos=(816,299)
+97.2861 	EXP 	Device response: <KeyPress from None: t=97.2765163749973, value=space, duration=None>
+97.2911 	DATA 	Keypress: space
+97.2982 	EXP 	thanks_text: autoDraw = False
+97.2984 	EXP 	magic_vkr: status = STOPPED
+97.3184 	INFO 	saved data to '/Users/arinasevruk/Desktop/Магия/ВКР_эксперимент_PsychoPy/data/44_magic_vkr_2026-09-11_21h25.25.009.csv'
+97.3195 	INFO 	saved data to /Users/arinasevruk/Desktop/Магия/ВКР_эксперимент_PsychoPy/data/44_magic_vkr_2026-09-11_21h25.25.009.psydat
+97.4418 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.
+97.4419 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.
+97.4419 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.
+97.4419 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.
+97.4419 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.

@@ -1,0 +1,781 @@
+1.5727 	WARNING 	Requested audio device 'LG HDR QHD' that is not available on this hardware. The 'audioDevice' preference should be one of ['HG638J47', 'ZoomAudioDevice', 'Динамики MacBook Air']
+9.5058 	WARNING 	Font Manager failed to load file /System/Library/PrivateFrameworks/FontServices.framework/Resources/Reserved/PingFangUI.ttc
+9.5577 	WARNING 	Font Manager failed to load file /System/Library/PrivateFrameworks/FontServices.framework/Resources/Reserved/PingFangUI.ttc
+13.0178 	INFO 	Loaded monitor calibration from ['2025_10_28 18:09']
+13.0268 	WARNING 	User requested fullscreen with size [1024  768], but screen is actually [1710, 1107]. Using actual size
+13.1374 	INFO 	Using renderer 'Apple M4' for graphics
+13.1374 	INFO 	OpenGL version supported by driver is 2..
+13.1601 	EXP 	Created window1 = Window(allowGUI=True, allowStencil=True, autoLog=True, backendConf=UNKNOWN, backgroundFit=<method-wrapper '__getattribute__' of attributeSetter object at 0x15bbdf460>, backgroundImage=<method-wrapper '__getattribute__' of attributeSetter object at 0x15bbdf4c0>, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.2314, -0.2314, -0.2314]), colorSpace='rgb', depthBits=8, fullscr=True, gamma=None, gammaErrorPolicy='raise', infoMsg=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x15bc32a40>, multiSample=False, name='window1', numSamples=2, pos=[np.float64(0.0), np.float64(0.0)], screen=0, size=array([3420, 2214]), stencilBits=8, stereo=False, title='PsychoPy', units='height', useFBO=True, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+13.1601 	EXP 	window1: backgroundImage = ''
+13.1602 	EXP 	window1: backgroundFit = 'none'
+13.4353 	EXP 	window1: Attempting to measure frame rate of screen (0) ...
+13.4353 	EXP 	window1: recordFrameIntervals = False
+13.6048 	EXP 	window1: recordFrameIntervals = True
+13.7225 	WARNING 	t of last frame was 26.40ms (=1/37)
+14.1880 	WARNING 	t of last frame was 26.95ms (=1/37)
+14.2535 	WARNING 	t of last frame was 24.94ms (=1/40)
+14.5217 	WARNING 	t of last frame was 26.22ms (=1/38)
+14.6581 	WARNING 	Couldn't measure a consistent frame rate!
+  - Is your graphics card set to sync to vertical blank?
+  - Are you running other processes on your computer?
+
+15.2850 	INFO 	keyboard.Keyboard is using ptb backend.
+15.4532 	INFO 	keyboard.Keyboard is using ptb backend.
+15.6213 	INFO 	keyboard.Keyboard is using ptb backend.
+15.7891 	INFO 	keyboard.Keyboard is using ptb backend.
+15.9565 	INFO 	keyboard.Keyboard is using ptb backend.
+16.1240 	INFO 	keyboard.Keyboard is using ptb backend.
+16.1240 	EXP 	magic_vkr: status = STARTED
+16.1542 	EXP 	Created welcome_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.035), italic=False, languageStyle='LTR', name='welcome_text', opacity=1, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+16.1584 	EXP 	Created debug_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.04), italic=False, languageStyle='LTR', name='debug_text', opacity=1, ori=0.0, pos=array([0. , 0.3]), rgb=UNKNOWN, text='Отладка. Выберите группу для прохождения.', units='height', win=Window(...), wrapWidth=1.4)
+16.1657 	EXP 	Created debug_hint = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.028), italic=False, languageStyle='LTR', name='debug_hint', opacity=1, ori=0.0, pos=array([0.  , 0.17]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+16.2131 	EXP 	Created setup_blank = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.035), italic=False, languageStyle='LTR', name='setup_blank', opacity=1, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text='', units='height', win=Window(...), wrapWidth=1.4)
+16.2576 	EXP 	Created tob_text_before = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.04, italic=False, languageStyle='LTR', name='tob_text_before', opacity=1, ori=0.0, pos=array([0. , 0.2]), rgb=UNKNOWN, text='', units='height', win=Window(...), wrapWidth=1.3)
+16.3506 	EXP 	Created tob_slider_before = Slider(__class__=<class 'psychopy.visual.slider.Slider'>, autoDraw=False, autoLog=True, borderColor=None, color=None, colorSpace='rgb', depth=-1, fillColor=None, flip=False, font='Arial', granularity=1.0, labelColor=None, labelHeight=np.float64(0.025), labelWrapWidth=None, labels=list(...), lineColor=None, markerColor=None, name='tob_slider_before', opacity=None, ori=0.0, pos=array([ 0.  , -0.12]), readOnly=True, self=UNKNOWN, size=array([1.3 , 0.06]), startValue=None, style='rating', styleTweaks=[], ticks=array([1, 2, 3, 4, 5, 6, 7]), units='height', win=Window(...))
+16.3571 	EXP 	Created tob_hint_before = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([0.65490196, 0.65490196, 0.65490196]), colorSpace='rgb', contrast=1.0, depth=-2.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.026), italic=False, languageStyle='LTR', name='tob_hint_before', opacity=1, ori=0.0, pos=array([ 0. , -0.4]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+16.3575 	EXP 	Created choice_instr_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.036, italic=False, languageStyle='LTR', name='choice_instr_text', opacity=1, ori=0.0, pos=array([0.  , 0.05]), rgb=UNKNOWN, text='', units='height', win=Window(...), wrapWidth=1.3)
+16.3606 	EXP 	Created choice_head = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.045), italic=False, languageStyle='LTR', name='choice_head', opacity=1, ori=0.0, pos=array([0.  , 0.25]), rgb=UNKNOWN, text='Ваш выбор', units='height', win=Window(...), wrapWidth=1.4)
+16.3875 	EXP 	Created choice_keys = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([0.65490196, 0.65490196, 0.65490196]), colorSpace='rgb', contrast=1.0, depth=-4.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.028), italic=False, languageStyle='LTR', name='choice_keys', opacity=1, ori=0.0, pos=array([ 0.  , -0.12]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+16.3931 	EXP 	Created choice_hint = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([0.65490196, 0.65490196, 0.65490196]), colorSpace='rgb', contrast=1.0, depth=-5.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.028), italic=False, languageStyle='LTR', name='choice_hint', opacity=1, ori=0.0, pos=array([ 0. , -0.3]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+16.4022 	EXP 	Created effort_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.032), italic=False, languageStyle='LTR', name='effort_text', opacity=1, ori=0.0, pos=array([0. , 0.3]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.3)
+16.4365 	EXP 	Created rating_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.035), italic=False, languageStyle='LTR', name='rating_text', opacity=1, ori=0.0, pos=array([0.  , 0.38]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.3)
+16.4402 	EXP 	Created lbl_imp = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.030000000000000002), italic=False, languageStyle='LTR', name='lbl_imp', opacity=1, ori=0.0, pos=array([0.  , 0.22]), rgb=UNKNOWN, text='Насколько это событие для вас важно?', units='height', win=Window(...), wrapWidth=1.4)
+16.4631 	EXP 	Created importance = Slider(__class__=<class 'psychopy.visual.slider.Slider'>, autoDraw=False, autoLog=True, borderColor=None, color=None, colorSpace='rgb', depth=-2, fillColor=None, flip=False, font='Arial', granularity=1.0, labelColor=None, labelHeight=np.float64(0.025), labelWrapWidth=None, labels=['совсем не важно', 'крайне важно'], lineColor=None, markerColor=None, name='importance', opacity=None, ori=0.0, pos=array([0. , 0.1]), readOnly=False, self=UNKNOWN, size=array([1.  , 0.05]), startValue=50, style='slider', styleTweaks=[], ticks=array([  0, 100]), units='height', win=Window(...))
+16.4657 	EXP 	Created lbl_ctrl = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-3.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.030000000000000002), italic=False, languageStyle='LTR', name='lbl_ctrl', opacity=1, ori=0.0, pos=array([ 0.  , -0.08]), rgb=UNKNOWN, text='Насколько его исход зависит от вас самих?', units='height', win=Window(...), wrapWidth=1.4)
+16.4879 	EXP 	Created control = Slider(__class__=<class 'psychopy.visual.slider.Slider'>, autoDraw=False, autoLog=True, borderColor=None, color=None, colorSpace='rgb', depth=-4, fillColor=None, flip=False, font='Arial', granularity=1.0, labelColor=None, labelHeight=np.float64(0.025), labelWrapWidth=None, labels=['совсем не зависит', 'полностью зависит'], lineColor=None, markerColor=None, name='control', opacity=None, ori=0.0, pos=array([ 0. , -0.2]), readOnly=False, self=UNKNOWN, size=array([1.  , 0.05]), startValue=50, style='slider', styleTweaks=[], ticks=array([  0, 100]), units='height', win=Window(...))
+16.4993 	EXP 	Created tob_text_after = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.04, italic=False, languageStyle='LTR', name='tob_text_after', opacity=1, ori=0.0, pos=array([0. , 0.2]), rgb=UNKNOWN, text='', units='height', win=Window(...), wrapWidth=1.3)
+16.5475 	EXP 	Created tob_slider_after = Slider(__class__=<class 'psychopy.visual.slider.Slider'>, autoDraw=False, autoLog=True, borderColor=None, color=None, colorSpace='rgb', depth=-1, fillColor=None, flip=False, font='Arial', granularity=1.0, labelColor=None, labelHeight=np.float64(0.025), labelWrapWidth=None, labels=list(...), lineColor=None, markerColor=None, name='tob_slider_after', opacity=None, ori=0.0, pos=array([ 0.  , -0.12]), readOnly=True, self=UNKNOWN, size=array([1.3 , 0.06]), startValue=None, style='rating', styleTweaks=[], ticks=array([1, 2, 3, 4, 5, 6, 7]), units='height', win=Window(...))
+16.5523 	EXP 	Created tob_hint_after = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([0.65490196, 0.65490196, 0.65490196]), colorSpace='rgb', contrast=1.0, depth=-2.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.026), italic=False, languageStyle='LTR', name='tob_hint_after', opacity=1, ori=0.0, pos=array([ 0. , -0.4]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+16.5600 	EXP 	Created susp_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.032), italic=False, languageStyle='LTR', name='susp_text', opacity=1, ori=0.0, pos=array([0. , 0.3]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.3)
+16.5867 	EXP 	Created row_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.032), italic=False, languageStyle='LTR', name='row_text', opacity=1, ori=0.0, pos=array([0.  , 0.25]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.3)
+16.6100 	EXP 	Created thanks_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.035), italic=False, languageStyle='LTR', name='thanks_text', opacity=1, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+0.0113 	EXP 	tob_instr_text_before: autoLog = True
+0.0113 	EXP 	tob_slider_before: autoLog = True
+0.0113 	EXP 	tob_slider_before: styleTweaks = []
+0.0113 	EXP 	tob_slider_before: styleTweaks = []
+0.0113 	EXP 	tob_slider_before: styleTweaks = []
+0.0113 	EXP 	tob_slider_before: styleTweaks = []
+0.0113 	EXP 	tob_slider_before: contrast = 1.0
+0.0113 	EXP 	tob_slider_before: markerPos = None
+0.0113 	EXP 	tob_slider_before: autoLog = True
+0.0113 	EXP 	effort_box: autoLog = True
+0.0113 	EXP 	importance: autoLog = True
+0.0113 	EXP 	importance: styleTweaks = []
+0.0113 	EXP 	importance: styleTweaks = []
+0.0113 	EXP 	importance: styleTweaks = []
+0.0113 	EXP 	importance: styleTweaks = []
+0.0113 	EXP 	importance: contrast = 1.0
+0.0113 	EXP 	importance: markerPos = 50
+0.0113 	EXP 	importance: autoLog = True
+0.0113 	EXP 	control: autoLog = True
+0.0113 	EXP 	control: styleTweaks = []
+0.0113 	EXP 	control: styleTweaks = []
+0.0113 	EXP 	control: styleTweaks = []
+0.0113 	EXP 	control: styleTweaks = []
+0.0113 	EXP 	control: contrast = 1.0
+0.0113 	EXP 	control: markerPos = 50
+0.0113 	EXP 	control: autoLog = True
+0.0113 	EXP 	tob_instr_text_after: autoLog = True
+0.0113 	EXP 	tob_slider_after: autoLog = True
+0.0113 	EXP 	tob_slider_after: styleTweaks = []
+0.0113 	EXP 	tob_slider_after: styleTweaks = []
+0.0113 	EXP 	tob_slider_after: styleTweaks = []
+0.0113 	EXP 	tob_slider_after: styleTweaks = []
+0.0113 	EXP 	tob_slider_after: contrast = 1.0
+0.0113 	EXP 	tob_slider_after: markerPos = None
+0.0113 	EXP 	tob_slider_after: autoLog = True
+0.0113 	EXP 	susp_box: autoLog = True
+0.0113 	EXP 	row_box: autoLog = True
+0.0214 	INFO 	Keyboard events cleared
+0.0214 	EXP 	welcome_text: autoDraw = True
+0.2777 	WARNING 	Multiple dropped frames have occurred - I'll stop bothering you about them!
+1.9339 	EXP 	Device response: <KeyPress from None: t=1.7766317919995345, value=space, duration=None>
+1.9341 	EXP 	Device response: <KeyPress from None: t=1.7766317919995345, value=space, duration=0.13027145799787831>
+1.9377 	DATA 	Keypress: space
+1.9440 	EXP 	welcome_text: autoDraw = False
+1.9440 	EXP 	setup_blank: autoDraw = True
+2.0503 	INFO 	Keyboard events cleared
+2.0503 	EXP 	setup_blank: autoDraw = False
+2.0503 	EXP 	setup_blank: autoDraw = False
+2.0503 	EXP 	choice_instr_text: height = np.float64(0.036)
+2.0503 	EXP 	choice_instr_text: height = np.float64(0.036)
+2.0503 	EXP 	choice_instr_text: height = np.float64(0.036)
+2.0503 	EXP 	choice_instr_text: text = 'В качестве бонуса за участие вы можете нажать на кнопку «Магия» и тем самым повысить вероятность того, что какое-то важное для вас приятное событие произойдёт в ближайшее время. Для этого нужно будет напечатать букву М не менее 30 раз, чем больше, тем выше вероятность события. Либо нажмите на кнопку «Пропустить» и перейдите к следующему этапу.\n\nВыбрать можно ЛИБО мышью, нажав на кнопку, ЛИБО клавишей ВЛЕВО (Магия) или ВПРАВО (Пропустить).\n\nНажмите пробел, чтобы перейти к выбору.'
+2.0503 	EXP 	choice_instr_text: autoDraw = True
+5.9564 	EXP 	Device response: <KeyPress from None: t=5.946946000000025, value=space, duration=None>
+5.9594 	DATA 	Keypress: space
+5.9917 	EXP 	choice_instr_text: autoDraw = False
+5.9917 	EXP 	choice_head: autoDraw = True
+5.9917 	EXP 	choice_keys: autoDraw = True
+5.9917 	EXP 	choice_hint: autoDraw = True
+6.0368 	EXP 	Device response: <KeyPress from None: t=5.946946000000025, value=space, duration=0.08222954200027743>
+7.6452 	DATA 	Mouse: Left button down, pos=(582,529)
+7.7311 	DATA 	Mouse:  Left button up, pos=(582,529)
+8.0155 	EXP 	New trial (rep=0, index=0): <Trial 0 (0 in rep 0) data={'thisN': 0, 'thisTrialN': 0, 'thisRepN': 0}>
+8.0246 	EXP 	choice_head: autoDraw = False
+8.0246 	EXP 	choice_keys: autoDraw = False
+8.0246 	EXP 	choice_hint: autoDraw = False
+8.0246 	EXP 	effort_text: autoDraw = True
+8.0246 	EXP 	effort_box: autoDraw = True
+9.7652 	DATA 	Mouse: Left button down, pos=(804,126)
+9.7847 	EXP 	effort_text: autoDraw = False
+9.7847 	EXP 	effort_box: autoDraw = False
+9.7847 	EXP 	importance: markerPos = None
+9.7847 	EXP 	importance: markerPos = 50
+9.7847 	EXP 	control: markerPos = None
+9.7847 	EXP 	control: markerPos = 50
+9.7847 	EXP 	rating_text: autoDraw = True
+9.7847 	EXP 	lbl_imp: autoDraw = True
+9.7847 	EXP 	importance: autoDraw = True
+9.7847 	EXP 	lbl_ctrl: autoDraw = True
+9.7847 	EXP 	control: autoDraw = True
+9.8462 	DATA 	Mouse:  Left button up, pos=(804,126)
+11.0758 	DATA 	Mouse: Left button down, pos=(1013,683)
+11.0856 	EXP 	importance: markerPos = np.float64(64.27280939476061)
+11.0941 	EXP 	importance: markerPos = np.float64(64.27280939476061)
+11.1082 	EXP 	importance: markerPos = np.float64(64.27280939476061)
+11.1178 	EXP 	importance: markerPos = np.float64(64.27280939476061)
+11.1265 	EXP 	importance: markerPos = np.float64(64.27280939476061)
+11.1417 	EXP 	importance: markerPos = np.float64(64.27280939476061)
+11.1512 	EXP 	importance: markerPos = np.float64(64.27280939476061)
+11.1602 	EXP 	importance: markerPos = np.float64(64.27280939476061)
+11.1604 	DATA 	Mouse:  Left button up, pos=(1013,683)
+11.1750 	EXP 	importance: markerPos = 64.0
+11.6307 	DATA 	Mouse: Left button down, pos=(1084,320)
+11.6419 	EXP 	control: markerPos = np.float64(70.68654019873533)
+11.6525 	EXP 	control: markerPos = np.float64(70.68654019873533)
+11.6619 	EXP 	control: markerPos = np.float64(70.68654019873533)
+11.6744 	EXP 	control: markerPos = np.float64(70.68654019873533)
+11.6843 	EXP 	control: markerPos = np.float64(70.68654019873533)
+11.6934 	EXP 	control: markerPos = np.float64(70.68654019873533)
+11.7086 	EXP 	control: markerPos = np.float64(70.68654019873533)
+11.7181 	EXP 	control: markerPos = np.float64(70.68654019873533)
+11.7276 	EXP 	control: markerPos = np.float64(70.68654019873533)
+11.7278 	DATA 	Mouse:  Left button up, pos=(1084,320)
+11.7417 	EXP 	control: markerPos = 71.0
+12.2612 	DATA 	Mouse: Left button down, pos=(897,101)
+12.2757 	EXP 	New trial (rep=0, index=0): <Trial 0 (0 in rep 0) data={'thisN': 0, 'thisTrialN': 0, 'thisRepN': 0}>
+12.2841 	INFO 	Keyboard events cleared
+12.2841 	EXP 	rating_text: autoDraw = False
+12.2841 	EXP 	lbl_imp: autoDraw = False
+12.2841 	EXP 	importance: autoDraw = False
+12.2841 	EXP 	lbl_ctrl: autoDraw = False
+12.2841 	EXP 	control: autoDraw = False
+12.2841 	EXP 	tob_instr_text_after: autoDraw = True
+12.3429 	DATA 	Mouse:  Left button up, pos=(896,101)
+13.1808 	EXP 	Device response: <KeyPress from None: t=13.169598000000406, value=space, duration=None>
+13.1942 	EXP 	Imported tobacyk.xlsx as conditions, 26 conditions, 4 params
+13.1947 	EXP 	New trial (rep=0, index=0): <Trial 0 (0 in rep 0) data={'item_n': 1, 'text': 'Несмотря на то, что тело может умереть, душа продолжает существовать', 'subscale': 'TRB', 'reverse': 0, 'thisN': 0, 'thisTrialN': 0, 'thisRepN': 0}>
+13.2070 	DATA 	Keypress: space
+13.2307 	EXP 	tob_instr_text_after: autoDraw = False
+13.2307 	EXP 	tob_text_after: height = np.float64(0.04)
+13.2307 	EXP 	tob_text_after: height = np.float64(0.04)
+13.2307 	EXP 	tob_text_after: height = np.float64(0.04)
+13.2307 	EXP 	tob_text_after: text = 'Несмотря на то, что тело может умереть, душа продолжает существовать'
+13.2307 	EXP 	tob_slider_after: markerPos = None
+13.2307 	EXP 	tob_slider_after: markerPos = None
+13.2307 	EXP 	tob_text_after: autoDraw = True
+13.2307 	EXP 	tob_slider_after: autoDraw = True
+13.2307 	EXP 	tob_hint_after: autoDraw = True
+13.2558 	EXP 	Device response: <KeyPress from None: t=13.169598000000406, value=space, duration=0.07823845799794071>
+13.9125 	DATA 	Mouse: Left button down, pos=(408,399)
+14.0090 	DATA 	Mouse:  Left button up, pos=(408,399)
+14.2884 	DATA 	Mouse: Left button down, pos=(362,419)
+14.3845 	DATA 	Mouse:  Left button up, pos=(362,419)
+14.6549 	DATA 	Mouse: Left button down, pos=(383,420)
+14.7421 	DATA 	Mouse:  Left button up, pos=(383,420)
+15.4235 	DATA 	Keypress: 1
+15.4339 	EXP 	Device response: <KeyPress from None: t=15.38648083299995, value=1, duration=None>
+15.4471 	EXP 	tob_slider_after: markerPos = 1
+15.4672 	DATA 	Keypress: space
+15.4679 	EXP 	Device response: <KeyPress from None: t=15.462481582999317, value=space, duration=None>
+15.4682 	EXP 	New trial (rep=0, index=1): <Trial 1 (1 in rep 0) data={'item_n': 2, 'text': 'Некоторые люди способны левитировать (поднимать) объекты силой мысли', 'subscale': 'Psi', 'reverse': 0, 'thisN': 1, 'thisTrialN': 1, 'thisRepN': 0}>
+15.4809 	EXP 	tob_slider_after: markerPos = 1
+15.4809 	EXP 	tob_text_after: autoDraw = False
+15.4809 	EXP 	tob_slider_after: autoDraw = False
+15.4809 	EXP 	tob_hint_after: autoDraw = False
+15.4809 	EXP 	tob_text_after: height = np.float64(0.04)
+15.4809 	EXP 	tob_text_after: height = np.float64(0.04)
+15.4809 	EXP 	tob_text_after: height = np.float64(0.04)
+15.4809 	EXP 	tob_text_after: text = 'Некоторые люди способны левитировать (поднимать) объекты силой мысли'
+15.4809 	EXP 	tob_slider_after: markerPos = None
+15.4809 	EXP 	tob_slider_after: markerPos = None
+15.4809 	EXP 	tob_text_after: autoDraw = True
+15.4809 	EXP 	tob_slider_after: autoDraw = True
+15.4809 	EXP 	tob_hint_after: autoDraw = True
+15.5100 	EXP 	Device response: <KeyPress from None: t=15.38648083299995, value=1, duration=0.11598533399956068>
+15.5933 	EXP 	Device response: <KeyPress from None: t=15.462481582999317, value=space, duration=0.1279932090001239>
+15.6091 	DATA 	Keypress: 1
+15.6097 	EXP 	Device response: <KeyPress from None: t=15.602465083000425, value=1, duration=None>
+15.6190 	EXP 	tob_slider_after: markerPos = 1
+15.6423 	DATA 	Keypress: space
+15.6429 	EXP 	Device response: <KeyPress from None: t=15.634474250000494, value=space, duration=None>
+15.6432 	EXP 	New trial (rep=0, index=2): <Trial 2 (2 in rep 0) data={'item_n': 3, 'text': 'Черная магия реально существует', 'subscale': 'Witch', 'reverse': 0, 'thisN': 2, 'thisTrialN': 2, 'thisRepN': 0}>
+15.6543 	EXP 	tob_slider_after: markerPos = 1
+15.6543 	EXP 	tob_text_after: autoDraw = False
+15.6543 	EXP 	tob_slider_after: autoDraw = False
+15.6543 	EXP 	tob_hint_after: autoDraw = False
+15.6543 	EXP 	tob_text_after: height = np.float64(0.04)
+15.6543 	EXP 	tob_text_after: height = np.float64(0.04)
+15.6543 	EXP 	tob_text_after: height = np.float64(0.04)
+15.6543 	EXP 	tob_text_after: text = 'Черная магия реально существует'
+15.6543 	EXP 	tob_slider_after: markerPos = None
+15.6543 	EXP 	tob_slider_after: markerPos = None
+15.6543 	EXP 	tob_text_after: autoDraw = True
+15.6543 	EXP 	tob_slider_after: autoDraw = True
+15.6543 	EXP 	tob_hint_after: autoDraw = True
+15.7247 	EXP 	Device response: <KeyPress from None: t=15.602465083000425, value=1, duration=0.10400637499697041>
+15.8123 	EXP 	Device response: <KeyPress from None: t=15.634474250000494, value=space, duration=0.1763161669987312>
+15.8302 	DATA 	Keypress: 1
+15.8401 	EXP 	Device response: <KeyPress from None: t=15.82546491699759, value=1, duration=None>
+15.8510 	EXP 	tob_slider_after: markerPos = 1
+15.9285 	EXP 	Device response: <KeyPress from None: t=15.82546491699759, value=1, duration=0.10040025000125752>
+16.0430 	DATA 	Keypress: 1
+16.0438 	EXP 	Device response: <KeyPress from None: t=16.034461791998183, value=1, duration=None>
+16.0526 	EXP 	tob_slider_after: markerPos = 1
+16.1089 	EXP 	Device response: <KeyPress from None: t=16.10649179199754, value=space, duration=None>
+16.1135 	DATA 	Keypress: space
+16.1195 	EXP 	Device response: <KeyPress from None: t=16.034461791998183, value=1, duration=0.07599366599970381>
+16.1197 	EXP 	New trial (rep=0, index=3): <Trial 3 (3 in rep 0) data={'item_n': 4, 'text': 'Черная кошка может принести невезение', 'subscale': 'Super', 'reverse': 0, 'thisN': 3, 'thisTrialN': 3, 'thisRepN': 0}>
+16.1319 	EXP 	tob_slider_after: markerPos = 1
+16.1319 	EXP 	tob_text_after: autoDraw = False
+16.1319 	EXP 	tob_slider_after: autoDraw = False
+16.1319 	EXP 	tob_hint_after: autoDraw = False
+16.1319 	EXP 	tob_text_after: height = np.float64(0.04)
+16.1319 	EXP 	tob_text_after: height = np.float64(0.04)
+16.1319 	EXP 	tob_text_after: height = np.float64(0.04)
+16.1319 	EXP 	tob_text_after: text = 'Черная кошка может принести невезение'
+16.1319 	EXP 	tob_slider_after: markerPos = None
+16.1319 	EXP 	tob_slider_after: markerPos = None
+16.1319 	EXP 	tob_text_after: autoDraw = True
+16.1319 	EXP 	tob_slider_after: autoDraw = True
+16.1319 	EXP 	tob_hint_after: autoDraw = True
+16.2180 	EXP 	Device response: <KeyPress from None: t=16.10649179199754, value=space, duration=0.10426916600044933>
+16.2512 	EXP 	Device response: <KeyPress from None: t=16.248304832999565, value=1, duration=None>
+16.2563 	DATA 	Keypress: 1
+16.2751 	EXP 	tob_slider_after: markerPos = 1
+16.3428 	EXP 	Device response: <KeyPress from None: t=16.248304832999565, value=1, duration=0.07945637499869918>
+16.4426 	EXP 	Device response: <KeyPress from None: t=16.44111433299986, value=1, duration=None>
+16.4473 	DATA 	Keypress: 1
+16.4608 	EXP 	tob_slider_after: markerPos = 1
+16.5091 	EXP 	Device response: <KeyPress from None: t=16.44111433299986, value=1, duration=0.06422904200007906>
+16.5427 	DATA 	Keypress: space
+16.5433 	EXP 	Device response: <KeyPress from None: t=16.535463500000333, value=space, duration=None>
+16.5436 	EXP 	New trial (rep=0, index=4): <Trial 4 (4 in rep 0) data={'item_n': 5, 'text': 'Ваше сознание или душа могут покидать Ваше тело и путешествовать (астральная проекция)', 'subscale': 'Spirit', 'reverse': 0, 'thisN': 4, 'thisTrialN': 4, 'thisRepN': 0}>
+16.5576 	EXP 	tob_slider_after: markerPos = 1
+16.5576 	EXP 	tob_text_after: autoDraw = False
+16.5576 	EXP 	tob_slider_after: autoDraw = False
+16.5576 	EXP 	tob_hint_after: autoDraw = False
+16.5576 	EXP 	tob_text_after: height = np.float64(0.04)
+16.5576 	EXP 	tob_text_after: height = np.float64(0.04)
+16.5576 	EXP 	tob_text_after: height = np.float64(0.04)
+16.5576 	EXP 	tob_text_after: text = 'Ваше сознание или душа могут покидать Ваше тело и путешествовать (астральная проекция)'
+16.5576 	EXP 	tob_slider_after: markerPos = None
+16.5576 	EXP 	tob_slider_after: markerPos = None
+16.5576 	EXP 	tob_text_after: autoDraw = True
+16.5576 	EXP 	tob_slider_after: autoDraw = True
+16.5576 	EXP 	tob_hint_after: autoDraw = True
+16.6255 	EXP 	Device response: <KeyPress from None: t=16.535463500000333, value=space, duration=0.08402366699738195>
+16.6256 	EXP 	Device response: <KeyPress from None: t=16.623459082999034, value=1, duration=None>
+16.6311 	DATA 	Keypress: 1
+16.6480 	EXP 	tob_slider_after: markerPos = 1
+16.8093 	DATA 	Keypress: space
+16.8099 	EXP 	Device response: <KeyPress from None: t=16.79946283299796, value=space, duration=None>
+16.8102 	EXP 	New trial (rep=0, index=5): <Trial 5 (5 in rep 0) data={'item_n': 6, 'text': 'Снежный человек существует', 'subscale': 'ELF', 'reverse': 0, 'thisN': 5, 'thisTrialN': 5, 'thisRepN': 0}>
+16.8212 	EXP 	tob_slider_after: markerPos = 1
+16.8212 	EXP 	tob_text_after: autoDraw = False
+16.8212 	EXP 	tob_slider_after: autoDraw = False
+16.8212 	EXP 	tob_hint_after: autoDraw = False
+16.8212 	EXP 	tob_text_after: height = np.float64(0.04)
+16.8212 	EXP 	tob_text_after: height = np.float64(0.04)
+16.8212 	EXP 	tob_text_after: height = np.float64(0.04)
+16.8212 	EXP 	tob_text_after: text = 'Снежный человек существует'
+16.8212 	EXP 	tob_slider_after: markerPos = None
+16.8212 	EXP 	tob_slider_after: markerPos = None
+16.8212 	EXP 	tob_text_after: autoDraw = True
+16.8212 	EXP 	tob_slider_after: autoDraw = True
+16.8212 	EXP 	tob_hint_after: autoDraw = True
+16.8306 	EXP 	Device response: <KeyPress from None: t=16.623459082999034, value=1, duration=0.19998066699918127>
+16.9088 	EXP 	Device response: <KeyPress from None: t=16.79946283299796, value=space, duration=0.10432662500170409>
+16.9763 	DATA 	Keypress: 1
+16.9771 	EXP 	Device response: <KeyPress from None: t=16.96844754199992, value=1, duration=None>
+16.9869 	EXP 	tob_slider_after: markerPos = 1
+17.0428 	EXP 	Device response: <KeyPress from None: t=16.96844754199992, value=1, duration=0.07230033299856586>
+17.1937 	EXP 	Device response: <KeyPress from None: t=17.193420166997385, value=1, duration=None>
+17.1988 	DATA 	Keypress: 1
+17.2179 	EXP 	tob_slider_after: markerPos = 1
+17.2424 	EXP 	Device response: <KeyPress from None: t=17.193420166997385, value=1, duration=0.044335165999655146>
+17.7476 	DATA 	Keypress: 1
+17.7538 	EXP 	Device response: <KeyPress from None: t=17.742434083000262, value=1, duration=None>
+17.7632 	EXP 	tob_slider_after: markerPos = 1
+17.8090 	EXP 	Device response: <KeyPress from None: t=17.742434083000262, value=1, duration=0.06429608399776043>
+17.8641 	DATA 	Keypress: space
+17.8759 	EXP 	Device response: <KeyPress from None: t=17.859418707997975, value=space, duration=None>
+17.8763 	EXP 	New trial (rep=0, index=6): <Trial 6 (6 in rep 0) data={'item_n': 7, 'text': 'Астрология — это способ точного предсказания будущего', 'subscale': 'Precog', 'reverse': 0, 'thisN': 6, 'thisTrialN': 6, 'thisRepN': 0}>
+17.8884 	EXP 	tob_slider_after: markerPos = 1
+17.8884 	EXP 	tob_text_after: autoDraw = False
+17.8884 	EXP 	tob_slider_after: autoDraw = False
+17.8884 	EXP 	tob_hint_after: autoDraw = False
+17.8884 	EXP 	tob_text_after: height = np.float64(0.04)
+17.8884 	EXP 	tob_text_after: height = np.float64(0.04)
+17.8884 	EXP 	tob_text_after: height = np.float64(0.04)
+17.8884 	EXP 	tob_text_after: text = 'Астрология — это способ точного предсказания будущего'
+17.8884 	EXP 	tob_slider_after: markerPos = None
+17.8884 	EXP 	tob_slider_after: markerPos = None
+17.8884 	EXP 	tob_text_after: autoDraw = True
+17.8884 	EXP 	tob_slider_after: autoDraw = True
+17.8884 	EXP 	tob_hint_after: autoDraw = True
+17.9255 	EXP 	Device response: <KeyPress from None: t=17.859418707997975, value=space, duration=0.0640233750018524>
+17.9302 	DATA 	Keypress: 1
+17.9357 	EXP 	Device response: <KeyPress from None: t=17.927407457998925, value=1, duration=None>
+17.9444 	EXP 	tob_slider_after: markerPos = 1
+17.9848 	EXP 	Device response: <KeyPress from None: t=17.927407457998925, value=1, duration=0.056297084000107134>
+18.0425 	DATA 	Keypress: space
+18.0432 	EXP 	Device response: <KeyPress from None: t=18.019413292000536, value=space, duration=None>
+18.0434 	EXP 	New trial (rep=0, index=7): <Trial 7 (7 in rep 0) data={'item_n': 8, 'text': 'Дьявол существует', 'subscale': 'TRB', 'reverse': 0, 'thisN': 7, 'thisTrialN': 7, 'thisRepN': 0}>
+18.0542 	EXP 	tob_slider_after: markerPos = 1
+18.0542 	EXP 	tob_text_after: autoDraw = False
+18.0542 	EXP 	tob_slider_after: autoDraw = False
+18.0542 	EXP 	tob_hint_after: autoDraw = False
+18.0542 	EXP 	tob_text_after: height = np.float64(0.04)
+18.0542 	EXP 	tob_text_after: height = np.float64(0.04)
+18.0542 	EXP 	tob_text_after: height = np.float64(0.04)
+18.0542 	EXP 	tob_text_after: text = 'Дьявол существует'
+18.0542 	EXP 	tob_slider_after: markerPos = None
+18.0542 	EXP 	tob_slider_after: markerPos = None
+18.0542 	EXP 	tob_text_after: autoDraw = True
+18.0542 	EXP 	tob_slider_after: autoDraw = True
+18.0542 	EXP 	tob_hint_after: autoDraw = True
+18.0862 	EXP 	Device response: <KeyPress from None: t=18.019413292000536, value=space, duration=0.06400537499939674>
+18.0921 	DATA 	Keypress: 1
+18.0989 	EXP 	Device response: <KeyPress from None: t=18.08739745799903, value=1, duration=None>
+18.1089 	EXP 	tob_slider_after: markerPos = 1
+18.1420 	EXP 	Device response: <KeyPress from None: t=18.08739745799903, value=1, duration=0.05235054199874867>
+18.1753 	EXP 	Device response: <KeyPress from None: t=18.17473174999759, value=space, duration=None>
+18.1800 	DATA 	Keypress: space
+18.1856 	EXP 	New trial (rep=0, index=8): <Trial 8 (8 in rep 0) data={'item_n': 9, 'text': 'Психокинез — передвижение объектов силой мысли, действительно существует', 'subscale': 'Psi', 'reverse': 0, 'thisN': 8, 'thisTrialN': 8, 'thisRepN': 0}>
+18.1975 	EXP 	tob_slider_after: markerPos = 1
+18.1975 	EXP 	tob_text_after: autoDraw = False
+18.1975 	EXP 	tob_slider_after: autoDraw = False
+18.1975 	EXP 	tob_hint_after: autoDraw = False
+18.1975 	EXP 	tob_text_after: height = np.float64(0.04)
+18.1975 	EXP 	tob_text_after: height = np.float64(0.04)
+18.1975 	EXP 	tob_text_after: height = np.float64(0.04)
+18.1975 	EXP 	tob_text_after: text = 'Психокинез — передвижение объектов силой мысли, действительно существует'
+18.1975 	EXP 	tob_slider_after: markerPos = None
+18.1975 	EXP 	tob_slider_after: markerPos = None
+18.1975 	EXP 	tob_text_after: autoDraw = True
+18.1975 	EXP 	tob_slider_after: autoDraw = True
+18.1975 	EXP 	tob_hint_after: autoDraw = True
+18.2347 	EXP 	Device response: <KeyPress from None: t=18.17473174999759, value=space, duration=0.05167804200027604>
+18.2348 	EXP 	Device response: <KeyPress from None: t=18.23437895799725, value=1, duration=None>
+18.2398 	DATA 	Keypress: 1
+18.2569 	EXP 	tob_slider_after: markerPos = 1
+18.2852 	EXP 	Device response: <KeyPress from None: t=18.23437895799725, value=1, duration=0.04833833400334697>
+18.3267 	DATA 	Keypress: space
+18.3272 	EXP 	Device response: <KeyPress from None: t=18.32039341699783, value=space, duration=None>
+18.3275 	EXP 	New trial (rep=0, index=9): <Trial 9 (9 in rep 0) data={'item_n': 10, 'text': 'Ведьмы (колдуны) существуют', 'subscale': 'Witch', 'reverse': 0, 'thisN': 9, 'thisTrialN': 9, 'thisRepN': 0}>
+18.3415 	EXP 	tob_slider_after: markerPos = 1
+18.3415 	EXP 	tob_text_after: autoDraw = False
+18.3415 	EXP 	tob_slider_after: autoDraw = False
+18.3415 	EXP 	tob_hint_after: autoDraw = False
+18.3415 	EXP 	tob_text_after: height = np.float64(0.04)
+18.3415 	EXP 	tob_text_after: height = np.float64(0.04)
+18.3415 	EXP 	tob_text_after: height = np.float64(0.04)
+18.3415 	EXP 	tob_text_after: text = 'Ведьмы (колдуны) существуют'
+18.3415 	EXP 	tob_slider_after: markerPos = None
+18.3415 	EXP 	tob_slider_after: markerPos = None
+18.3415 	EXP 	tob_text_after: autoDraw = True
+18.3415 	EXP 	tob_slider_after: autoDraw = True
+18.3415 	EXP 	tob_hint_after: autoDraw = True
+18.3845 	EXP 	Device response: <KeyPress from None: t=18.32039341699783, value=space, duration=0.06001137500061304>
+18.3943 	DATA 	Keypress: 1
+18.3948 	EXP 	Device response: <KeyPress from None: t=18.3883923329995, value=1, duration=None>
+18.4082 	EXP 	tob_slider_after: markerPos = 1
+18.4421 	EXP 	Device response: <KeyPress from None: t=18.3883923329995, value=1, duration=0.044592250000278>
+18.4755 	EXP 	Device response: <KeyPress from None: t=18.473401999999624, value=space, duration=None>
+18.4810 	DATA 	Keypress: space
+18.4871 	EXP 	New trial (rep=0, index=10): <Trial 10 (10 in rep 0) data={'item_n': 11, 'text': 'Если разбить зеркало, то это принесет несчастье', 'subscale': 'Super', 'reverse': 0, 'thisN': 10, 'thisTrialN': 10, 'thisRepN': 0}>
+18.4997 	EXP 	tob_slider_after: markerPos = 1
+18.4997 	EXP 	tob_text_after: autoDraw = False
+18.4997 	EXP 	tob_slider_after: autoDraw = False
+18.4997 	EXP 	tob_hint_after: autoDraw = False
+18.4997 	EXP 	tob_text_after: height = np.float64(0.04)
+18.4997 	EXP 	tob_text_after: height = np.float64(0.04)
+18.4997 	EXP 	tob_text_after: height = np.float64(0.04)
+18.4997 	EXP 	tob_text_after: text = 'Если разбить зеркало, то это принесет несчастье'
+18.4997 	EXP 	tob_slider_after: markerPos = None
+18.4997 	EXP 	tob_slider_after: markerPos = None
+18.4997 	EXP 	tob_text_after: autoDraw = True
+18.4997 	EXP 	tob_slider_after: autoDraw = True
+18.4997 	EXP 	tob_hint_after: autoDraw = True
+18.5361 	EXP 	Device response: <KeyPress from None: t=18.473401999999624, value=space, duration=0.06030287499743281>
+18.5586 	DATA 	Keypress: 1
+18.5592 	EXP 	Device response: <KeyPress from None: t=18.54940762499973, value=1, duration=None>
+18.5713 	EXP 	tob_slider_after: markerPos = 1
+18.6038 	EXP 	Device response: <KeyPress from None: t=18.54940762499973, value=1, duration=0.04830562499773805>
+18.6341 	EXP 	Device response: <KeyPress from None: t=18.632417999997415, value=space, duration=None>
+18.6401 	DATA 	Keypress: space
+18.6453 	EXP 	New trial (rep=0, index=11): <Trial 11 (11 in rep 0) data={'item_n': 12, 'text': 'Когда человек спит или находится в состоянии транса, его душа может покинуть тело', 'subscale': 'Spirit', 'reverse': 0, 'thisN': 11, 'thisTrialN': 11, 'thisRepN': 0}>
+18.6564 	EXP 	tob_slider_after: markerPos = 1
+18.6564 	EXP 	tob_text_after: autoDraw = False
+18.6564 	EXP 	tob_slider_after: autoDraw = False
+18.6564 	EXP 	tob_hint_after: autoDraw = False
+18.6564 	EXP 	tob_text_after: height = np.float64(0.04)
+18.6564 	EXP 	tob_text_after: height = np.float64(0.04)
+18.6564 	EXP 	tob_text_after: height = np.float64(0.04)
+18.6564 	EXP 	tob_text_after: text = 'Когда человек спит или находится в состоянии транса, его душа может покинуть тело'
+18.6564 	EXP 	tob_slider_after: markerPos = None
+18.6564 	EXP 	tob_slider_after: markerPos = None
+18.6564 	EXP 	tob_text_after: autoDraw = True
+18.6564 	EXP 	tob_slider_after: autoDraw = True
+18.6564 	EXP 	tob_hint_after: autoDraw = True
+18.6936 	EXP 	Device response: <KeyPress from None: t=18.632417999997415, value=space, duration=0.060303417001705384>
+18.7088 	EXP 	Device response: <KeyPress from None: t=18.707419832997402, value=1, duration=None>
+18.7135 	DATA 	Keypress: 1
+18.7269 	EXP 	tob_slider_after: markerPos = 1
+18.7421 	EXP 	Device response: <KeyPress from None: t=18.707419832997402, value=1, duration=0.02028950000021723>
+18.7797 	DATA 	Keypress: space
+18.7854 	EXP 	Device response: <KeyPress from None: t=18.776395291999506, value=space, duration=None>
+18.7857 	EXP 	New trial (rep=0, index=12): <Trial 12 (12 in rep 0) data={'item_n': 13, 'text': 'Лох-несское чудовище существует', 'subscale': 'ELF', 'reverse': 0, 'thisN': 12, 'thisTrialN': 12, 'thisRepN': 0}>
+18.7969 	EXP 	tob_slider_after: markerPos = 1
+18.7969 	EXP 	tob_text_after: autoDraw = False
+18.7969 	EXP 	tob_slider_after: autoDraw = False
+18.7969 	EXP 	tob_hint_after: autoDraw = False
+18.7969 	EXP 	tob_text_after: height = np.float64(0.04)
+18.7969 	EXP 	tob_text_after: height = np.float64(0.04)
+18.7969 	EXP 	tob_text_after: height = np.float64(0.04)
+18.7969 	EXP 	tob_text_after: text = 'Лох-несское чудовище существует'
+18.7969 	EXP 	tob_slider_after: markerPos = None
+18.7969 	EXP 	tob_slider_after: markerPos = None
+18.7969 	EXP 	tob_text_after: autoDraw = True
+18.7969 	EXP 	tob_slider_after: autoDraw = True
+18.7969 	EXP 	tob_hint_after: autoDraw = True
+18.8422 	EXP 	Device response: <KeyPress from None: t=18.776395291999506, value=space, duration=0.056328874998143874>
+18.8514 	EXP 	Device response: <KeyPress from None: t=18.849474124999688, value=1, duration=None>
+18.8564 	DATA 	Keypress: 1
+18.8752 	EXP 	tob_slider_after: markerPos = 1
+18.9199 	EXP 	Device response: <KeyPress from None: t=18.849474124999688, value=1, duration=0.06023095799901057>
+18.9305 	DATA 	Keypress: space
+18.9312 	EXP 	Device response: <KeyPress from None: t=18.92438641699846, value=space, duration=None>
+18.9315 	EXP 	New trial (rep=0, index=13): <Trial 13 (13 in rep 0) data={'item_n': 14, 'text': 'Гороскоп точно описывает будущее человека', 'subscale': 'Precog', 'reverse': 0, 'thisN': 13, 'thisTrialN': 13, 'thisRepN': 0}>
+18.9440 	EXP 	tob_slider_after: markerPos = 1
+18.9440 	EXP 	tob_text_after: autoDraw = False
+18.9440 	EXP 	tob_slider_after: autoDraw = False
+18.9440 	EXP 	tob_hint_after: autoDraw = False
+18.9440 	EXP 	tob_text_after: height = np.float64(0.04)
+18.9440 	EXP 	tob_text_after: height = np.float64(0.04)
+18.9440 	EXP 	tob_text_after: height = np.float64(0.04)
+18.9440 	EXP 	tob_text_after: text = 'Гороскоп точно описывает будущее человека'
+18.9440 	EXP 	tob_slider_after: markerPos = None
+18.9440 	EXP 	tob_slider_after: markerPos = None
+18.9440 	EXP 	tob_text_after: autoDraw = True
+18.9440 	EXP 	tob_slider_after: autoDraw = True
+18.9440 	EXP 	tob_hint_after: autoDraw = True
+18.9853 	EXP 	Device response: <KeyPress from None: t=18.92438641699846, value=space, duration=0.05630741600180045>
+19.0097 	DATA 	Keypress: 1
+19.0103 	EXP 	Device response: <KeyPress from None: t=19.0033920829992, value=1, duration=None>
+19.0191 	EXP 	tob_slider_after: markerPos = 1
+19.0597 	EXP 	Device response: <KeyPress from None: t=19.0033920829992, value=1, duration=0.04798645899791154>
+19.0597 	EXP 	Device response: <KeyPress from None: t=19.059374417000072, value=space, duration=None>
+19.0644 	DATA 	Keypress: space
+19.0755 	EXP 	New trial (rep=0, index=14): <Trial 14 (14 in rep 0) data={'item_n': 15, 'text': 'Я верю в Бога', 'subscale': 'TRB', 'reverse': 0, 'thisN': 14, 'thisTrialN': 14, 'thisRepN': 0}>
+19.0867 	EXP 	tob_slider_after: markerPos = 1
+19.0867 	EXP 	tob_text_after: autoDraw = False
+19.0867 	EXP 	tob_slider_after: autoDraw = False
+19.0867 	EXP 	tob_hint_after: autoDraw = False
+19.0867 	EXP 	tob_text_after: height = np.float64(0.04)
+19.0867 	EXP 	tob_text_after: height = np.float64(0.04)
+19.0867 	EXP 	tob_text_after: height = np.float64(0.04)
+19.0867 	EXP 	tob_text_after: text = 'Я верю в Бога'
+19.0867 	EXP 	tob_slider_after: markerPos = None
+19.0867 	EXP 	tob_slider_after: markerPos = None
+19.0867 	EXP 	tob_text_after: autoDraw = True
+19.0867 	EXP 	tob_slider_after: autoDraw = True
+19.0867 	EXP 	tob_hint_after: autoDraw = True
+19.1262 	EXP 	Device response: <KeyPress from None: t=19.059374417000072, value=space, duration=0.06400329099778901>
+19.1430 	DATA 	Keypress: 1
+19.1435 	EXP 	Device response: <KeyPress from None: t=19.135398667000118, value=1, duration=None>
+19.1524 	EXP 	tob_slider_after: markerPos = 1
+19.1840 	EXP 	Device response: <KeyPress from None: t=19.135398667000118, value=1, duration=0.04829654099739855>
+19.2174 	EXP 	Device response: <KeyPress from None: t=19.21641074999934, value=space, duration=None>
+19.2233 	DATA 	Keypress: space
+19.2279 	EXP 	New trial (rep=0, index=15): <Trial 15 (15 in rep 0) data={'item_n': 16, 'text': 'Мысли человека могут влиять на движение физических объектов', 'subscale': 'Psi', 'reverse': 0, 'thisN': 15, 'thisTrialN': 15, 'thisRepN': 0}>
+19.2413 	EXP 	tob_slider_after: markerPos = 1
+19.2413 	EXP 	tob_text_after: autoDraw = False
+19.2413 	EXP 	tob_slider_after: autoDraw = False
+19.2413 	EXP 	tob_hint_after: autoDraw = False
+19.2413 	EXP 	tob_text_after: height = np.float64(0.04)
+19.2413 	EXP 	tob_text_after: height = np.float64(0.04)
+19.2413 	EXP 	tob_text_after: height = np.float64(0.04)
+19.2413 	EXP 	tob_text_after: text = 'Мысли человека могут влиять на движение физических объектов'
+19.2413 	EXP 	tob_slider_after: markerPos = None
+19.2413 	EXP 	tob_slider_after: markerPos = None
+19.2413 	EXP 	tob_text_after: autoDraw = True
+19.2413 	EXP 	tob_slider_after: autoDraw = True
+19.2413 	EXP 	tob_hint_after: autoDraw = True
+19.2763 	DATA 	Keypress: 1
+19.2769 	EXP 	Device response: <KeyPress from None: t=19.268350499998633, value=1, duration=None>
+19.2769 	EXP 	Device response: <KeyPress from None: t=19.21641074999934, value=space, duration=0.0599629169992113>
+19.2859 	EXP 	tob_slider_after: markerPos = 1
+19.3424 	EXP 	Device response: <KeyPress from None: t=19.268350499998633, value=1, duration=0.06002545799856307>
+19.3424 	EXP 	Device response: <KeyPress from None: t=19.34037420799723, value=space, duration=None>
+19.3472 	DATA 	Keypress: space
+19.3528 	EXP 	New trial (rep=0, index=16): <Trial 16 (16 in rep 0) data={'item_n': 17, 'text': 'Используя заговоры и заклинания, можно заколдовать человека', 'subscale': 'Witch', 'reverse': 0, 'thisN': 16, 'thisTrialN': 16, 'thisRepN': 0}>
+19.3639 	EXP 	tob_slider_after: markerPos = 1
+19.3639 	EXP 	tob_text_after: autoDraw = False
+19.3639 	EXP 	tob_slider_after: autoDraw = False
+19.3639 	EXP 	tob_hint_after: autoDraw = False
+19.3639 	EXP 	tob_text_after: height = np.float64(0.04)
+19.3639 	EXP 	tob_text_after: height = np.float64(0.04)
+19.3639 	EXP 	tob_text_after: height = np.float64(0.04)
+19.3639 	EXP 	tob_text_after: text = 'Используя заговоры и заклинания, можно заколдовать человека'
+19.3639 	EXP 	tob_slider_after: markerPos = None
+19.3639 	EXP 	tob_slider_after: markerPos = None
+19.3639 	EXP 	tob_text_after: autoDraw = True
+19.3639 	EXP 	tob_slider_after: autoDraw = True
+19.3639 	EXP 	tob_hint_after: autoDraw = True
+19.4089 	EXP 	Device response: <KeyPress from None: t=19.34037420799723, value=space, duration=0.06032708400016418>
+19.9195 	DATA 	Keypress: 1
+19.9202 	EXP 	Device response: <KeyPress from None: t=19.912352625000494, value=1, duration=None>
+19.9293 	EXP 	tob_slider_after: markerPos = 1
+20.0087 	EXP 	Device response: <KeyPress from None: t=19.912352625000494, value=1, duration=0.08834112499971525>
+20.1759 	EXP 	Device response: <KeyPress from None: t=20.17440387500028, value=space, duration=None>
+20.1813 	DATA 	Keypress: space
+20.1869 	EXP 	New trial (rep=0, index=17): <Trial 17 (17 in rep 0) data={'item_n': 18, 'text': 'Число «13» — несчастливое', 'subscale': 'Super', 'reverse': 0, 'thisN': 17, 'thisTrialN': 17, 'thisRepN': 0}>
+20.1995 	EXP 	tob_slider_after: markerPos = 1
+20.1995 	EXP 	tob_text_after: autoDraw = False
+20.1995 	EXP 	tob_slider_after: autoDraw = False
+20.1995 	EXP 	tob_hint_after: autoDraw = False
+20.1995 	EXP 	tob_text_after: height = np.float64(0.04)
+20.1995 	EXP 	tob_text_after: height = np.float64(0.04)
+20.1995 	EXP 	tob_text_after: height = np.float64(0.04)
+20.1995 	EXP 	tob_text_after: text = 'Число «13» — несчастливое'
+20.1995 	EXP 	tob_slider_after: markerPos = None
+20.1995 	EXP 	tob_slider_after: markerPos = None
+20.1995 	EXP 	tob_text_after: autoDraw = True
+20.1995 	EXP 	tob_slider_after: autoDraw = True
+20.1995 	EXP 	tob_hint_after: autoDraw = True
+20.2752 	EXP 	Device response: <KeyPress from None: t=20.17440387500028, value=space, duration=0.09225620799770695>
+20.4764 	DATA 	Keypress: 1
+20.4771 	EXP 	Device response: <KeyPress from None: t=20.466336124998634, value=1, duration=None>
+20.4862 	EXP 	tob_slider_after: markerPos = 1
+20.5420 	EXP 	Device response: <KeyPress from None: t=20.466336124998634, value=1, duration=0.07232879200091702>
+20.7034 	DATA 	Keypress: space
+20.7118 	EXP 	Device response: <KeyPress from None: t=20.69834620799884, value=space, duration=None>
+20.7121 	EXP 	New trial (rep=0, index=18): <Trial 18 (18 in rep 0) data={'item_n': 19, 'text': 'Реинкарнация (переселение душ) действительно случается', 'subscale': 'Spirit', 'reverse': 0, 'thisN': 18, 'thisTrialN': 18, 'thisRepN': 0}>
+20.7287 	EXP 	tob_slider_after: markerPos = 1
+20.7287 	EXP 	tob_text_after: autoDraw = False
+20.7287 	EXP 	tob_slider_after: autoDraw = False
+20.7287 	EXP 	tob_hint_after: autoDraw = False
+20.7287 	EXP 	tob_text_after: height = np.float64(0.04)
+20.7287 	EXP 	tob_text_after: height = np.float64(0.04)
+20.7287 	EXP 	tob_text_after: height = np.float64(0.04)
+20.7287 	EXP 	tob_text_after: text = 'Реинкарнация (переселение душ) действительно случается'
+20.7287 	EXP 	tob_slider_after: markerPos = None
+20.7287 	EXP 	tob_slider_after: markerPos = None
+20.7287 	EXP 	tob_text_after: autoDraw = True
+20.7287 	EXP 	tob_slider_after: autoDraw = True
+20.7287 	EXP 	tob_hint_after: autoDraw = True
+20.7754 	EXP 	Device response: <KeyPress from None: t=20.69834620799884, value=space, duration=0.07632770900090691>
+20.8511 	EXP 	Device response: <KeyPress from None: t=20.84935483299705, value=1, duration=None>
+20.8567 	DATA 	Keypress: 1
+20.8750 	EXP 	tob_slider_after: markerPos = 1
+20.9270 	EXP 	Device response: <KeyPress from None: t=20.84935483299705, value=1, duration=0.07630629200139083>
+21.0605 	EXP 	Device response: <KeyPress from None: t=21.059358416998293, value=space, duration=None>
+21.0654 	DATA 	Keypress: space
+21.0755 	EXP 	New trial (rep=0, index=19): <Trial 19 (19 in rep 0) data={'item_n': 20, 'text': 'На других планетах есть жизнь', 'subscale': 'ELF', 'reverse': 0, 'thisN': 19, 'thisTrialN': 19, 'thisRepN': 0}>
+21.0860 	EXP 	tob_slider_after: markerPos = 1
+21.0860 	EXP 	tob_text_after: autoDraw = False
+21.0860 	EXP 	tob_slider_after: autoDraw = False
+21.0860 	EXP 	tob_hint_after: autoDraw = False
+21.0860 	EXP 	tob_text_after: height = np.float64(0.04)
+21.0860 	EXP 	tob_text_after: height = np.float64(0.04)
+21.0860 	EXP 	tob_text_after: height = np.float64(0.04)
+21.0860 	EXP 	tob_text_after: text = 'На других планетах есть жизнь'
+21.0860 	EXP 	tob_slider_after: markerPos = None
+21.0860 	EXP 	tob_slider_after: markerPos = None
+21.0860 	EXP 	tob_text_after: autoDraw = True
+21.0860 	EXP 	tob_slider_after: autoDraw = True
+21.0860 	EXP 	tob_hint_after: autoDraw = True
+21.1420 	EXP 	Device response: <KeyPress from None: t=21.059358416998293, value=space, duration=0.07244708299913327>
+21.3317 	DATA 	Keypress: 1
+21.3324 	EXP 	Device response: <KeyPress from None: t=21.32457712500036, value=1, duration=None>
+21.3443 	EXP 	tob_slider_after: markerPos = 1
+21.4236 	EXP 	Device response: <KeyPress from None: t=21.32457712500036, value=1, duration=0.08803754199834657>
+21.5693 	DATA 	Keypress: space
+21.5699 	EXP 	Device response: <KeyPress from None: t=21.5623117920004, value=space, duration=None>
+21.5702 	EXP 	New trial (rep=0, index=20): <Trial 20 (20 in rep 0) data={'item_n': 21, 'text': 'Некоторые экстрасенсы могут точно предсказать будущее', 'subscale': 'Precog', 'reverse': 0, 'thisN': 20, 'thisTrialN': 20, 'thisRepN': 0}>
+21.5815 	EXP 	tob_slider_after: markerPos = 1
+21.5815 	EXP 	tob_text_after: autoDraw = False
+21.5815 	EXP 	tob_slider_after: autoDraw = False
+21.5815 	EXP 	tob_hint_after: autoDraw = False
+21.5815 	EXP 	tob_text_after: height = np.float64(0.04)
+21.5815 	EXP 	tob_text_after: height = np.float64(0.04)
+21.5815 	EXP 	tob_text_after: height = np.float64(0.04)
+21.5815 	EXP 	tob_text_after: text = 'Некоторые экстрасенсы могут точно предсказать будущее'
+21.5815 	EXP 	tob_slider_after: markerPos = None
+21.5815 	EXP 	tob_slider_after: markerPos = None
+21.5815 	EXP 	tob_text_after: autoDraw = True
+21.5815 	EXP 	tob_slider_after: autoDraw = True
+21.5815 	EXP 	tob_hint_after: autoDraw = True
+21.6509 	EXP 	Device response: <KeyPress from None: t=21.5623117920004, value=space, duration=0.08029008299854468>
+21.9138 	DATA 	Keypress: 1
+21.9194 	EXP 	Device response: <KeyPress from None: t=21.909308207999857, value=1, duration=None>
+21.9278 	EXP 	tob_slider_after: markerPos = 1
+21.9841 	EXP 	Device response: <KeyPress from None: t=21.909308207999857, value=1, duration=0.07230899999922258>
+22.1193 	DATA 	Keypress: space
+22.1199 	EXP 	Device response: <KeyPress from None: t=22.11329066699909, value=space, duration=None>
+22.1202 	EXP 	New trial (rep=0, index=21): <Trial 21 (21 in rep 0) data={'item_n': 22, 'text': 'Рай и ад существуют', 'subscale': 'TRB', 'reverse': 0, 'thisN': 21, 'thisTrialN': 21, 'thisRepN': 0}>
+22.1324 	EXP 	tob_slider_after: markerPos = 1
+22.1324 	EXP 	tob_text_after: autoDraw = False
+22.1324 	EXP 	tob_slider_after: autoDraw = False
+22.1324 	EXP 	tob_hint_after: autoDraw = False
+22.1324 	EXP 	tob_text_after: height = np.float64(0.04)
+22.1324 	EXP 	tob_text_after: height = np.float64(0.04)
+22.1324 	EXP 	tob_text_after: height = np.float64(0.04)
+22.1324 	EXP 	tob_text_after: text = 'Рай и ад существуют'
+22.1324 	EXP 	tob_slider_after: markerPos = None
+22.1324 	EXP 	tob_slider_after: markerPos = None
+22.1324 	EXP 	tob_text_after: autoDraw = True
+22.1324 	EXP 	tob_slider_after: autoDraw = True
+22.1324 	EXP 	tob_hint_after: autoDraw = True
+22.2093 	EXP 	Device response: <KeyPress from None: t=22.11329066699909, value=space, duration=0.08031991600000765>
+22.5132 	DATA 	Keypress: 1
+22.5144 	EXP 	Device response: <KeyPress from None: t=22.503278791999037, value=1, duration=None>
+22.5252 	EXP 	tob_slider_after: markerPos = 1
+22.5774 	EXP 	Device response: <KeyPress from None: t=22.503278791999037, value=1, duration=0.06430674999865005>
+22.7070 	DATA 	Keypress: space
+22.7081 	EXP 	Device response: <KeyPress from None: t=22.69629545799762, value=space, duration=None>
+22.7084 	EXP 	New trial (rep=0, index=22): <Trial 22 (22 in rep 0) data={'item_n': 23, 'text': 'Мысли читать невозможно', 'subscale': 'Psi', 'reverse': 1, 'thisN': 22, 'thisTrialN': 22, 'thisRepN': 0}>
+22.7210 	EXP 	tob_slider_after: markerPos = 1
+22.7210 	EXP 	tob_text_after: autoDraw = False
+22.7210 	EXP 	tob_slider_after: autoDraw = False
+22.7210 	EXP 	tob_hint_after: autoDraw = False
+22.7210 	EXP 	tob_text_after: height = np.float64(0.04)
+22.7210 	EXP 	tob_text_after: height = np.float64(0.04)
+22.7210 	EXP 	tob_text_after: height = np.float64(0.04)
+22.7210 	EXP 	tob_text_after: text = 'Мысли читать невозможно'
+22.7210 	EXP 	tob_slider_after: markerPos = None
+22.7210 	EXP 	tob_slider_after: markerPos = None
+22.7210 	EXP 	tob_text_after: autoDraw = True
+22.7210 	EXP 	tob_slider_after: autoDraw = True
+22.7210 	EXP 	tob_hint_after: autoDraw = True
+22.7757 	EXP 	Device response: <KeyPress from None: t=22.69629545799762, value=space, duration=0.07634058400071808>
+23.0805 	DATA 	Keypress: 1
+23.0862 	EXP 	Device response: <KeyPress from None: t=23.076299124997604, value=1, duration=None>
+23.0944 	EXP 	tob_slider_after: markerPos = 1
+23.1508 	EXP 	Device response: <KeyPress from None: t=23.076299124997604, value=1, duration=0.07229145800010883>
+23.3311 	DATA 	Keypress: space
+23.3423 	EXP 	Device response: <KeyPress from None: t=23.326269707999018, value=space, duration=None>
+23.3426 	EXP 	New trial (rep=0, index=23): <Trial 23 (23 in rep 0) data={'item_n': 24, 'text': 'Существуют реальные примеры колдовства', 'subscale': 'Witch', 'reverse': 0, 'thisN': 23, 'thisTrialN': 23, 'thisRepN': 0}>
+23.3534 	EXP 	tob_slider_after: markerPos = 1
+23.3534 	EXP 	tob_text_after: autoDraw = False
+23.3534 	EXP 	tob_slider_after: autoDraw = False
+23.3534 	EXP 	tob_hint_after: autoDraw = False
+23.3534 	EXP 	tob_text_after: height = np.float64(0.04)
+23.3534 	EXP 	tob_text_after: height = np.float64(0.04)
+23.3534 	EXP 	tob_text_after: height = np.float64(0.04)
+23.3534 	EXP 	tob_text_after: text = 'Существуют реальные примеры колдовства'
+23.3534 	EXP 	tob_slider_after: markerPos = None
+23.3534 	EXP 	tob_slider_after: markerPos = None
+23.3534 	EXP 	tob_text_after: autoDraw = True
+23.3534 	EXP 	tob_slider_after: autoDraw = True
+23.3534 	EXP 	tob_hint_after: autoDraw = True
+23.4087 	EXP 	Device response: <KeyPress from None: t=23.326269707999018, value=space, duration=0.08030562500061933>
+23.6269 	EXP 	Device response: <KeyPress from None: t=23.62427004199708, value=1, duration=None>
+23.6324 	DATA 	Keypress: 1
+23.6522 	EXP 	tob_slider_after: markerPos = 1
+23.7094 	EXP 	Device response: <KeyPress from None: t=23.62427004199708, value=1, duration=0.07656295800188673>
+23.8800 	DATA 	Keypress: space
+23.8857 	EXP 	Device response: <KeyPress from None: t=23.87628429200049, value=space, duration=None>
+23.8860 	EXP 	New trial (rep=0, index=24): <Trial 24 (24 in rep 0) data={'item_n': 25, 'text': 'Общаться с умершими возможно', 'subscale': 'Spirit', 'reverse': 0, 'thisN': 24, 'thisTrialN': 24, 'thisRepN': 0}>
+23.8970 	EXP 	tob_slider_after: markerPos = 1
+23.8970 	EXP 	tob_text_after: autoDraw = False
+23.8970 	EXP 	tob_slider_after: autoDraw = False
+23.8970 	EXP 	tob_hint_after: autoDraw = False
+23.8970 	EXP 	tob_text_after: height = np.float64(0.04)
+23.8970 	EXP 	tob_text_after: height = np.float64(0.04)
+23.8970 	EXP 	tob_text_after: height = np.float64(0.04)
+23.8970 	EXP 	tob_text_after: text = 'Общаться с умершими возможно'
+23.8970 	EXP 	tob_slider_after: markerPos = None
+23.8970 	EXP 	tob_slider_after: markerPos = None
+23.8970 	EXP 	tob_text_after: autoDraw = True
+23.8970 	EXP 	tob_slider_after: autoDraw = True
+23.8970 	EXP 	tob_hint_after: autoDraw = True
+23.9600 	EXP 	Device response: <KeyPress from None: t=23.87628429200049, value=space, duration=0.0762944999987667>
+24.1420 	EXP 	Device response: <KeyPress from None: t=24.137247291997483, value=1, duration=None>
+24.1470 	DATA 	Keypress: 1
+24.1603 	EXP 	tob_slider_after: markerPos = 1
+24.2088 	EXP 	Device response: <KeyPress from None: t=24.137247291997483, value=1, duration=0.0643152500015276>
+24.3754 	EXP 	Device response: <KeyPress from None: t=24.370269874998485, value=space, duration=None>
+24.3810 	DATA 	Keypress: space
+24.3869 	EXP 	New trial (rep=0, index=25): <Trial 25 (25 in rep 0) data={'item_n': 26, 'text': 'Некоторые люди имеют необъяснимые способности предсказывать будущее', 'subscale': 'Precog', 'reverse': 0, 'thisN': 25, 'thisTrialN': 25, 'thisRepN': 0}>
+24.3988 	EXP 	tob_slider_after: markerPos = 1
+24.3988 	EXP 	tob_text_after: autoDraw = False
+24.3988 	EXP 	tob_slider_after: autoDraw = False
+24.3988 	EXP 	tob_hint_after: autoDraw = False
+24.3988 	EXP 	tob_text_after: height = np.float64(0.04)
+24.3988 	EXP 	tob_text_after: height = np.float64(0.04)
+24.3988 	EXP 	tob_text_after: height = np.float64(0.04)
+24.3988 	EXP 	tob_text_after: text = 'Некоторые люди имеют необъяснимые способности предсказывать будущее'
+24.3988 	EXP 	tob_slider_after: markerPos = None
+24.3988 	EXP 	tob_slider_after: markerPos = None
+24.3988 	EXP 	tob_text_after: autoDraw = True
+24.3988 	EXP 	tob_slider_after: autoDraw = True
+24.3988 	EXP 	tob_hint_after: autoDraw = True
+24.4512 	EXP 	Device response: <KeyPress from None: t=24.370269874998485, value=space, duration=0.07227324999985285>
+24.6096 	DATA 	Keypress: 1
+24.6103 	EXP 	Device response: <KeyPress from None: t=24.60328354199737, value=1, duration=None>
+24.6192 	EXP 	tob_slider_after: markerPos = 1
+24.7091 	EXP 	Device response: <KeyPress from None: t=24.60328354199737, value=1, duration=0.08424729100079276>
+24.8657 	DATA 	Keypress: space
+24.8759 	EXP 	Device response: <KeyPress from None: t=24.86123074999705, value=space, duration=None>
+24.8872 	EXP 	tob_slider_after: markerPos = 1
+24.8872 	EXP 	tob_text_after: autoDraw = False
+24.8872 	EXP 	tob_slider_after: autoDraw = False
+24.8872 	EXP 	tob_hint_after: autoDraw = False
+24.8872 	EXP 	susp_text: autoDraw = True
+24.8872 	EXP 	susp_box: autoDraw = True
+24.9329 	EXP 	Device response: <KeyPress from None: t=24.86123074999705, value=space, duration=0.06431266700019478>
+25.1088 	DATA 	Keypress: 1
+25.1094 	EXP 	Device response: <KeyPress from None: t=25.099211417000333, value=1, duration=None>
+25.1645 	EXP 	Device response: <KeyPress from None: t=25.099211417000333, value=1, duration=0.060331624998070765>
+26.6421 	EXP 	Device response: <KeyPress from None: t=26.6392067079978, value=backspace, duration=None>
+26.6436 	DATA 	Keypress: backspace
+26.7084 	EXP 	Device response: <KeyPress from None: t=26.6392067079978, value=backspace, duration=0.06027325000104611>
+27.0900 	EXP 	Device response: <KeyPress from None: t=27.078190874999564, value=d, duration=None>
+27.0901 	EXP 	Device response: <KeyPress from None: t=27.08217091699771, value=s, duration=None>
+27.1429 	EXP 	Device response: <KeyPress from None: t=27.13417174999995, value=v, duration=None>
+27.2238 	EXP 	Device response: <KeyPress from None: t=27.08217091699771, value=s, duration=0.13601879099951475>
+27.2757 	EXP 	Device response: <KeyPress from None: t=27.078190874999564, value=d, duration=0.18798299999980372>
+27.3317 	EXP 	Device response: <KeyPress from None: t=27.13417174999995, value=v, duration=0.19230733299991698>
+29.9307 	DATA 	Mouse: Left button down, pos=(766,227)
+30.0302 	DATA 	Mouse:  Left button up, pos=(766,227)
+31.1502 	DATA 	Keypress: space
+31.1508 	EXP 	Device response: <KeyPress from None: t=31.14507112499996, value=space, duration=None>
+31.2423 	EXP 	Device response: <KeyPress from None: t=31.14507112499996, value=space, duration=0.08829941699877963>
+31.6915 	DATA 	Mouse: Left button down, pos=(781,155)
+31.7078 	EXP 	susp_text: autoDraw = False
+31.7078 	EXP 	susp_box: autoDraw = False
+31.7078 	EXP 	row_text: autoDraw = True
+31.7078 	EXP 	row_box: autoDraw = True
+31.7824 	DATA 	Mouse:  Left button up, pos=(781,155)
+35.3823 	DATA 	Mouse: Left button down, pos=(869,315)
+35.3913 	INFO 	Keyboard events cleared
+35.3913 	EXP 	row_text: autoDraw = False
+35.3913 	EXP 	row_box: autoDraw = False
+35.3913 	EXP 	thanks_text: autoDraw = True
+35.4756 	DATA 	Mouse:  Left button up, pos=(869,314)
+39.1342 	EXP 	Device response: <KeyPress from None: t=39.13162483300039, value=space, duration=None>
+39.1412 	DATA 	Keypress: space
+39.1516 	EXP 	thanks_text: autoDraw = False
+39.1518 	EXP 	magic_vkr: status = STOPPED
+39.1721 	INFO 	saved data to '/Users/arinasevruk/Desktop/Магия/ВКР_эксперимент_PsychoPy/data/magic_vkr_2026-09-11_22h36.00.092.csv'
+39.1732 	INFO 	saved data to /Users/arinasevruk/Desktop/Магия/ВКР_эксперимент_PsychoPy/data/magic_vkr_2026-09-11_22h36.00.092.psydat
+39.3090 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.
+39.3091 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.
+39.3091 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.
+39.3091 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.
+39.3091 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.
+39.3091 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.
