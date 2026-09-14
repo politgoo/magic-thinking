@@ -217,9 +217,14 @@ def add_tobacyk_block(tag, nrepsVar):
     sl.params['readOnly'].val = True
     text(rt, 'tob_hint_' + tag, 'Стрелки влево и вправо или клавиши 1–7: выбрать ответ.  Пробел: подтвердить', pos=(0, -0.4), h=0.026, color='lightgrey')
     code(rt, 'code_tob_' + tag,
-         **{'Begin Routine': "resp = None\nevent.clearEvents()\n",
-            'Begin JS Routine': "resp = null;\npsychoJS.eventManager.clearEvents();\n",
-            'Each Frame': """keys = event.getKeys(keyList=['left', 'right', 'space', '1', '2', '3', '4', '5', '6', '7'])
+         **{'Begin Routine': "resp = None\nslider_seen = None\nevent.clearEvents()\n",
+            'Begin JS Routine': "resp = null;\nsliderSeen = null;\npsychoJS.eventManager.clearEvents();\n",
+            'Each Frame': """_r = %s.getRating()
+if _r is not None and _r != slider_seen:
+    slider_seen = _r
+    resp = int(round(_r))
+    %s.markerPos = resp
+keys = event.getKeys(keyList=['left', 'right', 'space', '1', '2', '3', '4', '5', '6', '7'])
 for k in keys:
     if k in ['1', '2', '3', '4', '5', '6', '7']:
         resp = int(k)
@@ -231,8 +236,14 @@ for k in keys:
         continueRoutine = False
     if resp is not None:
         %s.markerPos = resp
-""" % ('tob_slider_' + tag),
-            'Each JS Frame': """var keys = psychoJS.eventManager.getKeys({keyList: ['left', 'right', 'space', '1', '2', '3', '4', '5', '6', '7']});
+""" % ('tob_slider_' + tag, 'tob_slider_' + tag, 'tob_slider_' + tag),
+            'Each JS Frame': """var _r = %s.getRating();
+if (typeof _r !== 'undefined' && _r !== null && _r !== sliderSeen) {
+  sliderSeen = _r;
+  resp = Math.round(_r);
+  %s.setMarkerPos(resp);
+}
+var keys = psychoJS.eventManager.getKeys({keyList: ['left', 'right', 'space', '1', '2', '3', '4', '5', '6', '7']});
 for (var i = 0; i < keys.length; i++) {
   var k = keys[i];
   if (['1','2','3','4','5','6','7'].indexOf(k) >= 0) { resp = parseInt(k); }
@@ -241,7 +252,7 @@ for (var i = 0; i < keys.length; i++) {
   else if (k === 'space' && resp !== null) { continueRoutine = false; }
   if (resp !== null) { %s.setMarkerPos(resp); }
 }
-""" % ('tob_slider_' + tag),
+""" % ('tob_slider_' + tag, 'tob_slider_' + tag, 'tob_slider_' + tag),
             'End Routine': "tob_resp[int(item_n)] = resp\nthisExp.addData('tob_' + str(item_n), resp)\nthisExp.addData('tob_rt_' + str(item_n), t)\n",
             'End JS Routine': "tob_resp[Number(item_n)] = resp;\npsychoJS.experiment.addData('tob_' + String(item_n), resp);\npsychoJS.experiment.addData('tob_rt_' + String(item_n), t);\n"})
     outer = TrialHandler(exp, name='tob_block_' + tag, loopType='sequential', nReps=nrepsVar, isTrials=False); outer.params['nReps'].valType='code'
