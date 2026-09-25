@@ -8,7 +8,7 @@ from psychopy.experiment.routines import Routine
 from psychopy.experiment.loops import TrialHandler
 from psychopy.experiment.components import getAllComponents
 
-OUT = '/tmp/kr/magic_project'
+OUT = os.environ.get('MAGIC_OUT', '/tmp/kr/magic_project')
 os.makedirs(OUT, exist_ok=True)
 C = getAllComponents()
 
@@ -27,20 +27,24 @@ TXT_CHOICE_EASY = ("В качестве бонуса за участие вы м
  "что какое-то важное для вас приятное событие произойдёт в ближайшее время, либо нажать на кнопку «Пропустить» "
  "и перейти к следующему этапу.")
 TXT_CHOICE_HARD = ("В качестве бонуса за участие вы можете нажать на кнопку «Магия» и тем самым повысить вероятность того, "
- "что какое-то важное для вас приятное событие произойдёт в ближайшее время. Для этого нужно будет напечатать "
- "букву М не менее 30 раз, чем больше, тем выше вероятность события. Либо нажмите на кнопку «Пропустить» "
+ "что какое-то важное для вас приятное событие произойдёт в ближайшее время. Для активации эффекта нужно будет "
+ "ввести русский алфавит прописными (заглавными) буквами. Либо нажмите на кнопку «Пропустить» "
  "и перейдите к следующему этапу.")
 TXT_CHOICE_TAIL = ("\n\nВыбрать можно ЛИБО мышью, нажав на кнопку, ЛИБО клавишей ВЛЕВО (Магия) или ВПРАВО (Пропустить).\n\n"
  "Нажмите пробел, чтобы перейти к выбору.")
 TXT_EFFORT = ("Вы можете в это верить или не верить, но все древнейшие учения говорят, что действенность магии "
- "зависит от прилагаемых усилий.\n\nНапечатайте в поле ниже букву М не менее 30 раз. Чем больше, тем выше "
- "вероятность события. Когда закончите, нажмите «Готово».")
+ "зависит от прилагаемых усилий.\n\nДля активации эффекта введите в поле ниже русский алфавит от А до Я "
+ "ПРОПИСНЫМИ (заглавными) буквами. Когда закончите, нажмите «Готово».")
+TXT_BOOST_OFFER = ("Алфавит принят, эффект активирован.\n\nЕсли хотите усилить эффект, введите алфавит ещё раз, "
+ "теперь строчными (маленькими) буквами. Это необязательно.")
+TXT_BOOST = ("Для усиления эффекта введите в поле ниже русский алфавит от а до я СТРОЧНЫМИ (маленькими) буквами. "
+ "Когда закончите, нажмите «Готово».")
 TXT_RATING = ("Оцените, пожалуйста, то приятное событие, о котором вы думали.")
 TXT_ROW = ("Студенты РАНХиГС, которые хотят получить баллы за участие, введите номер вашей строки в списке группы. "
  "Если баллы вам не нужны, оставьте поле пустым и нажмите «Готово».")
 TXT_SUSP = "Как вы думаете, что изучалось в этом исследовании? Напишите в свободной форме и нажмите «Готово»."
 TXT_THANKS = ("Спасибо за участие!\n\nКнопка «Магия» не влияет на события: она использовалась, чтобы изучить, "
- "как люди принимают решения в ситуации неопределённости. Задание с буквами измеряло готовность прилагать усилия.\n\n"
+ "как люди принимают решения в ситуации неопределённости. Задание с алфавитом измеряло готовность прилагать усилия.\n\n"
  "Данные сохраняются, пожалуйста, подождите несколько секунд и не закрывайте окно. Затем нажмите пробел.")
 
 # ---------- таблица условий для опросника Тобасика ----------
@@ -147,6 +151,7 @@ group = int(g)
 choice_resp = ''
 choice_rt = -1
 nEffort = 0
+nBoost = 0
 nBefore = 0
 nAfter = 0
 tob_resp = {}
@@ -158,7 +163,7 @@ psychoJS.experiment.addData('surname', String(expInfo['фамилия'] || '').t
 psychoJS.experiment.addData('age', String(expInfo['возраст'] || '').trim());
 if (['1','2','3','4'].indexOf(g) < 0) { g = ['1','2','3','4'][Math.floor(Math.random()*4)]; }
 group = parseInt(g);
-choice_resp = ''; choice_rt = -1; nEffort = 0; nBefore = 0; nAfter = 0; tob_resp = {};
+choice_resp = ''; choice_rt = -1; nEffort = 0; nBoost = 0; nBefore = 0; nAfter = 0; tob_resp = {};
 """})
 exp.flow.addRoutine(r, pos=len(exp.flow))
 
@@ -328,27 +333,157 @@ text(r, 'choice_keys', '← стрелка влево                           
 text(r, 'choice_hint', 'Нажмите на кнопку мышью ЛИБО клавишу ВЛЕВО (Магия) или ВПРАВО (Пропустить)', pos=(0, -0.3), h=0.028, color='lightgrey')
 exp.flow.addRoutine(r, pos=len(exp.flow))
 
-# --- 5. effort (цикл nReps = nEffort) ---
-r = routine('effort')
-text(r, 'effort_text', TXT_EFFORT, pos=(0, 0.3), h=0.032, wrap=1.3)
-textbox(r, 'effort_box', pos=(0, -0.02), size=(1.2, 0.26), placeholder='нажмите сюда и печатайте', h=0.035)
-button(r, 'effort_done', 'Готово', pos=(0, -0.36))
-code(r, 'code_effort',
- **{'End Routine':
-"""txt = effort_box.text or ''
-thisExp.addData('effort_len', len(txt))
-thisExp.addData('effort_m', txt.lower().count('м'))
-thisExp.addData('effort_time', t)
-""",
- 'End JS Routine':
-"""var txt = effort_box.text || '';
-psychoJS.experiment.addData('effort_len', txt.length);
-psychoJS.experiment.addData('effort_m', (txt.toLowerCase().match(/м/g) || []).length);
-psychoJS.experiment.addData('effort_time', t);
-"""})
+# --- 5. effort (цикл nReps = nEffort): алфавит прописными, проверка с допуском ---
+PY_ALPHA_CHECK = """RU_ALPHA = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
+def _lev(a, b):
+    prev = list(range(len(b) + 1))
+    for i, ca in enumerate(a, 1):
+        cur = [i]
+        for j, cb in enumerate(b, 1):
+            cur.append(min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (0 if ca == cb else 1)))
+        prev = cur
+    return prev[-1]
+def check_alpha(s, want_upper):
+    letters = ''.join(ch for ch in (s or '') if ch.isalpha())
+    if not letters:
+        return ('empty', 99, 0.0)
+    low = letters.lower().replace('ё', '')
+    d = _lev(low, RU_ALPHA)
+    if d > 3:
+        return ('wrong', d, 0.0)
+    n_case = sum(1 for ch in letters if (ch.isupper() if want_upper else ch.islower()))
+    frac = n_case / float(len(letters))
+    if frac < 0.9:
+        return ('case', d, frac)
+    return ('ok', d, frac)
+"""
+JS_ALPHA_CHECK = """RU_ALPHA = 'абвгдежзийклмнопрстуфхцчшщъыьэюя';
+_lev = function(a, b) {
+  var prev = []; for (var j = 0; j <= b.length; j++) { prev.push(j); }
+  for (var i = 1; i <= a.length; i++) {
+    var cur = [i];
+    for (var j2 = 1; j2 <= b.length; j2++) {
+      cur.push(Math.min(prev[j2] + 1, cur[j2 - 1] + 1, prev[j2 - 1] + ((a[i - 1] === b[j2 - 1]) ? 0 : 1)));
+    }
+    prev = cur;
+  }
+  return prev[b.length];
+};
+check_alpha = function(s, want_upper) {
+  var letters = (s || '').replace(/[^A-Za-zА-Яа-яЁё]/g, '');
+  if (letters.length === 0) { return ['empty', 99, 0.0]; }
+  var low = letters.toLowerCase().replace(/ё/g, '');
+  var d = _lev(low, RU_ALPHA);
+  if (d > 3) { return ['wrong', d, 0.0]; }
+  var n_case = 0;
+  for (var k = 0; k < letters.length; k++) {
+    var ch = letters[k];
+    if (want_upper ? (ch === ch.toUpperCase() && ch !== ch.toLowerCase()) : (ch === ch.toLowerCase() && ch !== ch.toUpperCase())) { n_case += 1; }
+  }
+  var frac = n_case / letters.length;
+  if (frac < 0.9) { return ['case', d, frac]; }
+  return ['ok', d, frac];
+};
+"""
+MSG = {'empty': 'Поле пустое. Введите алфавит и нажмите «Готово».',
+       'wrong': 'Похоже, в алфавите есть пропуски или ошибки. Проверьте, пожалуйста, и нажмите «Готово» ещё раз.',
+       'case_upper': 'Пожалуйста, введите алфавит ПРОПИСНЫМИ (заглавными) буквами.',
+       'case_lower': 'Пожалуйста, введите алфавит строчными (маленькими) буквами.'}
+
+def alpha_routine(name, box, btn, fb, prefix, want_upper, txt):
+    """Экран с вводом алфавита: кнопка Готово не завершает рутину сама, код проверяет ввод.
+    После 3 неудачных попыток ввод принимается как есть (prefix_ok = 0), чтобы участник не застрял."""
+    r = routine(name)
+    text(r, name + '_text', txt, pos=(0, 0.3), h=0.032, wrap=1.3)
+    textbox(r, box, pos=(0, -0.02), size=(1.2, 0.26), placeholder='нажмите сюда и печатайте', h=0.035)
+    button(r, btn, 'Готово', pos=(0, -0.36), end=False)
+    fbc = text(r, fb, '', pos=(0, -0.24), h=0.028, wrap=1.3, color='gold')
+    case_msg = MSG['case_upper'] if want_upper else MSG['case_lower']
+    wu_py = 'True' if want_upper else 'False'
+    wu_js = 'true' if want_upper else 'false'
+    code(r, 'code_' + name,
+     **{'Begin Experiment': PY_ALPHA_CHECK,
+        'Begin JS Experiment': JS_ALPHA_CHECK,
+        'Begin Routine': "%s_clicks = 0\n%s_attempts = 0\n%s_ok = 0\n%s_dist = 99\n%s_status = ''\n" % ((prefix,) * 5),
+        'Begin JS Routine': "%s_clicks = 0; %s_attempts = 0; %s_ok = 0; %s_dist = 99; %s_status = '';\n" % ((prefix,) * 5),
+        'Each Frame': """if {btn}.numClicks > {p}_clicks:
+    {p}_clicks = {btn}.numClicks
+    {p}_attempts += 1
+    _res = check_alpha({box}.text, {wu})
+    {p}_status = _res[0]; {p}_dist = _res[1]
+    if _res[0] == 'ok':
+        {p}_ok = 1
+        continueRoutine = False
+    elif {p}_attempts >= 3:
+        {p}_ok = 0
+        continueRoutine = False
+    else:
+        {fb}.text = {{'empty': {m_empty!r}, 'wrong': {m_wrong!r}, 'case': {m_case!r}}}[_res[0]]
+""".format(btn=btn, p=prefix, box=box, wu=wu_py, fb=fb, m_empty=MSG['empty'], m_wrong=MSG['wrong'], m_case=case_msg),
+        'Each JS Frame': """if ({btn}.numClicks > {p}_clicks) {{
+  {p}_clicks = {btn}.numClicks;
+  {p}_attempts += 1;
+  var _res = check_alpha({box}.text, {wu});
+  {p}_status = _res[0]; {p}_dist = _res[1];
+  if (_res[0] === 'ok') {{
+    {p}_ok = 1;
+    continueRoutine = false;
+  }} else if ({p}_attempts >= 3) {{
+    {p}_ok = 0;
+    continueRoutine = false;
+  }} else {{
+    {fb}.setText({{'empty': {m_empty}, 'wrong': {m_wrong}, 'case': {m_case}}}[_res[0]]);
+  }}
+}}
+""".format(btn=btn, p=prefix, box=box, wu=wu_js, fb=fb, m_empty=json.dumps(MSG['empty'], ensure_ascii=False), m_wrong=json.dumps(MSG['wrong'], ensure_ascii=False), m_case=json.dumps(case_msg, ensure_ascii=False)),
+        'End Routine': """txt = {box}.text or ''
+thisExp.addData('{p}_text', txt)
+thisExp.addData('{p}_len', len(txt))
+thisExp.addData('{p}_ok', {p}_ok)
+thisExp.addData('{p}_dist', {p}_dist)
+thisExp.addData('{p}_status', {p}_status)
+thisExp.addData('{p}_attempts', {p}_attempts)
+thisExp.addData('{p}_time', t)
+""".format(box=box, p=prefix),
+        'End JS Routine': """var txt = {box}.text || '';
+psychoJS.experiment.addData('{p}_text', txt);
+psychoJS.experiment.addData('{p}_len', txt.length);
+psychoJS.experiment.addData('{p}_ok', {p}_ok);
+psychoJS.experiment.addData('{p}_dist', {p}_dist);
+psychoJS.experiment.addData('{p}_status', {p}_status);
+psychoJS.experiment.addData('{p}_attempts', {p}_attempts);
+psychoJS.experiment.addData('{p}_time', t);
+""".format(box=box, p=prefix)})
+    return r
+
+r = alpha_routine('effort', 'effort_box', 'effort_done', 'effort_fb', 'effort', True, TXT_EFFORT)
 lp = TrialHandler(exp, name='effort_loop', loopType='sequential', nReps='nEffort', isTrials=False); lp.params['nReps'].valType='code'
 exp.flow.addLoop(lp, startPos=len(exp.flow), endPos=len(exp.flow))
 exp.flow.addRoutine(r, pos=len(exp.flow) - 1)
+
+# --- 5б. предложение усилить (внутри effort_loop) ---
+r = routine('boost_offer')
+text(r, 'boost_offer_text', TXT_BOOST_OFFER, pos=(0, 0.2), h=0.034, wrap=1.3)
+button(r, 'btn_boost', 'Усилить', pos=(-0.25, -0.12), size=(0.36, 0.14))
+button(r, 'btn_finish', 'Завершить', pos=(0.25, -0.12), size=(0.36, 0.14))
+code(r, 'code_boost_offer',
+ **{'Begin Routine': "nBoost = 0\n",
+    'Begin JS Routine': "nBoost = 0;\n",
+    'End Routine': """nBoost = 1 if btn_boost.numClicks > 0 else 0
+thisExp.addData('boost_choice', 'boost' if nBoost else 'finish')
+thisExp.addData('boost_rt', t)
+""",
+    'End JS Routine': """nBoost = (btn_boost.numClicks > 0) ? 1 : 0;
+psychoJS.experiment.addData('boost_choice', nBoost ? 'boost' : 'finish');
+psychoJS.experiment.addData('boost_rt', t);
+"""})
+exp.flow.addRoutine(r, pos=len(exp.flow) - 1)
+
+# --- 5в. усиление: алфавит строчными (вложенный цикл nReps = nBoost) ---
+r = alpha_routine('boost', 'boost_box', 'boost_done', 'boost_fb', 'boost', False, TXT_BOOST)
+lpb = TrialHandler(exp, name='boost_loop', loopType='sequential', nReps='nBoost', isTrials=False); lpb.params['nReps'].valType='code'
+exp.flow.addLoop(lpb, startPos=len(exp.flow) - 1, endPos=len(exp.flow) - 1)
+exp.flow.addRoutine(r, pos=len(exp.flow) - 2)
 
 # --- 6. rating ---
 r = routine('rating')

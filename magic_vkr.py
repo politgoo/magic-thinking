@@ -1,8 +1,8 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on Tue Sep 15 02:03:33 2026
+    on Fri Sep 25 17:31:08 2026
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -130,7 +130,7 @@ def setupData(expInfo, dataDir=None):
     thisExp = data.ExperimentHandler(
         name=expName, version=expVersion,
         extraInfo=expInfo, runtimeInfo=None,
-        originPath='magic_vkr.py',
+        originPath=None,
         savePickle=True, saveWideText=True,
         dataFileName=dataDir + os.sep + filename, sortColumns='time'
     )
@@ -430,6 +430,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     choice_resp = ''
     choice_rt = -1
     nEffort = 0
+    nBoost = 0
     nBefore = 0
     nAfter = 0
     tob_resp = {}
@@ -574,7 +575,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     # --- Initialize components for Routine "choice_instr" ---
     # Run 'Begin Experiment' code from code_choice_instr
     TXT_CHOICE_EASY = 'В качестве бонуса за участие вы можете нажать на кнопку «Магия» и тем самым повысить вероятность того, что какое-то важное для вас приятное событие произойдёт в ближайшее время, либо нажать на кнопку «Пропустить» и перейти к следующему этапу.'
-    TXT_CHOICE_HARD = 'В качестве бонуса за участие вы можете нажать на кнопку «Магия» и тем самым повысить вероятность того, что какое-то важное для вас приятное событие произойдёт в ближайшее время. Для этого нужно будет напечатать букву М не менее 30 раз, чем больше, тем выше вероятность события. Либо нажмите на кнопку «Пропустить» и перейдите к следующему этапу.'
+    TXT_CHOICE_HARD = 'В качестве бонуса за участие вы можете нажать на кнопку «Магия» и тем самым повысить вероятность того, что какое-то важное для вас приятное событие произойдёт в ближайшее время. Для активации эффекта нужно будет ввести русский алфавит прописными (заглавными) буквами. Либо нажмите на кнопку «Пропустить» и перейдите к следующему этапу.'
     TXT_CHOICE_TAIL = '\n\nВыбрать можно ЛИБО мышью, нажав на кнопку, ЛИБО клавишей ВЛЕВО (Магия) или ВПРАВО (Пропустить).\n\nНажмите пробел, чтобы перейти к выбору.'
     
     choice_instr_text = visual.TextStim(win=win, name='choice_instr_text',
@@ -645,7 +646,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     
     # --- Initialize components for Routine "effort" ---
     effort_text = visual.TextStim(win=win, name='effort_text',
-        text='Вы можете в это верить или не верить, но все древнейшие учения говорят, что действенность магии зависит от прилагаемых усилий.\n\nНапечатайте в поле ниже букву М не менее 30 раз. Чем больше, тем выше вероятность события. Когда закончите, нажмите «Готово».',
+        text='Вы можете в это верить или не верить, но все древнейшие учения говорят, что действенность магии зависит от прилагаемых усилий.\n\nДля активации эффекта введите в поле ниже русский алфавит от А до Я ПРОПИСНЫМИ (заглавными) буквами. Когда закончите, нажмите «Готово».',
         font='Arial',
         pos=(0, 0.3), draggable=False, height=0.032, wrapWidth=1.3, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
@@ -684,6 +685,153 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         depth=-2
     )
     effort_done.buttonClock = core.Clock()
+    effort_fb = visual.TextStim(win=win, name='effort_fb',
+        text=None,
+        font='Arial',
+        pos=(0, -0.24), draggable=False, height=0.028, wrapWidth=1.3, ori=0.0, 
+        color='gold', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-3.0);
+    # Run 'Begin Experiment' code from code_effort
+    RU_ALPHA = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
+    def _lev(a, b):
+        prev = list(range(len(b) + 1))
+        for i, ca in enumerate(a, 1):
+            cur = [i]
+            for j, cb in enumerate(b, 1):
+                cur.append(min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (0 if ca == cb else 1)))
+            prev = cur
+        return prev[-1]
+    def check_alpha(s, want_upper):
+        letters = ''.join(ch for ch in (s or '') if ch.isalpha())
+        if not letters:
+            return ('empty', 99, 0.0)
+        low = letters.lower().replace('ё', '')
+        d = _lev(low, RU_ALPHA)
+        if d > 3:
+            return ('wrong', d, 0.0)
+        n_case = sum(1 for ch in letters if (ch.isupper() if want_upper else ch.islower()))
+        frac = n_case / float(len(letters))
+        if frac < 0.9:
+            return ('case', d, frac)
+        return ('ok', d, frac)
+    
+    
+    # --- Initialize components for Routine "boost_offer" ---
+    boost_offer_text = visual.TextStim(win=win, name='boost_offer_text',
+        text='Алфавит принят, эффект активирован.\n\nЕсли хотите усилить эффект, введите алфавит ещё раз, теперь строчными (маленькими) буквами. Это необязательно.',
+        font='Arial',
+        pos=(0, 0.2), draggable=False, height=0.034, wrapWidth=1.3, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=0.0);
+    btn_boost = visual.ButtonStim(win, 
+        text='Усилить', font='Arial',
+        pos=(-0.25, -0.12),
+        letterHeight=0.04,
+        size=(0.36, 0.14), 
+        ori=0.0
+        ,borderWidth=0.0,
+        fillColor='darkgrey', borderColor=None,
+        color='white', colorSpace='rgb',
+        opacity=None,
+        bold=True, italic=False,
+        padding=None,
+        anchor='center',
+        name='btn_boost',
+        depth=-1
+    )
+    btn_boost.buttonClock = core.Clock()
+    btn_finish = visual.ButtonStim(win, 
+        text='Завершить', font='Arial',
+        pos=(0.25, -0.12),
+        letterHeight=0.04,
+        size=(0.36, 0.14), 
+        ori=0.0
+        ,borderWidth=0.0,
+        fillColor='darkgrey', borderColor=None,
+        color='white', colorSpace='rgb',
+        opacity=None,
+        bold=True, italic=False,
+        padding=None,
+        anchor='center',
+        name='btn_finish',
+        depth=-2
+    )
+    btn_finish.buttonClock = core.Clock()
+    
+    # --- Initialize components for Routine "boost" ---
+    boost_text = visual.TextStim(win=win, name='boost_text',
+        text='Для усиления эффекта введите в поле ниже русский алфавит от а до я СТРОЧНЫМИ (маленькими) буквами. Когда закончите, нажмите «Готово».',
+        font='Arial',
+        pos=(0, 0.3), draggable=False, height=0.032, wrapWidth=1.3, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=0.0);
+    boost_box = visual.TextBox2(
+         win, text=None, placeholder='нажмите сюда и печатайте', font='Arial',
+         ori=0.0, pos=(0, -0.02), draggable=False,      letterHeight=0.035,
+         size=(1.2, 0.26), borderWidth=2.0,
+         color='black', colorSpace='rgb',
+         opacity=None,
+         bold=False, italic=False,
+         lineSpacing=1.0, speechPoint=None,
+         padding=0.02, alignment='top-left',
+         anchor='center', overflow='visible',
+         fillColor='white', borderColor=None,
+         flipHoriz=False, flipVert=False, languageStyle='LTR',
+         editable=True,
+         name='boost_box',
+         depth=-1, autoLog=True,
+    )
+    boost_done = visual.ButtonStim(win, 
+        text='Готово', font='Arial',
+        pos=(0, -0.36),
+        letterHeight=0.04,
+        size=(0.3, 0.1), 
+        ori=0.0
+        ,borderWidth=0.0,
+        fillColor='darkgrey', borderColor=None,
+        color='white', colorSpace='rgb',
+        opacity=None,
+        bold=True, italic=False,
+        padding=None,
+        anchor='center',
+        name='boost_done',
+        depth=-2
+    )
+    boost_done.buttonClock = core.Clock()
+    boost_fb = visual.TextStim(win=win, name='boost_fb',
+        text=None,
+        font='Arial',
+        pos=(0, -0.24), draggable=False, height=0.028, wrapWidth=1.3, ori=0.0, 
+        color='gold', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-3.0);
+    # Run 'Begin Experiment' code from code_boost
+    RU_ALPHA = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
+    def _lev(a, b):
+        prev = list(range(len(b) + 1))
+        for i, ca in enumerate(a, 1):
+            cur = [i]
+            for j, cb in enumerate(b, 1):
+                cur.append(min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (0 if ca == cb else 1)))
+            prev = cur
+        return prev[-1]
+    def check_alpha(s, want_upper):
+        letters = ''.join(ch for ch in (s or '') if ch.isalpha())
+        if not letters:
+            return ('empty', 99, 0.0)
+        low = letters.lower().replace('ё', '')
+        d = _lev(low, RU_ALPHA)
+        if d > 3:
+            return ('wrong', d, 0.0)
+        n_case = sum(1 for ch in letters if (ch.isupper() if want_upper else ch.islower()))
+        frac = n_case / float(len(letters))
+        if frac < 0.9:
+            return ('case', d, frac)
+        return ('ok', d, frac)
+    
     
     # --- Initialize components for Routine "rating" ---
     rating_text = visual.TextStim(win=win, name='rating_text',
@@ -868,7 +1016,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     
     # --- Initialize components for Routine "thanks" ---
     thanks_text = visual.TextStim(win=win, name='thanks_text',
-        text='Спасибо за участие!\n\nКнопка «Магия» не влияет на события: она использовалась, чтобы изучить, как люди принимают решения в ситуации неопределённости. Задание с буквами измеряло готовность прилагать усилия.\n\nДанные сохраняются, пожалуйста, подождите несколько секунд и не закрывайте окно. Затем нажмите пробел.',
+        text='Спасибо за участие!\n\nКнопка «Магия» не влияет на события: она использовалась, чтобы изучить, как люди принимают решения в ситуации неопределённости. Задание с алфавитом измеряло готовность прилагать усилия.\n\nДанные сохраняются, пожалуйста, подождите несколько секунд и не закрывайте окно. Затем нажмите пробел.',
         font='Arial',
         pos=(0, 0), draggable=False, height=0.035, wrapWidth=1.4, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
@@ -2411,7 +2559,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         # create an object to store info about Routine effort
         effort = data.Routine(
             name='effort',
-            components=[effort_text, effort_box, effort_done],
+            components=[effort_text, effort_box, effort_done, effort_fb],
         )
         effort.status = NOT_STARTED
         continueRoutine = True
@@ -2419,6 +2567,13 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         effort_box.reset()
         # reset effort_done to account for continued clicks & clear times on/off
         effort_done.reset()
+        # Run 'Begin Routine' code from code_effort
+        effort_clicks = 0
+        effort_attempts = 0
+        effort_ok = 0
+        effort_dist = 99
+        effort_status = ''
+        
         # store start times for effort
         effort.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
         effort.tStart = globalClock.getTime(format='float')
@@ -2521,13 +2676,45 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         # if click is continuing from last frame, update time of clicked until
                         effort_done.timesOff[-1] = effort_done.buttonClock.getTime()
                     if not effort_done.wasClicked:
-                        # end routine when effort_done is clicked
-                        continueRoutine = False
-                    if not effort_done.wasClicked:
                         # run callback code when effort_done is clicked
                         pass
             # take note of whether effort_done was clicked, so that next frame we know if clicks are new
             effort_done.wasClicked = effort_done.isClicked and effort_done.status == STARTED
+            
+            # *effort_fb* updates
+            
+            # if effort_fb is starting this frame...
+            if effort_fb.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # keep track of start time/frame for later
+                effort_fb.frameNStart = frameN  # exact frame index
+                effort_fb.tStart = t  # local t and not account for scr refresh
+                effort_fb.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(effort_fb, 'tStartRefresh')  # time at next scr refresh
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'effort_fb.started')
+                # update status
+                effort_fb.status = STARTED
+                effort_fb.setAutoDraw(True)
+            
+            # if effort_fb is active this frame...
+            if effort_fb.status == STARTED:
+                # update params
+                pass
+            # Run 'Each Frame' code from code_effort
+            if effort_done.numClicks > effort_clicks:
+                effort_clicks = effort_done.numClicks
+                effort_attempts += 1
+                _res = check_alpha(effort_box.text, True)
+                effort_status = _res[0]; effort_dist = _res[1]
+                if _res[0] == 'ok':
+                    effort_ok = 1
+                    continueRoutine = False
+                elif effort_attempts >= 3:
+                    effort_ok = 0
+                    continueRoutine = False
+                else:
+                    effort_fb.text = {'empty': 'Поле пустое. Введите алфавит и нажмите «Готово».', 'wrong': 'Похоже, в алфавите есть пропуски или ошибки. Проверьте, пожалуйста, и нажмите «Готово» ещё раз.', 'case': 'Пожалуйста, введите алфавит ПРОПИСНЫМИ (заглавными) буквами.'}[_res[0]]
+            
             
             # check for quit (typically the Esc key)
             if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -2578,12 +2765,485 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
            effort_loop.addData('effort_done.timesOff', "")
         # Run 'End Routine' code from code_effort
         txt = effort_box.text or ''
+        thisExp.addData('effort_text', txt)
         thisExp.addData('effort_len', len(txt))
-        thisExp.addData('effort_m', txt.lower().count('м'))
+        thisExp.addData('effort_ok', effort_ok)
+        thisExp.addData('effort_dist', effort_dist)
+        thisExp.addData('effort_status', effort_status)
+        thisExp.addData('effort_attempts', effort_attempts)
         thisExp.addData('effort_time', t)
         
         # the Routine "effort" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
+        
+        # --- Prepare to start Routine "boost_offer" ---
+        # create an object to store info about Routine boost_offer
+        boost_offer = data.Routine(
+            name='boost_offer',
+            components=[boost_offer_text, btn_boost, btn_finish],
+        )
+        boost_offer.status = NOT_STARTED
+        continueRoutine = True
+        # update component parameters for each repeat
+        # reset btn_boost to account for continued clicks & clear times on/off
+        btn_boost.reset()
+        # reset btn_finish to account for continued clicks & clear times on/off
+        btn_finish.reset()
+        # Run 'Begin Routine' code from code_boost_offer
+        nBoost = 0
+        
+        # store start times for boost_offer
+        boost_offer.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+        boost_offer.tStart = globalClock.getTime(format='float')
+        boost_offer.status = STARTED
+        thisExp.addData('boost_offer.started', boost_offer.tStart)
+        boost_offer.maxDuration = None
+        # keep track of which components have finished
+        boost_offerComponents = boost_offer.components
+        for thisComponent in boost_offer.components:
+            thisComponent.tStart = None
+            thisComponent.tStop = None
+            thisComponent.tStartRefresh = None
+            thisComponent.tStopRefresh = None
+            if hasattr(thisComponent, 'status'):
+                thisComponent.status = NOT_STARTED
+        # reset timers
+        t = 0
+        _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+        frameN = -1
+        
+        # --- Run Routine "boost_offer" ---
+        boost_offer.forceEnded = routineForceEnded = not continueRoutine
+        while continueRoutine:
+            # if trial has changed, end Routine now
+            if hasattr(thisEffort_loop, 'status') and thisEffort_loop.status == STOPPING:
+                continueRoutine = False
+            # get current time
+            t = routineTimer.getTime()
+            tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+            tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+            frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+            # update/draw components on each frame
+            
+            # *boost_offer_text* updates
+            
+            # if boost_offer_text is starting this frame...
+            if boost_offer_text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # keep track of start time/frame for later
+                boost_offer_text.frameNStart = frameN  # exact frame index
+                boost_offer_text.tStart = t  # local t and not account for scr refresh
+                boost_offer_text.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(boost_offer_text, 'tStartRefresh')  # time at next scr refresh
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'boost_offer_text.started')
+                # update status
+                boost_offer_text.status = STARTED
+                boost_offer_text.setAutoDraw(True)
+            
+            # if boost_offer_text is active this frame...
+            if boost_offer_text.status == STARTED:
+                # update params
+                pass
+            # *btn_boost* updates
+            
+            # if btn_boost is starting this frame...
+            if btn_boost.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+                # keep track of start time/frame for later
+                btn_boost.frameNStart = frameN  # exact frame index
+                btn_boost.tStart = t  # local t and not account for scr refresh
+                btn_boost.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(btn_boost, 'tStartRefresh')  # time at next scr refresh
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'btn_boost.started')
+                # update status
+                btn_boost.status = STARTED
+                win.callOnFlip(btn_boost.buttonClock.reset)
+                btn_boost.setAutoDraw(True)
+            
+            # if btn_boost is active this frame...
+            if btn_boost.status == STARTED:
+                # update params
+                pass
+                # check whether btn_boost has been pressed
+                if btn_boost.isClicked:
+                    if not btn_boost.wasClicked:
+                        # if this is a new click, store time of first click and clicked until
+                        btn_boost.timesOn.append(btn_boost.buttonClock.getTime())
+                        btn_boost.timesOff.append(btn_boost.buttonClock.getTime())
+                    elif len(btn_boost.timesOff):
+                        # if click is continuing from last frame, update time of clicked until
+                        btn_boost.timesOff[-1] = btn_boost.buttonClock.getTime()
+                    if not btn_boost.wasClicked:
+                        # end routine when btn_boost is clicked
+                        continueRoutine = False
+                    if not btn_boost.wasClicked:
+                        # run callback code when btn_boost is clicked
+                        pass
+            # take note of whether btn_boost was clicked, so that next frame we know if clicks are new
+            btn_boost.wasClicked = btn_boost.isClicked and btn_boost.status == STARTED
+            # *btn_finish* updates
+            
+            # if btn_finish is starting this frame...
+            if btn_finish.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+                # keep track of start time/frame for later
+                btn_finish.frameNStart = frameN  # exact frame index
+                btn_finish.tStart = t  # local t and not account for scr refresh
+                btn_finish.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(btn_finish, 'tStartRefresh')  # time at next scr refresh
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'btn_finish.started')
+                # update status
+                btn_finish.status = STARTED
+                win.callOnFlip(btn_finish.buttonClock.reset)
+                btn_finish.setAutoDraw(True)
+            
+            # if btn_finish is active this frame...
+            if btn_finish.status == STARTED:
+                # update params
+                pass
+                # check whether btn_finish has been pressed
+                if btn_finish.isClicked:
+                    if not btn_finish.wasClicked:
+                        # if this is a new click, store time of first click and clicked until
+                        btn_finish.timesOn.append(btn_finish.buttonClock.getTime())
+                        btn_finish.timesOff.append(btn_finish.buttonClock.getTime())
+                    elif len(btn_finish.timesOff):
+                        # if click is continuing from last frame, update time of clicked until
+                        btn_finish.timesOff[-1] = btn_finish.buttonClock.getTime()
+                    if not btn_finish.wasClicked:
+                        # end routine when btn_finish is clicked
+                        continueRoutine = False
+                    if not btn_finish.wasClicked:
+                        # run callback code when btn_finish is clicked
+                        pass
+            # take note of whether btn_finish was clicked, so that next frame we know if clicks are new
+            btn_finish.wasClicked = btn_finish.isClicked and btn_finish.status == STARTED
+            
+            # check for quit (typically the Esc key)
+            if defaultKeyboard.getKeys(keyList=["escape"]):
+                thisExp.status = FINISHED
+            if thisExp.status == FINISHED or endExpNow:
+                endExperiment(thisExp, win=win)
+                return
+            # pause experiment here if requested
+            if thisExp.status == PAUSED:
+                pauseExperiment(
+                    thisExp=thisExp, 
+                    win=win, 
+                    timers=[routineTimer, globalClock], 
+                    currentRoutine=boost_offer,
+                )
+                # skip the frame we paused on
+                continue
+            
+            # check if all components have finished
+            if not continueRoutine:  # a component has requested a forced-end of Routine
+                boost_offer.forceEnded = routineForceEnded = True
+                break
+            continueRoutine = False  # will revert to True if at least one component still running
+            for thisComponent in boost_offer.components:
+                if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                    continueRoutine = True
+                    break  # at least one component has not yet finished
+            
+            # refresh the screen
+            if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+                win.flip()
+        
+        # --- Ending Routine "boost_offer" ---
+        for thisComponent in boost_offer.components:
+            if hasattr(thisComponent, "setAutoDraw"):
+                thisComponent.setAutoDraw(False)
+        # store stop times for boost_offer
+        boost_offer.tStop = globalClock.getTime(format='float')
+        boost_offer.tStopRefresh = tThisFlipGlobal
+        thisExp.addData('boost_offer.stopped', boost_offer.tStop)
+        effort_loop.addData('btn_boost.numClicks', btn_boost.numClicks)
+        if btn_boost.numClicks:
+           effort_loop.addData('btn_boost.timesOn', btn_boost.timesOn)
+           effort_loop.addData('btn_boost.timesOff', btn_boost.timesOff)
+        else:
+           effort_loop.addData('btn_boost.timesOn', "")
+           effort_loop.addData('btn_boost.timesOff', "")
+        effort_loop.addData('btn_finish.numClicks', btn_finish.numClicks)
+        if btn_finish.numClicks:
+           effort_loop.addData('btn_finish.timesOn', btn_finish.timesOn)
+           effort_loop.addData('btn_finish.timesOff', btn_finish.timesOff)
+        else:
+           effort_loop.addData('btn_finish.timesOn', "")
+           effort_loop.addData('btn_finish.timesOff', "")
+        # Run 'End Routine' code from code_boost_offer
+        nBoost = 1 if btn_boost.numClicks > 0 else 0
+        thisExp.addData('boost_choice', 'boost' if nBoost else 'finish')
+        thisExp.addData('boost_rt', t)
+        
+        # the Routine "boost_offer" was not non-slip safe, so reset the non-slip timer
+        routineTimer.reset()
+        
+        # set up handler to look after randomisation of conditions etc
+        boost_loop = data.TrialHandler2(
+            name='boost_loop',
+            nReps=nBoost, 
+            method='sequential', 
+            extraInfo=expInfo, 
+            originPath=-1, 
+            trialList=[None], 
+            seed=None, 
+        )
+        thisExp.addLoop(boost_loop)  # add the loop to the experiment
+        thisBoost_loop = boost_loop.trialList[0]  # so we can initialise stimuli with some values
+        # abbreviate parameter names if possible (e.g. rgb = thisBoost_loop.rgb)
+        if thisBoost_loop != None:
+            for paramName in thisBoost_loop:
+                globals()[paramName] = thisBoost_loop[paramName]
+        
+        for thisBoost_loop in boost_loop:
+            boost_loop.status = STARTED
+            if hasattr(thisBoost_loop, 'status'):
+                thisBoost_loop.status = STARTED
+            currentLoop = boost_loop
+            thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+            # abbreviate parameter names if possible (e.g. rgb = thisBoost_loop.rgb)
+            if thisBoost_loop != None:
+                for paramName in thisBoost_loop:
+                    globals()[paramName] = thisBoost_loop[paramName]
+            
+            # --- Prepare to start Routine "boost" ---
+            # create an object to store info about Routine boost
+            boost = data.Routine(
+                name='boost',
+                components=[boost_text, boost_box, boost_done, boost_fb],
+            )
+            boost.status = NOT_STARTED
+            continueRoutine = True
+            # update component parameters for each repeat
+            boost_box.reset()
+            # reset boost_done to account for continued clicks & clear times on/off
+            boost_done.reset()
+            # Run 'Begin Routine' code from code_boost
+            boost_clicks = 0
+            boost_attempts = 0
+            boost_ok = 0
+            boost_dist = 99
+            boost_status = ''
+            
+            # store start times for boost
+            boost.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+            boost.tStart = globalClock.getTime(format='float')
+            boost.status = STARTED
+            thisExp.addData('boost.started', boost.tStart)
+            boost.maxDuration = None
+            # keep track of which components have finished
+            boostComponents = boost.components
+            for thisComponent in boost.components:
+                thisComponent.tStart = None
+                thisComponent.tStop = None
+                thisComponent.tStartRefresh = None
+                thisComponent.tStopRefresh = None
+                if hasattr(thisComponent, 'status'):
+                    thisComponent.status = NOT_STARTED
+            # reset timers
+            t = 0
+            _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+            frameN = -1
+            
+            # --- Run Routine "boost" ---
+            boost.forceEnded = routineForceEnded = not continueRoutine
+            while continueRoutine:
+                # if trial has changed, end Routine now
+                if hasattr(thisBoost_loop, 'status') and thisBoost_loop.status == STOPPING:
+                    continueRoutine = False
+                # get current time
+                t = routineTimer.getTime()
+                tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+                tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+                frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+                # update/draw components on each frame
+                
+                # *boost_text* updates
+                
+                # if boost_text is starting this frame...
+                if boost_text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # keep track of start time/frame for later
+                    boost_text.frameNStart = frameN  # exact frame index
+                    boost_text.tStart = t  # local t and not account for scr refresh
+                    boost_text.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(boost_text, 'tStartRefresh')  # time at next scr refresh
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'boost_text.started')
+                    # update status
+                    boost_text.status = STARTED
+                    boost_text.setAutoDraw(True)
+                
+                # if boost_text is active this frame...
+                if boost_text.status == STARTED:
+                    # update params
+                    pass
+                
+                # *boost_box* updates
+                
+                # if boost_box is starting this frame...
+                if boost_box.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # keep track of start time/frame for later
+                    boost_box.frameNStart = frameN  # exact frame index
+                    boost_box.tStart = t  # local t and not account for scr refresh
+                    boost_box.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(boost_box, 'tStartRefresh')  # time at next scr refresh
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'boost_box.started')
+                    # update status
+                    boost_box.status = STARTED
+                    boost_box.setAutoDraw(True)
+                
+                # if boost_box is active this frame...
+                if boost_box.status == STARTED:
+                    # update params
+                    pass
+                # *boost_done* updates
+                
+                # if boost_done is starting this frame...
+                if boost_done.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+                    # keep track of start time/frame for later
+                    boost_done.frameNStart = frameN  # exact frame index
+                    boost_done.tStart = t  # local t and not account for scr refresh
+                    boost_done.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(boost_done, 'tStartRefresh')  # time at next scr refresh
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'boost_done.started')
+                    # update status
+                    boost_done.status = STARTED
+                    win.callOnFlip(boost_done.buttonClock.reset)
+                    boost_done.setAutoDraw(True)
+                
+                # if boost_done is active this frame...
+                if boost_done.status == STARTED:
+                    # update params
+                    pass
+                    # check whether boost_done has been pressed
+                    if boost_done.isClicked:
+                        if not boost_done.wasClicked:
+                            # if this is a new click, store time of first click and clicked until
+                            boost_done.timesOn.append(boost_done.buttonClock.getTime())
+                            boost_done.timesOff.append(boost_done.buttonClock.getTime())
+                        elif len(boost_done.timesOff):
+                            # if click is continuing from last frame, update time of clicked until
+                            boost_done.timesOff[-1] = boost_done.buttonClock.getTime()
+                        if not boost_done.wasClicked:
+                            # run callback code when boost_done is clicked
+                            pass
+                # take note of whether boost_done was clicked, so that next frame we know if clicks are new
+                boost_done.wasClicked = boost_done.isClicked and boost_done.status == STARTED
+                
+                # *boost_fb* updates
+                
+                # if boost_fb is starting this frame...
+                if boost_fb.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # keep track of start time/frame for later
+                    boost_fb.frameNStart = frameN  # exact frame index
+                    boost_fb.tStart = t  # local t and not account for scr refresh
+                    boost_fb.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(boost_fb, 'tStartRefresh')  # time at next scr refresh
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'boost_fb.started')
+                    # update status
+                    boost_fb.status = STARTED
+                    boost_fb.setAutoDraw(True)
+                
+                # if boost_fb is active this frame...
+                if boost_fb.status == STARTED:
+                    # update params
+                    pass
+                # Run 'Each Frame' code from code_boost
+                if boost_done.numClicks > boost_clicks:
+                    boost_clicks = boost_done.numClicks
+                    boost_attempts += 1
+                    _res = check_alpha(boost_box.text, False)
+                    boost_status = _res[0]; boost_dist = _res[1]
+                    if _res[0] == 'ok':
+                        boost_ok = 1
+                        continueRoutine = False
+                    elif boost_attempts >= 3:
+                        boost_ok = 0
+                        continueRoutine = False
+                    else:
+                        boost_fb.text = {'empty': 'Поле пустое. Введите алфавит и нажмите «Готово».', 'wrong': 'Похоже, в алфавите есть пропуски или ошибки. Проверьте, пожалуйста, и нажмите «Готово» ещё раз.', 'case': 'Пожалуйста, введите алфавит строчными (маленькими) буквами.'}[_res[0]]
+                
+                
+                # check for quit (typically the Esc key)
+                if defaultKeyboard.getKeys(keyList=["escape"]):
+                    thisExp.status = FINISHED
+                if thisExp.status == FINISHED or endExpNow:
+                    endExperiment(thisExp, win=win)
+                    return
+                # pause experiment here if requested
+                if thisExp.status == PAUSED:
+                    pauseExperiment(
+                        thisExp=thisExp, 
+                        win=win, 
+                        timers=[routineTimer, globalClock], 
+                        currentRoutine=boost,
+                    )
+                    # skip the frame we paused on
+                    continue
+                
+                # check if all components have finished
+                if not continueRoutine:  # a component has requested a forced-end of Routine
+                    boost.forceEnded = routineForceEnded = True
+                    break
+                continueRoutine = False  # will revert to True if at least one component still running
+                for thisComponent in boost.components:
+                    if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                        continueRoutine = True
+                        break  # at least one component has not yet finished
+                
+                # refresh the screen
+                if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+                    win.flip()
+            
+            # --- Ending Routine "boost" ---
+            for thisComponent in boost.components:
+                if hasattr(thisComponent, "setAutoDraw"):
+                    thisComponent.setAutoDraw(False)
+            # store stop times for boost
+            boost.tStop = globalClock.getTime(format='float')
+            boost.tStopRefresh = tThisFlipGlobal
+            thisExp.addData('boost.stopped', boost.tStop)
+            boost_loop.addData('boost_box.text',boost_box.text)
+            boost_loop.addData('boost_done.numClicks', boost_done.numClicks)
+            if boost_done.numClicks:
+               boost_loop.addData('boost_done.timesOn', boost_done.timesOn)
+               boost_loop.addData('boost_done.timesOff', boost_done.timesOff)
+            else:
+               boost_loop.addData('boost_done.timesOn', "")
+               boost_loop.addData('boost_done.timesOff', "")
+            # Run 'End Routine' code from code_boost
+            txt = boost_box.text or ''
+            thisExp.addData('boost_text', txt)
+            thisExp.addData('boost_len', len(txt))
+            thisExp.addData('boost_ok', boost_ok)
+            thisExp.addData('boost_dist', boost_dist)
+            thisExp.addData('boost_status', boost_status)
+            thisExp.addData('boost_attempts', boost_attempts)
+            thisExp.addData('boost_time', t)
+            
+            # the Routine "boost" was not non-slip safe, so reset the non-slip timer
+            routineTimer.reset()
+            # mark thisBoost_loop as finished
+            if hasattr(thisBoost_loop, 'status'):
+                thisBoost_loop.status = FINISHED
+            # if awaiting a pause, pause now
+            if boost_loop.status == PAUSED:
+                thisExp.status = PAUSED
+                pauseExperiment(
+                    thisExp=thisExp, 
+                    win=win, 
+                    timers=[globalClock], 
+                )
+                # once done pausing, restore running status
+                boost_loop.status = STARTED
+        # completed nBoost repeats of 'boost_loop'
+        boost_loop.status = FINISHED
+        
         # mark thisEffort_loop as finished
         if hasattr(thisEffort_loop, 'status'):
             thisEffort_loop.status = FINISHED

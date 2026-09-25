@@ -7,7 +7,9 @@ import pandas as pd
 
 folder = sys.argv[1] if len(sys.argv) > 1 else 'data'
 KEEP = ['surname', 'age', 'row_number', 'group', 'order', 'cost', 'sex', 'age', 'study', 'choice', 'choice_rt',
-        'effort_len', 'effort_m', 'effort_time', 'importance.response', 'control.response',
+        'effort_ok', 'effort_dist', 'effort_status', 'effort_attempts', 'effort_len', 'effort_time', 'effort_text',
+        'boost_choice', 'boost_rt', 'boost_ok', 'boost_dist', 'boost_status', 'boost_attempts', 'boost_len', 'boost_time', 'boost_text',
+        'importance.response', 'control.response',
         'susp_box.text', 'debug', 'RPBS_TRB', 'RPBS_Psi', 'RPBS_Witch', 'RPBS_Super', 'RPBS_Spirit',
         'RPBS_ELF', 'RPBS_Precog', 'RPBS_total', 'RPBS_mean', 'date', 'expName', 'psychopyVersion', 'frameRate']
 SUB = {'TRB': [1, 8, 15, 22], 'Psi': [2, 9, 16, 23], 'Witch': [3, 10, 17, 24], 'Super': [4, 11, 18],

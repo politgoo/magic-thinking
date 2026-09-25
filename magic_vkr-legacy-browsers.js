@@ -1,4 +1,4 @@
-﻿/****************** 
+/****************** 
  * Magic_Vkr *
  ******************/
 
@@ -70,6 +70,10 @@ const effort_loopLoopScheduler = new Scheduler(psychoJS);
 flowScheduler.add(effort_loopLoopBegin(effort_loopLoopScheduler));
 flowScheduler.add(effort_loopLoopScheduler);
 flowScheduler.add(effort_loopLoopEnd);
+
+
+
+
 
 
 flowScheduler.add(ratingRoutineBegin());
@@ -150,6 +154,7 @@ var group;
 var choice_resp;
 var choice_rt;
 var nEffort;
+var nBoost;
 var nBefore;
 var nAfter;
 var tob_resp;
@@ -186,6 +191,19 @@ var effortClock;
 var effort_text;
 var effort_box;
 var effort_done;
+var effort_fb;
+var RU_ALPHA;
+var _lev;
+var check_alpha;
+var boost_offerClock;
+var boost_offer_text;
+var btn_boost;
+var btn_finish;
+var boostClock;
+var boost_text;
+var boost_box;
+var boost_done;
+var boost_fb;
 var ratingClock;
 var rating_text;
 var lbl_imp;
@@ -238,7 +256,7 @@ async function experimentInit() {
   psychoJS.experiment.addData('age', String(expInfo['возраст'] || '').trim());
   if (['1','2','3','4'].indexOf(g) < 0) { g = ['1','2','3','4'][Math.floor(Math.random()*4)]; }
   group = parseInt(g);
-  choice_resp = ''; choice_rt = -1; nEffort = 0; nBefore = 0; nAfter = 0; tob_resp = {};
+  choice_resp = ''; choice_rt = -1; nEffort = 0; nBoost = 0; nBefore = 0; nAfter = 0; tob_resp = {};
   
   // Initialize components for Routine "debug_pick"
   debug_pickClock = new util.Clock();
@@ -449,7 +467,7 @@ async function experimentInit() {
   choice_instrClock = new util.Clock();
   // Run 'Begin Experiment' code from code_choice_instr
   TXT_CHOICE_EASY = "В качестве бонуса за участие вы можете нажать на кнопку «Магия» и тем самым повысить вероятность того, что какое-то важное для вас приятное событие произойдёт в ближайшее время, либо нажать на кнопку «Пропустить» и перейти к следующему этапу.";
-  TXT_CHOICE_HARD = "В качестве бонуса за участие вы можете нажать на кнопку «Магия» и тем самым повысить вероятность того, что какое-то важное для вас приятное событие произойдёт в ближайшее время. Для этого нужно будет напечатать букву М не менее 30 раз, чем больше, тем выше вероятность события. Либо нажмите на кнопку «Пропустить» и перейдите к следующему этапу.";
+  TXT_CHOICE_HARD = "В качестве бонуса за участие вы можете нажать на кнопку «Магия» и тем самым повысить вероятность того, что какое-то важное для вас приятное событие произойдёт в ближайшее время. Для активации эффекта нужно будет ввести русский алфавит прописными (заглавными) буквами. Либо нажмите на кнопку «Пропустить» и перейдите к следующему этапу.";
   TXT_CHOICE_TAIL = "\n\nВыбрать можно ЛИБО мышью, нажав на кнопку, ЛИБО клавишей ВЛЕВО (Магия) или ВПРАВО (Пропустить).\n\nНажмите пробел, чтобы перейти к выбору.";
   
   choice_instr_text = new visual.TextStim({
@@ -557,7 +575,7 @@ async function experimentInit() {
   effort_text = new visual.TextStim({
     win: psychoJS.window,
     name: 'effort_text',
-    text: 'Вы можете в это верить или не верить, но все древнейшие учения говорят, что действенность магии зависит от прилагаемых усилий.\n\nНапечатайте в поле ниже букву М не менее 30 раз. Чем больше, тем выше вероятность события. Когда закончите, нажмите «Готово».',
+    text: 'Вы можете в это верить или не верить, но все древнейшие учения говорят, что действенность магии зависит от прилагаемых усилий.\n\nДля активации эффекта введите в поле ниже русский алфавит от А до Я ПРОПИСНЫМИ (заглавными) буквами. Когда закончите, нажмите «Готово».',
     font: 'Arial',
     units: undefined, 
     pos: [0, 0.3], draggable: false, height: 0.032,  wrapWidth: 1.3, ori: 0.0,
@@ -615,6 +633,214 @@ async function experimentInit() {
     italic: false,
   });
   effort_done.clock = new util.Clock();
+  
+  effort_fb = new visual.TextStim({
+    win: psychoJS.window,
+    name: 'effort_fb',
+    text: '',
+    font: 'Arial',
+    units: undefined, 
+    pos: [0, (- 0.24)], draggable: false, height: 0.028,  wrapWidth: 1.3, ori: 0.0,
+    languageStyle: 'LTR',
+    color: new util.Color('gold'),  opacity: undefined,
+    depth: -3.0 
+  });
+  
+  // Run 'Begin Experiment' code from code_effort
+  RU_ALPHA = 'абвгдежзийклмнопрстуфхцчшщъыьэюя';
+  _lev = function(a, b) {
+    var prev = []; for (var j = 0; j <= b.length; j++) { prev.push(j); }
+    for (var i = 1; i <= a.length; i++) {
+      var cur = [i];
+      for (var j2 = 1; j2 <= b.length; j2++) {
+        cur.push(Math.min(prev[j2] + 1, cur[j2 - 1] + 1, prev[j2 - 1] + ((a[i - 1] === b[j2 - 1]) ? 0 : 1)));
+      }
+      prev = cur;
+    }
+    return prev[b.length];
+  };
+  check_alpha = function(s, want_upper) {
+    var letters = (s || '').replace(/[^A-Za-zА-Яа-яЁё]/g, '');
+    if (letters.length === 0) { return ['empty', 99, 0.0]; }
+    var low = letters.toLowerCase().replace(/ё/g, '');
+    var d = _lev(low, RU_ALPHA);
+    if (d > 3) { return ['wrong', d, 0.0]; }
+    var n_case = 0;
+    for (var k = 0; k < letters.length; k++) {
+      var ch = letters[k];
+      if (want_upper ? (ch === ch.toUpperCase() && ch !== ch.toLowerCase()) : (ch === ch.toLowerCase() && ch !== ch.toUpperCase())) { n_case += 1; }
+    }
+    var frac = n_case / letters.length;
+    if (frac < 0.9) { return ['case', d, frac]; }
+    return ['ok', d, frac];
+  };
+  
+  // Initialize components for Routine "boost_offer"
+  boost_offerClock = new util.Clock();
+  boost_offer_text = new visual.TextStim({
+    win: psychoJS.window,
+    name: 'boost_offer_text',
+    text: 'Алфавит принят, эффект активирован.\n\nЕсли хотите усилить эффект, введите алфавит ещё раз, теперь строчными (маленькими) буквами. Это необязательно.',
+    font: 'Arial',
+    units: undefined, 
+    pos: [0, 0.2], draggable: false, height: 0.034,  wrapWidth: 1.3, ori: 0.0,
+    languageStyle: 'LTR',
+    color: new util.Color('white'),  opacity: undefined,
+    depth: 0.0 
+  });
+  
+  btn_boost = new visual.ButtonStim({
+    win: psychoJS.window,
+    name: 'btn_boost',
+    text: 'Усилить',
+    font: 'Arial',
+    pos: [(- 0.25), (- 0.12)],
+    size: [0.36, 0.14],
+    padding: null,
+    anchor: 'center',
+    ori: 0.0,
+    units: psychoJS.window.units,
+    color: 'white',
+    fillColor: 'darkgrey',
+    borderColor: null,
+    colorSpace: 'rgb',
+    borderWidth: 0.0,
+    opacity: null,
+    depth: -1,
+    letterHeight: 0.04,
+    bold: true,
+    italic: false,
+  });
+  btn_boost.clock = new util.Clock();
+  
+  btn_finish = new visual.ButtonStim({
+    win: psychoJS.window,
+    name: 'btn_finish',
+    text: 'Завершить',
+    font: 'Arial',
+    pos: [0.25, (- 0.12)],
+    size: [0.36, 0.14],
+    padding: null,
+    anchor: 'center',
+    ori: 0.0,
+    units: psychoJS.window.units,
+    color: 'white',
+    fillColor: 'darkgrey',
+    borderColor: null,
+    colorSpace: 'rgb',
+    borderWidth: 0.0,
+    opacity: null,
+    depth: -2,
+    letterHeight: 0.04,
+    bold: true,
+    italic: false,
+  });
+  btn_finish.clock = new util.Clock();
+  
+  // Initialize components for Routine "boost"
+  boostClock = new util.Clock();
+  boost_text = new visual.TextStim({
+    win: psychoJS.window,
+    name: 'boost_text',
+    text: 'Для усиления эффекта введите в поле ниже русский алфавит от а до я СТРОЧНЫМИ (маленькими) буквами. Когда закончите, нажмите «Готово».',
+    font: 'Arial',
+    units: undefined, 
+    pos: [0, 0.3], draggable: false, height: 0.032,  wrapWidth: 1.3, ori: 0.0,
+    languageStyle: 'LTR',
+    color: new util.Color('white'),  opacity: undefined,
+    depth: 0.0 
+  });
+  
+  boost_box = new visual.TextBox({
+    win: psychoJS.window,
+    name: 'boost_box',
+    text: '',
+    placeholder: 'нажмите сюда и печатайте',
+    font: 'Arial',
+    pos: [0, (- 0.02)], 
+    draggable: false,
+    letterHeight: 0.035,
+    lineSpacing: 1.0,
+    size: [1.2, 0.26],  units: undefined, 
+    ori: 0.0,
+    color: 'black', colorSpace: 'rgb',
+    fillColor: 'white', borderColor: undefined,
+    languageStyle: 'LTR',
+    bold: false, italic: false,
+    opacity: undefined,
+    padding: 0.02,
+    alignment: 'top-left',
+    overflow: 'visible',
+    editable: true,
+    multiline: true,
+    anchor: 'center',
+    depth: -1.0 
+  });
+  
+  boost_done = new visual.ButtonStim({
+    win: psychoJS.window,
+    name: 'boost_done',
+    text: 'Готово',
+    font: 'Arial',
+    pos: [0, (- 0.36)],
+    size: [0.3, 0.1],
+    padding: null,
+    anchor: 'center',
+    ori: 0.0,
+    units: psychoJS.window.units,
+    color: 'white',
+    fillColor: 'darkgrey',
+    borderColor: null,
+    colorSpace: 'rgb',
+    borderWidth: 0.0,
+    opacity: null,
+    depth: -2,
+    letterHeight: 0.04,
+    bold: true,
+    italic: false,
+  });
+  boost_done.clock = new util.Clock();
+  
+  boost_fb = new visual.TextStim({
+    win: psychoJS.window,
+    name: 'boost_fb',
+    text: '',
+    font: 'Arial',
+    units: undefined, 
+    pos: [0, (- 0.24)], draggable: false, height: 0.028,  wrapWidth: 1.3, ori: 0.0,
+    languageStyle: 'LTR',
+    color: new util.Color('gold'),  opacity: undefined,
+    depth: -3.0 
+  });
+  
+  // Run 'Begin Experiment' code from code_boost
+  RU_ALPHA = 'абвгдежзийклмнопрстуфхцчшщъыьэюя';
+  _lev = function(a, b) {
+    var prev = []; for (var j = 0; j <= b.length; j++) { prev.push(j); }
+    for (var i = 1; i <= a.length; i++) {
+      var cur = [i];
+      for (var j2 = 1; j2 <= b.length; j2++) {
+        cur.push(Math.min(prev[j2] + 1, cur[j2 - 1] + 1, prev[j2 - 1] + ((a[i - 1] === b[j2 - 1]) ? 0 : 1)));
+      }
+      prev = cur;
+    }
+    return prev[b.length];
+  };
+  check_alpha = function(s, want_upper) {
+    var letters = (s || '').replace(/[^A-Za-zА-Яа-яЁё]/g, '');
+    if (letters.length === 0) { return ['empty', 99, 0.0]; }
+    var low = letters.toLowerCase().replace(/ё/g, '');
+    var d = _lev(low, RU_ALPHA);
+    if (d > 3) { return ['wrong', d, 0.0]; }
+    var n_case = 0;
+    for (var k = 0; k < letters.length; k++) {
+      var ch = letters[k];
+      if (want_upper ? (ch === ch.toUpperCase() && ch !== ch.toLowerCase()) : (ch === ch.toLowerCase() && ch !== ch.toUpperCase())) { n_case += 1; }
+    }
+    var frac = n_case / letters.length;
+    if (frac < 0.9) { return ['case', d, frac]; }
+    return ['ok', d, frac];
+  };
   
   // Initialize components for Routine "rating"
   ratingClock = new util.Clock();
@@ -902,7 +1128,7 @@ async function experimentInit() {
   thanks_text = new visual.TextStim({
     win: psychoJS.window,
     name: 'thanks_text',
-    text: 'Спасибо за участие!\n\nКнопка «Магия» не влияет на события: она использовалась, чтобы изучить, как люди принимают решения в ситуации неопределённости. Задание с буквами измеряло готовность прилагать усилия.\n\nДанные сохраняются, пожалуйста, подождите несколько секунд и не закрывайте окно. Затем нажмите пробел.',
+    text: 'Спасибо за участие!\n\nКнопка «Магия» не влияет на события: она использовалась, чтобы изучить, как люди принимают решения в ситуации неопределённости. Задание с алфавитом измеряло готовность прилагать усилия.\n\nДанные сохраняются, пожалуйста, подождите несколько секунд и не закрывайте окно. Затем нажмите пробел.',
     font: 'Arial',
     units: undefined, 
     pos: [0, 0], draggable: false, height: 0.035,  wrapWidth: 1.4, ori: 0.0,
@@ -1287,11 +1513,80 @@ function effort_loopLoopBegin(effort_loopLoopScheduler, snapshot) {
       effort_loopLoopScheduler.add(effortRoutineBegin(snapshot));
       effort_loopLoopScheduler.add(effortRoutineEachFrame());
       effort_loopLoopScheduler.add(effortRoutineEnd(snapshot));
+      effort_loopLoopScheduler.add(boost_offerRoutineBegin(snapshot));
+      effort_loopLoopScheduler.add(boost_offerRoutineEachFrame());
+      effort_loopLoopScheduler.add(boost_offerRoutineEnd(snapshot));
+      const boost_loopLoopScheduler = new Scheduler(psychoJS);
+      effort_loopLoopScheduler.add(boost_loopLoopBegin(boost_loopLoopScheduler, snapshot));
+      effort_loopLoopScheduler.add(boost_loopLoopScheduler);
+      effort_loopLoopScheduler.add(boost_loopLoopEnd);
       effort_loopLoopScheduler.add(effort_loopLoopEndIteration(effort_loopLoopScheduler, snapshot));
     });
     
     return Scheduler.Event.NEXT;
   }
+}
+
+
+var boost_loop;
+function boost_loopLoopBegin(boost_loopLoopScheduler, snapshot) {
+  return async function() {
+    TrialHandler.fromSnapshot(snapshot); // update internal variables (.thisN etc) of the loop
+    
+    // set up handler to look after randomisation of conditions etc
+    boost_loop = new TrialHandler({
+      psychoJS: psychoJS,
+      nReps: nBoost, method: TrialHandler.Method.SEQUENTIAL,
+      extraInfo: expInfo, originPath: undefined,
+      trialList: undefined,
+      seed: undefined, name: 'boost_loop'
+    });
+    psychoJS.experiment.addLoop(boost_loop); // add the loop to the experiment
+    currentLoop = boost_loop;  // we're now the current loop
+    
+    // Schedule all the trials in the trialList:
+    boost_loop.forEach(function() {
+      snapshot = boost_loop.getSnapshot();
+    
+      boost_loopLoopScheduler.add(importConditions(snapshot));
+      boost_loopLoopScheduler.add(boostRoutineBegin(snapshot));
+      boost_loopLoopScheduler.add(boostRoutineEachFrame());
+      boost_loopLoopScheduler.add(boostRoutineEnd(snapshot));
+      boost_loopLoopScheduler.add(boost_loopLoopEndIteration(boost_loopLoopScheduler, snapshot));
+    });
+    
+    return Scheduler.Event.NEXT;
+  }
+}
+
+
+async function boost_loopLoopEnd() {
+  // terminate loop
+  psychoJS.experiment.removeLoop(boost_loop);
+  // update the current loop from the ExperimentHandler
+  if (psychoJS.experiment._unfinishedLoops.length>0)
+    currentLoop = psychoJS.experiment._unfinishedLoops.at(-1);
+  else
+    currentLoop = psychoJS.experiment;  // so we use addData from the experiment
+  return Scheduler.Event.NEXT;
+}
+
+
+function boost_loopLoopEndIteration(scheduler, snapshot) {
+  // ------Prepare for next entry------
+  return async function () {
+    if (typeof snapshot !== 'undefined') {
+      // ------Check if user ended loop early------
+      if (snapshot.finished) {
+        // Check for and save orphaned data
+        if (psychoJS.experiment.isEntryEmpty()) {
+          psychoJS.experiment.nextEntry(snapshot);
+        }
+        scheduler.stop();
+      }
+    return Scheduler.Event.NEXT;
+    }
+  };
 }
 
 
@@ -2658,6 +2953,11 @@ function choiceRoutineEnd(snapshot) {
 
 
 var effortMaxDurationReached;
+var effort_clicks;
+var effort_attempts;
+var effort_ok;
+var effort_dist;
+var effort_status;
 var effortMaxDuration;
 var effortComponents;
 function effortRoutineBegin(snapshot) {
@@ -2678,6 +2978,9 @@ function effortRoutineBegin(snapshot) {
     effort_box.refresh();
     // reset effort_done to account for continued clicks & clear times on/off
     effort_done.reset()
+    // Run 'Begin Routine' code from code_effort
+    effort_clicks = 0; effort_attempts = 0; effort_ok = 0; effort_dist = 99; effort_status = '';
+    
     psychoJS.experiment.addData('effort.started', globalClock.getTime());
     effortMaxDuration = null
     // keep track of which components have finished
@@ -2685,6 +2988,7 @@ function effortRoutineBegin(snapshot) {
     effortComponents.push(effort_text);
     effortComponents.push(effort_box);
     effortComponents.push(effort_done);
+    effortComponents.push(effort_fb);
     
     effortComponents.forEach( function(thisComponent) {
       if ('status' in thisComponent)
@@ -2760,8 +3064,6 @@ function effortRoutineEachFrame() {
           effort_done.timesOff[effort_done.timesOff.length - 1] = effort_done.clock.getTime();
         }
         if (!effort_done.wasClicked) {
-          // end routine when effort_done is clicked
-          continueRoutine = false;
           
         }
         // if effort_done is still clicked next frame, it is not a new click
@@ -2776,6 +3078,38 @@ function effortRoutineEachFrame() {
       // if effort_done is clicked next frame, it is a new click
       effort_done.wasClicked = false;
     }
+    
+    // *effort_fb* updates
+    if (t >= 0.0 && effort_fb.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      effort_fb.tStart = t;  // (not accounting for frame time here)
+      effort_fb.frameNStart = frameN;  // exact frame index
+      
+      effort_fb.setAutoDraw(true);
+    }
+    
+    
+    // if effort_fb is active this frame...
+    if (effort_fb.status === PsychoJS.Status.STARTED) {
+    }
+    
+    // Run 'Each Frame' code from code_effort
+    if (effort_done.numClicks > effort_clicks) {
+      effort_clicks = effort_done.numClicks;
+      effort_attempts += 1;
+      var _res = check_alpha(effort_box.text, true);
+      effort_status = _res[0]; effort_dist = _res[1];
+      if (_res[0] === 'ok') {
+        effort_ok = 1;
+        continueRoutine = false;
+      } else if (effort_attempts >= 3) {
+        effort_ok = 0;
+        continueRoutine = false;
+      } else {
+        effort_fb.setText({'empty': "Поле пустое. Введите алфавит и нажмите «Готово».", 'wrong': "Похоже, в алфавите есть пропуски или ошибки. Проверьте, пожалуйста, и нажмите «Готово» ещё раз.", 'case': "Пожалуйста, введите алфавит ПРОПИСНЫМИ (заглавными) буквами."}[_res[0]]);
+      }
+    }
+    
     // check for quit (typically the Esc key)
     if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
       return quitPsychoJS('The [Escape] key was pressed. Goodbye!', false);
@@ -2819,11 +3153,447 @@ function effortRoutineEnd(snapshot) {
     psychoJS.experiment.addData('effort_done.timesOff', effort_done.timesOff);
     // Run 'End Routine' code from code_effort
     var txt = effort_box.text || '';
+    psychoJS.experiment.addData('effort_text', txt);
     psychoJS.experiment.addData('effort_len', txt.length);
-    psychoJS.experiment.addData('effort_m', (txt.toLowerCase().match(/м/g) || []).length);
+    psychoJS.experiment.addData('effort_ok', effort_ok);
+    psychoJS.experiment.addData('effort_dist', effort_dist);
+    psychoJS.experiment.addData('effort_status', effort_status);
+    psychoJS.experiment.addData('effort_attempts', effort_attempts);
     psychoJS.experiment.addData('effort_time', t);
     
     // the Routine "effort" was not non-slip safe, so reset the non-slip timer
+    routineTimer.reset();
+    
+    // Routines running outside a loop should always advance the datafile row
+    if (currentLoop === psychoJS.experiment) {
+      psychoJS.experiment.nextEntry(snapshot);
+    }
+    return Scheduler.Event.NEXT;
+  }
+}
+
+
+var boost_offerMaxDurationReached;
+var boost_offerMaxDuration;
+var boost_offerComponents;
+function boost_offerRoutineBegin(snapshot) {
+  return async function () {
+    TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
+    
+    //--- Prepare to start Routine 'boost_offer' ---
+    t = 0;
+    frameN = -1;
+    continueRoutine = true; // until we're told otherwise
+    // keep track of whether this Routine was forcibly ended
+    routineForceEnded = false;
+    boost_offerClock.reset();
+    routineTimer.reset();
+    boost_offerMaxDurationReached = false;
+    // update component parameters for each repeat
+    // reset btn_boost to account for continued clicks & clear times on/off
+    btn_boost.reset()
+    // reset btn_finish to account for continued clicks & clear times on/off
+    btn_finish.reset()
+    // Run 'Begin Routine' code from code_boost_offer
+    nBoost = 0;
+    
+    psychoJS.experiment.addData('boost_offer.started', globalClock.getTime());
+    boost_offerMaxDuration = null
+    // keep track of which components have finished
+    boost_offerComponents = [];
+    boost_offerComponents.push(boost_offer_text);
+    boost_offerComponents.push(btn_boost);
+    boost_offerComponents.push(btn_finish);
+    
+    boost_offerComponents.forEach( function(thisComponent) {
+      if ('status' in thisComponent)
+        thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
+    return Scheduler.Event.NEXT;
+  }
+}
+
+
+function boost_offerRoutineEachFrame() {
+  return async function () {
+    //--- Loop for each frame of Routine 'boost_offer' ---
+    // get current time
+    t = boost_offerClock.getTime();
+    frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
+    // update/draw components on each frame
+    
+    // *boost_offer_text* updates
+    if (t >= 0.0 && boost_offer_text.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      boost_offer_text.tStart = t;  // (not accounting for frame time here)
+      boost_offer_text.frameNStart = frameN;  // exact frame index
+      
+      boost_offer_text.setAutoDraw(true);
+    }
+    
+    
+    // if boost_offer_text is active this frame...
+    if (boost_offer_text.status === PsychoJS.Status.STARTED) {
+    }
+    
+    
+    // *btn_boost* updates
+    if (t >= 0 && btn_boost.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      btn_boost.tStart = t;  // (not accounting for frame time here)
+      btn_boost.frameNStart = frameN;  // exact frame index
+      
+      btn_boost.setAutoDraw(true);
+    }
+    
+    
+    // if btn_boost is active this frame...
+    if (btn_boost.status === PsychoJS.Status.STARTED) {
+    }
+    
+    if (btn_boost.status === PsychoJS.Status.STARTED) {
+      // check whether btn_boost has been pressed
+      if (btn_boost.isClicked) {
+        if (!btn_boost.wasClicked) {
+          // store time of first click
+          btn_boost.timesOn.push(btn_boost.clock.getTime());
+          // store time clicked until
+          btn_boost.timesOff.push(btn_boost.clock.getTime());
+        } else {
+          // update time clicked until;
+          btn_boost.timesOff[btn_boost.timesOff.length - 1] = btn_boost.clock.getTime();
+        }
+        if (!btn_boost.wasClicked) {
+          // end routine when btn_boost is clicked
+          continueRoutine = false;
+          
+        }
+        // if btn_boost is still clicked next frame, it is not a new click
+        btn_boost.wasClicked = true;
+      } else {
+        // if btn_boost is clicked next frame, it is a new click
+        btn_boost.wasClicked = false;
+      }
+    } else {
+      // keep clock at 0 if btn_boost hasn't started / has finished
+      btn_boost.clock.reset();
+      // if btn_boost is clicked next frame, it is a new click
+      btn_boost.wasClicked = false;
+    }
+    
+    // *btn_finish* updates
+    if (t >= 0 && btn_finish.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      btn_finish.tStart = t;  // (not accounting for frame time here)
+      btn_finish.frameNStart = frameN;  // exact frame index
+      
+      btn_finish.setAutoDraw(true);
+    }
+    
+    
+    // if btn_finish is active this frame...
+    if (btn_finish.status === PsychoJS.Status.STARTED) {
+    }
+    
+    if (btn_finish.status === PsychoJS.Status.STARTED) {
+      // check whether btn_finish has been pressed
+      if (btn_finish.isClicked) {
+        if (!btn_finish.wasClicked) {
+          // store time of first click
+          btn_finish.timesOn.push(btn_finish.clock.getTime());
+          // store time clicked until
+          btn_finish.timesOff.push(btn_finish.clock.getTime());
+        } else {
+          // update time clicked until;
+          btn_finish.timesOff[btn_finish.timesOff.length - 1] = btn_finish.clock.getTime();
+        }
+        if (!btn_finish.wasClicked) {
+          // end routine when btn_finish is clicked
+          continueRoutine = false;
+          
+        }
+        // if btn_finish is still clicked next frame, it is not a new click
+        btn_finish.wasClicked = true;
+      } else {
+        // if btn_finish is clicked next frame, it is a new click
+        btn_finish.wasClicked = false;
+      }
+    } else {
+      // keep clock at 0 if btn_finish hasn't started / has finished
+      btn_finish.clock.reset();
+      // if btn_finish is clicked next frame, it is a new click
+      btn_finish.wasClicked = false;
+    }
+    // check for quit (typically the Esc key)
+    if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
+      return quitPsychoJS('The [Escape] key was pressed. Goodbye!', false);
+    }
+    
+    // check if the Routine should terminate
+    if (!continueRoutine) {  // a component has requested a forced-end of Routine
+      routineForceEnded = true;
+      return Scheduler.Event.NEXT;
+    }
+    
+    continueRoutine = false;  // reverts to True if at least one component still running
+    boost_offerComponents.forEach( function(thisComponent) {
+      if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
+        continueRoutine = true;
+      }
+    });
+    
+    // refresh the screen if continuing
+    if (continueRoutine) {
+      return Scheduler.Event.FLIP_REPEAT;
+    } else {
+      return Scheduler.Event.NEXT;
+    }
+  };
+}
+
+
+function boost_offerRoutineEnd(snapshot) {
+  return async function () {
+    //--- Ending Routine 'boost_offer' ---
+    boost_offerComponents.forEach( function(thisComponent) {
+      if (typeof thisComponent.setAutoDraw === 'function') {
+        thisComponent.setAutoDraw(false);
+      }
+    });
+    psychoJS.experiment.addData('boost_offer.stopped', globalClock.getTime());
+    psychoJS.experiment.addData('btn_boost.numClicks', btn_boost.numClicks);
+    psychoJS.experiment.addData('btn_boost.timesOn', btn_boost.timesOn);
+    psychoJS.experiment.addData('btn_boost.timesOff', btn_boost.timesOff);
+    psychoJS.experiment.addData('btn_finish.numClicks', btn_finish.numClicks);
+    psychoJS.experiment.addData('btn_finish.timesOn', btn_finish.timesOn);
+    psychoJS.experiment.addData('btn_finish.timesOff', btn_finish.timesOff);
+    // Run 'End Routine' code from code_boost_offer
+    nBoost = (btn_boost.numClicks > 0) ? 1 : 0;
+    psychoJS.experiment.addData('boost_choice', nBoost ? 'boost' : 'finish');
+    psychoJS.experiment.addData('boost_rt', t);
+    
+    // the Routine "boost_offer" was not non-slip safe, so reset the non-slip timer
+    routineTimer.reset();
+    
+    // Routines running outside a loop should always advance the datafile row
+    if (currentLoop === psychoJS.experiment) {
+      psychoJS.experiment.nextEntry(snapshot);
+    }
+    return Scheduler.Event.NEXT;
+  }
+}
+
+
+var boostMaxDurationReached;
+var boost_clicks;
+var boost_attempts;
+var boost_ok;
+var boost_dist;
+var boost_status;
+var boostMaxDuration;
+var boostComponents;
+function boostRoutineBegin(snapshot) {
+  return async function () {
+    TrialHandler.fromSnapshot(snapshot); // ensure that .thisN vals are up to date
+    
+    //--- Prepare to start Routine 'boost' ---
+    t = 0;
+    frameN = -1;
+    continueRoutine = true; // until we're told otherwise
+    // keep track of whether this Routine was forcibly ended
+    routineForceEnded = false;
+    boostClock.reset();
+    routineTimer.reset();
+    boostMaxDurationReached = false;
+    // update component parameters for each repeat
+    boost_box.setText('');
+    boost_box.refresh();
+    // reset boost_done to account for continued clicks & clear times on/off
+    boost_done.reset()
+    // Run 'Begin Routine' code from code_boost
+    boost_clicks = 0; boost_attempts = 0; boost_ok = 0; boost_dist = 99; boost_status = '';
+    
+    psychoJS.experiment.addData('boost.started', globalClock.getTime());
+    boostMaxDuration = null
+    // keep track of which components have finished
+    boostComponents = [];
+    boostComponents.push(boost_text);
+    boostComponents.push(boost_box);
+    boostComponents.push(boost_done);
+    boostComponents.push(boost_fb);
+    
+    boostComponents.forEach( function(thisComponent) {
+      if ('status' in thisComponent)
+        thisComponent.status = PsychoJS.Status.NOT_STARTED;
+       });
+    return Scheduler.Event.NEXT;
+  }
+}
+
+
+function boostRoutineEachFrame() {
+  return async function () {
+    //--- Loop for each frame of Routine 'boost' ---
+    // get current time
+    t = boostClock.getTime();
+    frameN = frameN + 1;// number of completed frames (so 0 is the first frame)
+    // update/draw components on each frame
+    
+    // *boost_text* updates
+    if (t >= 0.0 && boost_text.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      boost_text.tStart = t;  // (not accounting for frame time here)
+      boost_text.frameNStart = frameN;  // exact frame index
+      
+      boost_text.setAutoDraw(true);
+    }
+    
+    
+    // if boost_text is active this frame...
+    if (boost_text.status === PsychoJS.Status.STARTED) {
+    }
+    
+    
+    // *boost_box* updates
+    if (t >= 0.0 && boost_box.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      boost_box.tStart = t;  // (not accounting for frame time here)
+      boost_box.frameNStart = frameN;  // exact frame index
+      
+      boost_box.setAutoDraw(true);
+    }
+    
+    
+    // if boost_box is active this frame...
+    if (boost_box.status === PsychoJS.Status.STARTED) {
+    }
+    
+    
+    // *boost_done* updates
+    if (t >= 0 && boost_done.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      boost_done.tStart = t;  // (not accounting for frame time here)
+      boost_done.frameNStart = frameN;  // exact frame index
+      
+      boost_done.setAutoDraw(true);
+    }
+    
+    
+    // if boost_done is active this frame...
+    if (boost_done.status === PsychoJS.Status.STARTED) {
+    }
+    
+    if (boost_done.status === PsychoJS.Status.STARTED) {
+      // check whether boost_done has been pressed
+      if (boost_done.isClicked) {
+        if (!boost_done.wasClicked) {
+          // store time of first click
+          boost_done.timesOn.push(boost_done.clock.getTime());
+          // store time clicked until
+          boost_done.timesOff.push(boost_done.clock.getTime());
+        } else {
+          // update time clicked until;
+          boost_done.timesOff[boost_done.timesOff.length - 1] = boost_done.clock.getTime();
+        }
+        if (!boost_done.wasClicked) {
+          
+        }
+        // if boost_done is still clicked next frame, it is not a new click
+        boost_done.wasClicked = true;
+      } else {
+        // if boost_done is clicked next frame, it is a new click
+        boost_done.wasClicked = false;
+      }
+    } else {
+      // keep clock at 0 if boost_done hasn't started / has finished
+      boost_done.clock.reset();
+      // if boost_done is clicked next frame, it is a new click
+      boost_done.wasClicked = false;
+    }
+    
+    // *boost_fb* updates
+    if (t >= 0.0 && boost_fb.status === PsychoJS.Status.NOT_STARTED) {
+      // keep track of start time/frame for later
+      boost_fb.tStart = t;  // (not accounting for frame time here)
+      boost_fb.frameNStart = frameN;  // exact frame index
+      
+      boost_fb.setAutoDraw(true);
+    }
+    
+    
+    // if boost_fb is active this frame...
+    if (boost_fb.status === PsychoJS.Status.STARTED) {
+    }
+    
+    // Run 'Each Frame' code from code_boost
+    if (boost_done.numClicks > boost_clicks) {
+      boost_clicks = boost_done.numClicks;
+      boost_attempts += 1;
+      var _res = check_alpha(boost_box.text, false);
+      boost_status = _res[0]; boost_dist = _res[1];
+      if (_res[0] === 'ok') {
+        boost_ok = 1;
+        continueRoutine = false;
+      } else if (boost_attempts >= 3) {
+        boost_ok = 0;
+        continueRoutine = false;
+      } else {
+        boost_fb.setText({'empty': "Поле пустое. Введите алфавит и нажмите «Готово».", 'wrong': "Похоже, в алфавите есть пропуски или ошибки. Проверьте, пожалуйста, и нажмите «Готово» ещё раз.", 'case': "Пожалуйста, введите алфавит строчными (маленькими) буквами."}[_res[0]]);
+      }
+    }
+    
+    // check for quit (typically the Esc key)
+    if (psychoJS.experiment.experimentEnded || psychoJS.eventManager.getKeys({keyList:['escape']}).length > 0) {
+      return quitPsychoJS('The [Escape] key was pressed. Goodbye!', false);
+    }
+    
+    // check if the Routine should terminate
+    if (!continueRoutine) {  // a component has requested a forced-end of Routine
+      routineForceEnded = true;
+      return Scheduler.Event.NEXT;
+    }
+    
+    continueRoutine = false;  // reverts to True if at least one component still running
+    boostComponents.forEach( function(thisComponent) {
+      if ('status' in thisComponent && thisComponent.status !== PsychoJS.Status.FINISHED) {
+        continueRoutine = true;
+      }
+    });
+    
+    // refresh the screen if continuing
+    if (continueRoutine) {
+      return Scheduler.Event.FLIP_REPEAT;
+    } else {
+      return Scheduler.Event.NEXT;
+    }
+  };
+}
+
+
+function boostRoutineEnd(snapshot) {
+  return async function () {
+    //--- Ending Routine 'boost' ---
+    boostComponents.forEach( function(thisComponent) {
+      if (typeof thisComponent.setAutoDraw === 'function') {
+        thisComponent.setAutoDraw(false);
+      }
+    });
+    psychoJS.experiment.addData('boost.stopped', globalClock.getTime());
+    psychoJS.experiment.addData('boost_box.text',boost_box.text)
+    psychoJS.experiment.addData('boost_done.numClicks', boost_done.numClicks);
+    psychoJS.experiment.addData('boost_done.timesOn', boost_done.timesOn);
+    psychoJS.experiment.addData('boost_done.timesOff', boost_done.timesOff);
+    // Run 'End Routine' code from code_boost
+    var txt = boost_box.text || '';
+    psychoJS.experiment.addData('boost_text', txt);
+    psychoJS.experiment.addData('boost_len', txt.length);
+    psychoJS.experiment.addData('boost_ok', boost_ok);
+    psychoJS.experiment.addData('boost_dist', boost_dist);
+    psychoJS.experiment.addData('boost_status', boost_status);
+    psychoJS.experiment.addData('boost_attempts', boost_attempts);
+    psychoJS.experiment.addData('boost_time', t);
+    
+    // the Routine "boost" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset();
     
     // Routines running outside a loop should always advance the datafile row
