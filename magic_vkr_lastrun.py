@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy3 Experiment Builder (v2025.1.1),
-    on Tue Sep 15 00:22:34 2026
+    on Fri Oct 23 18:37:14 2026
 If you publish work using this script the most relevant publication is:
 
     Peirce J, Gray JR, Simpson S, MacAskill M, Höchenberger R, Sogo H, Kastman E, Lindeløv JK. (2019) 
@@ -46,8 +46,9 @@ expVersion = ''
 runAtExit = []
 # information about this experiment
 expInfo = {
-    'фамилия': '',
-    'возраст': '',
+    'имя|req': '',
+    'пол|req': ['женский', 'мужской', 'не указывать'],
+    'возраст|req': '',
     'date|hid': data.getDateStr(),
     'expName|hid': expName,
     'expVersion|hid': expVersion,
@@ -64,7 +65,7 @@ or run the experiment with `--pilot` as an argument. To change what pilot
 PILOTING = core.setPilotModeFromArgs()
 # start off with values from experiment settings
 _fullScr = True
-_winSize = [1710, 1107]
+_winSize = (1024, 768)
 # if in pilot mode, apply overrides according to preferences
 if PILOTING:
     # force windowed mode
@@ -272,11 +273,23 @@ def setupDevices(expInfo, thisExp, win):
             deviceClass='keyboard',
             deviceName='tob_instr_key_before',
         )
-    if deviceManager.getDevice('choice_instr_key') is None:
-        # initialise choice_instr_key
-        choice_instr_key = deviceManager.addDevice(
+    if deviceManager.getDevice('tob_key_before') is None:
+        # initialise tob_key_before
+        tob_key_before = deviceManager.addDevice(
             deviceClass='keyboard',
-            deviceName='choice_instr_key',
+            deviceName='tob_key_before',
+        )
+    if deviceManager.getDevice('neu_instr_key_before') is None:
+        # initialise neu_instr_key_before
+        neu_instr_key_before = deviceManager.addDevice(
+            deviceClass='keyboard',
+            deviceName='neu_instr_key_before',
+        )
+    if deviceManager.getDevice('neu_key_before') is None:
+        # initialise neu_key_before
+        neu_key_before = deviceManager.addDevice(
+            deviceClass='keyboard',
+            deviceName='neu_key_before',
         )
     if deviceManager.getDevice('tob_instr_key_after') is None:
         # initialise tob_instr_key_after
@@ -284,11 +297,23 @@ def setupDevices(expInfo, thisExp, win):
             deviceClass='keyboard',
             deviceName='tob_instr_key_after',
         )
-    if deviceManager.getDevice('thanks_key') is None:
-        # initialise thanks_key
-        thanks_key = deviceManager.addDevice(
+    if deviceManager.getDevice('tob_key_after') is None:
+        # initialise tob_key_after
+        tob_key_after = deviceManager.addDevice(
             deviceClass='keyboard',
-            deviceName='thanks_key',
+            deviceName='tob_key_after',
+        )
+    if deviceManager.getDevice('neu_instr_key_after') is None:
+        # initialise neu_instr_key_after
+        neu_instr_key_after = deviceManager.addDevice(
+            deviceClass='keyboard',
+            deviceName='neu_instr_key_after',
+        )
+    if deviceManager.getDevice('neu_key_after') is None:
+        # initialise neu_key_after
+        neu_key_after = deviceManager.addDevice(
+            deviceClass='keyboard',
+            deviceName='neu_key_after',
         )
     # return True if completed successfully
     return True
@@ -399,28 +424,55 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     
     # --- Initialize components for Routine "welcome" ---
     welcome_text = visual.TextStim(win=win, name='welcome_text',
-        text='Добрый день! Приглашаем принять участие в исследовании принятия решений.\n\nУчастие займёт около 10 минут. Данные анонимны и используются только в обобщённом виде. Продолжая, вы даёте согласие на участие.\n\nПожалуйста, проходите исследование на компьютере или ноутбуке.\n\nЧтобы начать, нажмите пробел.',
+        text='Здравствуйте! Это исследование принятия решений, оно займёт около 10 минут.\n\nДанные анонимны и используются только в обобщённом виде. Продолжая, вы даёте согласие на участие.\n\nПожалуйста, проходите исследование на компьютере или ноутбуке.\n\nЧтобы начать, нажмите пробел.',
         font='Arial',
-        pos=(0, 0), draggable=False, height=0.035, wrapWidth=1.4, ori=0.0, 
+        pos=(0, 0), draggable=False, height=0.031, wrapWidth=1.4, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=0.0);
     welcome_key = keyboard.Keyboard(deviceName='welcome_key')
     # Run 'Begin Experiment' code from code_assign
-    import random
+    import random, uuid
     g = str(expInfo.get('group', '')).strip()
-    nDebug = 1 if str(expInfo.get('фамилия', '')).strip() == '0' else 0
-    thisExp.addData('surname', str(expInfo.get('фамилия', '')).strip())
-    thisExp.addData('age', str(expInfo.get('возраст', '')).strip())
+    group_source = 'url'
+    _name = str(expInfo.get('имя', '')).strip()
+    _sex = str(expInfo.get('пол', '')).strip()
+    _age = str(expInfo.get('возраст', '')).strip()
+    nDebug = 1 if _name == '0' else 0
+    thisExp.addData('name', _name)
+    thisExp.addData('sex', {'женский': 'f', 'мужской': 'm', 'не указывать': 'na'}.get(_sex, _sex))
+    thisExp.addData('age', _age)
+    thisExp.addData('age_ok', 1 if (_age.isdigit() and 18 <= int(_age) <= 99) else 0)
     if g not in ['1', '2', '3', '4']:
         g = random.choice(['1', '2', '3', '4'])
+        group_source = 'random'
     group = int(g)
+    # среда прохождения (для отсева повторов и проверки качества)
+    import platform, uuid, time as _time
+    thisExp.addData('browser_id', 'local-' + uuid.uuid4().hex[:12])
+    thisExp.addData('user_agent', 'PsychoPy/' + platform.platform())
+    thisExp.addData('screen_w', int(win.size[0])); thisExp.addData('screen_h', int(win.size[1]))
+    thisExp.addData('win_w', int(win.size[0])); thisExp.addData('win_h', int(win.size[1]))
+    thisExp.addData('lang', ''); thisExp.addData('tz_offset_min', -_time.timezone // 60); thisExp.addData('touch', 0)
+    blur_count = 0
     choice_resp = ''
     choice_rt = -1
+    control_resp = ''
+    control_rt = -1
     nEffort = 0
     nBefore = 0
     nAfter = 0
     tob_resp = {}
+    neu_resp = {}
+    # повторные прохождения отслеживаются только онлайн (хранилище браузера); локально всегда 0
+    session_id = uuid.uuid4().hex[:12]
+    prev_starts = 0
+    prev_choice_seen = 0
+    prev_completed = 0
+    thisExp.addData('session_id', session_id)
+    thisExp.addData('prev_starts', 0); thisExp.addData('prev_choice_seen', 0); thisExp.addData('prev_completed', 0)
+    thisExp.addData('name_hash', ''); thisExp.addData('browser_prev_starts', 0)
+    cond_pending = False
     
     
     # --- Initialize components for Routine "debug_pick" ---
@@ -432,7 +484,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         languageStyle='LTR',
         depth=0.0);
     debug_hint = visual.TextStim(win=win, name='debug_hint',
-        text='1: опросник до, лёгкая магия      2: опросник до, трудная магия\n3: опросник после, лёгкая магия      4: опросник после, трудная магия',
+        text='1: опросник до, бесплатная магия      2: опросник до, платная магия (алфавит объявлен в инструкции)\n3: опросник после, бесплатная магия      4: опросник после, платная магия (алфавит объявлен в инструкции)',
         font='Arial',
         pos=(0, 0.17), draggable=False, height=0.028, wrapWidth=1.4, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
@@ -511,15 +563,15 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     setup_blank = visual.TextStim(win=win, name='setup_blank',
         text=None,
         font='Arial',
-        pos=(0, 0), draggable=False, height=0.035, wrapWidth=1.4, ori=0.0, 
+        pos=(0, 0), draggable=False, height=0.031, wrapWidth=1.4, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=0.0);
     
     # --- Initialize components for Routine "tob_instr_before" ---
     tob_instr_text_before = visual.TextBox2(
-         win, text='Пожалуйста, укажите степень Вашего согласия с приведенными утверждениями.\n\n1 — Абсолютно не согласен\n2 — Не согласен\n3 — Скорее не согласен\n4 — Не знаю, не уверен\n5 — Скорее согласен\n6 — Согласен\n7 — Абсолютно согласен\n\nОтвет выбирается стрелками влево и вправо (или клавишами 1–7) и подтверждается пробелом.\n\nНажмите пробел, чтобы продолжить.', placeholder='Type here...', font='Arial',
-         ori=0.0, pos=(0, 0), draggable=False,      letterHeight=0.032,
+         win, text='Сейчас Вам будет предложен опросник из 26 утверждений.\nОцените, насколько Вы согласны с каждым из них, по шкале от 1 до 7:\n\n1 — абсолютно не согласен\n2 — не согласен\n3 — скорее не согласен\n4 — не знаю, не уверен\n5 — скорее согласен\n6 — согласен\n7 — абсолютно согласен\n\nКак отвечать: нажмите клавишу с нужной цифрой от 1 до 7 (или выберите значение стрелками влево и вправо), затем нажмите пробел, чтобы перейти к следующему утверждению. Правильных и неправильных ответов нет.\n\nНажмите пробел, чтобы начать.', placeholder='Type here...', font='Arial',
+         ori=0.0, pos=(0, 0), draggable=False,      letterHeight=0.029,
          size=(1.2, 0.8), borderWidth=2.0,
          color='white', colorSpace='rgb',
          opacity=None,
@@ -549,7 +601,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         style='rating', styleTweaks=[], opacity=None,
         labelColor='white', markerColor='Red', lineColor='White', colorSpace='rgb',
         font='Arial', labelHeight=0.025,
-        flip=False, ori=0.0, depth=-1, readOnly=True)
+        flip=False, ori=0.0, depth=-1, readOnly=False)
     tob_hint_before = visual.TextStim(win=win, name='tob_hint_before',
         text='Стрелки влево и вправо или клавиши 1–7: выбрать ответ.  Пробел: подтвердить',
         font='Arial',
@@ -557,33 +609,62 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         color='lightgrey', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=-2.0);
+    tob_key_before = keyboard.Keyboard(deviceName='tob_key_before')
     
-    # --- Initialize components for Routine "choice_instr" ---
-    # Run 'Begin Experiment' code from code_choice_instr
-    TXT_CHOICE_EASY = 'В качестве бонуса за участие вы можете нажать на кнопку «Магия» и тем самым повысить вероятность того, что какое-то важное для вас приятное событие произойдёт в ближайшее время, либо нажать на кнопку «Пропустить» и перейти к следующему этапу.'
-    TXT_CHOICE_HARD = 'В качестве бонуса за участие вы можете нажать на кнопку «Магия» и тем самым повысить вероятность того, что какое-то важное для вас приятное событие произойдёт в ближайшее время. Для этого нужно будет напечатать букву М не менее 30 раз, чем больше, тем выше вероятность события. Либо нажмите на кнопку «Пропустить» и перейдите к следующему этапу.'
-    TXT_CHOICE_TAIL = '\n\nВыбрать можно ЛИБО мышью, нажав на кнопку, ЛИБО клавишей ВЛЕВО (Магия) или ВПРАВО (Пропустить).\n\nНажмите пробел, чтобы перейти к выбору.'
+    # --- Initialize components for Routine "neu_instr_before" ---
+    neu_instr_text_before = visual.TextBox2(
+         win, text='Сейчас Вам будет предложен опросник из 26 утверждений.\nОцените, насколько Вы согласны с каждым из них, по шкале от 1 до 7:\n\n1 — абсолютно не согласен\n2 — не согласен\n3 — скорее не согласен\n4 — не знаю, не уверен\n5 — скорее согласен\n6 — согласен\n7 — абсолютно согласен\n\nКак отвечать: нажмите клавишу с нужной цифрой от 1 до 7 (или выберите значение стрелками влево и вправо), затем нажмите пробел, чтобы перейти к следующему утверждению. Правильных и неправильных ответов нет.\n\nНажмите пробел, чтобы начать.', placeholder='Type here...', font='Arial',
+         ori=0.0, pos=(0, 0), draggable=False,      letterHeight=0.029,
+         size=(1.2, 0.8), borderWidth=2.0,
+         color='white', colorSpace='rgb',
+         opacity=None,
+         bold=False, italic=False,
+         lineSpacing=1.0, speechPoint=None,
+         padding=0.02, alignment='top-left',
+         anchor='center', overflow='visible',
+         fillColor=None, borderColor=None,
+         flipHoriz=False, flipVert=False, languageStyle='LTR',
+         editable=False,
+         name='neu_instr_text_before',
+         depth=0, autoLog=True,
+    )
+    neu_instr_key_before = keyboard.Keyboard(deviceName='neu_instr_key_before')
     
-    choice_instr_text = visual.TextStim(win=win, name='choice_instr_text',
+    # --- Initialize components for Routine "neu_item_before" ---
+    neu_text_before = visual.TextStim(win=win, name='neu_text_before',
         text='',
         font='Arial',
-        pos=(0, 0.05), draggable=False, height=0.036, wrapWidth=1.3, ori=0.0, 
+        pos=(0, 0.2), draggable=False, height=0.04, wrapWidth=1.3, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-1.0);
-    choice_instr_key = keyboard.Keyboard(deviceName='choice_instr_key')
-    
-    # --- Initialize components for Routine "choice" ---
-    choice_head = visual.TextStim(win=win, name='choice_head',
-        text='Ваш выбор',
+        depth=0.0);
+    neu_slider_before = visual.Slider(win=win, name='neu_slider_before',
+        startValue=None, size=(1.3, 0.06), pos=(0, -0.12), units=win.units,
+        labels=['1\nабсолютно\nне согласен', '2\nне согласен', '3\nскорее\nне согласен', '4\nне знаю,\nне уверен', '5\nскорее\nсогласен', '6\nсогласен', '7\nабсолютно\nсогласен'], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
+        style='rating', styleTweaks=[], opacity=None,
+        labelColor='white', markerColor='Red', lineColor='White', colorSpace='rgb',
+        font='Arial', labelHeight=0.025,
+        flip=False, ori=0.0, depth=-1, readOnly=False)
+    neu_hint_before = visual.TextStim(win=win, name='neu_hint_before',
+        text='Стрелки влево и вправо или клавиши 1–7: выбрать ответ.  Пробел: подтвердить',
         font='Arial',
-        pos=(0, 0.25), draggable=False, height=0.045, wrapWidth=1.4, ori=0.0, 
+        pos=(0, -0.4), draggable=False, height=0.026, wrapWidth=1.4, ori=0.0, 
+        color='lightgrey', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-2.0);
+    neu_key_before = keyboard.Keyboard(deviceName='neu_key_before')
+    
+    # --- Initialize components for Routine "control_q" ---
+    control_q_instr = visual.TextStim(win=win, name='control_q_instr',
+        text='А сейчас вопрос на внимание. Он кажется простым, но нам важно удостовериться, что вы внимательно читаете текст на каждом экране и отвечаете на вопросы осознанно. Поэтому ответьте, есть ли потолок в том месте, где вы сейчас находитесь, нажав на кнопку «Потолок», если он есть, или на кнопку «Нет потолка», если его нет, и после этого перейдите к следующему этапу.',
+        font='Arial',
+        pos=(0, 0.22), draggable=False, height=0.027, wrapWidth=1.5, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=-1.0);
-    btn_magic = visual.ButtonStim(win, 
-        text='Магия', font='Arial',
-        pos=(-0.25, 0.0),
+    btn_control_q_l = visual.ButtonStim(win, 
+        text='Потолок', font='Arial',
+        pos=(-0.25, -0.12),
         letterHeight=0.04,
         size=(0.36, 0.14), 
         ori=0.0
@@ -594,13 +675,13 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         bold=True, italic=False,
         padding=None,
         anchor='center',
-        name='btn_magic',
+        name='btn_control_q_l',
         depth=-2
     )
-    btn_magic.buttonClock = core.Clock()
-    btn_skip = visual.ButtonStim(win, 
-        text='Пропустить', font='Arial',
-        pos=(0.25, 0.0),
+    btn_control_q_l.buttonClock = core.Clock()
+    btn_control_q_r = visual.ButtonStim(win, 
+        text='Нет потолка', font='Arial',
+        pos=(0.25, -0.12),
         letterHeight=0.04,
         size=(0.36, 0.14), 
         ori=0.0
@@ -611,37 +692,84 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         bold=True, italic=False,
         padding=None,
         anchor='center',
-        name='btn_skip',
+        name='btn_control_q_r',
         depth=-3
     )
-    btn_skip.buttonClock = core.Clock()
-    choice_keys = visual.TextStim(win=win, name='choice_keys',
-        text='← стрелка влево                                стрелка вправо →',
+    btn_control_q_r.buttonClock = core.Clock()
+    control_q_keys = visual.TextStim(win=win, name='control_q_keys',
+        text='← клавиша влево                                клавиша вправо →',
         font='Arial',
-        pos=(0, -0.12), draggable=False, height=0.028, wrapWidth=1.4, ori=0.0, 
+        pos=(0, -0.26), draggable=False, height=0.026, wrapWidth=1.4, ori=0.0, 
         color='lightgrey', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=-4.0);
-    choice_hint = visual.TextStim(win=win, name='choice_hint',
-        text='Нажмите на кнопку мышью ЛИБО клавишу ВЛЕВО (Магия) или ВПРАВО (Пропустить)',
+    
+    # --- Initialize components for Routine "choice" ---
+    # Run 'Begin Experiment' code from code_choice
+    TXT_CHOICE_EASY = 'А сейчас бонус за участие. Многие древние мистические учения утверждают, что мысли могут влиять на будущее. Вы можете повысить вероятность того, что что-то хорошее для вас произойдёт в ближайшее время, совершив простой выбор: нажать на кнопку «Магия» или, если не хотите воспользоваться этой возможностью, нажать на кнопку «Пропустить» и перейти к следующему этапу.'
+    TXT_CHOICE_HARD = 'А сейчас бонус за участие. Многие мистические учения утверждают, что мысли могут влиять на будущее, но их влияние зависит от приложенных усилий. Вы можете повысить вероятность того, что что-то хорошее для вас произойдёт в ближайшее время, нажав на кнопку «Магия» и напечатав в появившемся поле алфавит один раз, или на кнопку «Пропустить» и перейти к следующему этапу.'
+    
+    choice_instr = visual.TextStim(win=win, name='choice_instr',
+        text='',
         font='Arial',
-        pos=(0, -0.3), draggable=False, height=0.028, wrapWidth=1.4, ori=0.0, 
+        pos=(0, 0.22), draggable=False, height=0.027, wrapWidth=1.5, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-1.0);
+    btn_choice_l = visual.ButtonStim(win, 
+        text='Магия', font='Arial',
+        pos=(-0.25, -0.12),
+        letterHeight=0.04,
+        size=(0.36, 0.14), 
+        ori=0.0
+        ,borderWidth=0.0,
+        fillColor='darkgrey', borderColor=None,
+        color='white', colorSpace='rgb',
+        opacity=None,
+        bold=True, italic=False,
+        padding=None,
+        anchor='center',
+        name='btn_choice_l',
+        depth=-2
+    )
+    btn_choice_l.buttonClock = core.Clock()
+    btn_choice_r = visual.ButtonStim(win, 
+        text='Пропустить', font='Arial',
+        pos=(0.25, -0.12),
+        letterHeight=0.04,
+        size=(0.36, 0.14), 
+        ori=0.0
+        ,borderWidth=0.0,
+        fillColor='darkgrey', borderColor=None,
+        color='white', colorSpace='rgb',
+        opacity=None,
+        bold=True, italic=False,
+        padding=None,
+        anchor='center',
+        name='btn_choice_r',
+        depth=-3
+    )
+    btn_choice_r.buttonClock = core.Clock()
+    choice_keys = visual.TextStim(win=win, name='choice_keys',
+        text='← клавиша влево                                клавиша вправо →',
+        font='Arial',
+        pos=(0, -0.26), draggable=False, height=0.026, wrapWidth=1.4, ori=0.0, 
         color='lightgrey', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
-        depth=-5.0);
+        depth=-4.0);
     
     # --- Initialize components for Routine "effort" ---
     effort_text = visual.TextStim(win=win, name='effort_text',
-        text='Вы можете в это верить или не верить, но все древнейшие учения говорят, что действенность магии зависит от прилагаемых усилий.\n\nНапечатайте в поле ниже букву М не менее 30 раз. Чем больше, тем выше вероятность события. Когда закончите, нажмите «Готово».',
+        text='Для активации магии введите в поле ниже русский алфавит от А до Я один раз. Затем нажмите «Готово».',
         font='Arial',
-        pos=(0, 0.3), draggable=False, height=0.032, wrapWidth=1.3, ori=0.0, 
+        pos=(0, 0.3), draggable=False, height=0.03, wrapWidth=1.3, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=0.0);
     effort_box = visual.TextBox2(
          win, text=None, placeholder='нажмите сюда и печатайте', font='Arial',
-         ori=0.0, pos=(0, -0.02), draggable=False,      letterHeight=0.035,
-         size=(1.2, 0.26), borderWidth=2.0,
+         ori=0.0, pos=(0, -0.02), draggable=False,      letterHeight=0.03,
+         size=(1.2, 0.3), borderWidth=2.0,
          color='black', colorSpace='rgb',
          opacity=None,
          bold=False, italic=False,
@@ -671,38 +799,72 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         depth=-2
     )
     effort_done.buttonClock = core.Clock()
+    effort_fb = visual.TextStim(win=win, name='effort_fb',
+        text=None,
+        font='Arial',
+        pos=(0, -0.24), draggable=False, height=0.028, wrapWidth=1.3, ori=0.0, 
+        color='gold', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-3.0);
+    # Run 'Begin Experiment' code from code_effort
+    RU_ALPHA = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
+    def _lev(a, b):
+        prev = list(range(len(b) + 1))
+        for i, ca in enumerate(a, 1):
+            cur = [i]
+            for j, cb in enumerate(b, 1):
+                cur.append(min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (0 if ca == cb else 1)))
+            prev = cur
+        return prev[-1]
+    def check_alpha(s, want_upper):
+        # возвращает: статус (empty/typed), число букв, проходы (букв / 32), целое число проходов,
+        # процент правильности, расстояние до эталона, доля прописных
+        letters = ''.join(ch for ch in (s or '') if ch.isalpha())
+        if not letters:
+            return ('empty', 0, 0.0, 0, 0.0, -1, 0.0)
+        upper = 100.0 * sum(1 for ch in letters if ch.isupper()) / len(letters)
+        low = letters.lower().replace('ё', '')
+        n = len(low)
+        passes = n / float(len(RU_ALPHA))
+        k = max(1, int(passes + 0.5))  # округление как Math.round в JS
+        k_cmp = min(k, 20)
+        target = RU_ALPHA * k_cmp
+        d = _lev(low[:len(target) + 32], target)
+        acc = max(0.0, 100.0 * (1.0 - d / float(len(target))))
+        return ('typed', len(letters), passes, k, acc, d, upper)
+    
     
     # --- Initialize components for Routine "rating" ---
     rating_text = visual.TextStim(win=win, name='rating_text',
-        text='Оцените, пожалуйста, то приятное событие, о котором вы думали.',
+        text='Оцените приятное событие, о котором вы думали.',
         font='Arial',
-        pos=(0, 0.38), draggable=False, height=0.035, wrapWidth=1.3, ori=0.0, 
+        pos=(0, 0.38), draggable=False, height=0.031, wrapWidth=1.3, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=0.0);
     lbl_imp = visual.TextStim(win=win, name='lbl_imp',
-        text='Насколько это событие для вас важно?',
+        text='Насколько оно для вас важно?',
         font='Arial',
         pos=(0, 0.22), draggable=False, height=0.03, wrapWidth=1.4, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=-1.0);
     importance = visual.Slider(win=win, name='importance',
-        startValue=50, size=(1.0, 0.05), pos=(0, 0.1), units=win.units,
+        startValue=None, size=(1.0, 0.05), pos=(0, 0.1), units=win.units,
         labels=['совсем не важно', 'крайне важно'], ticks=(0, 100), granularity=1.0,
         style='slider', styleTweaks=[], opacity=None,
         labelColor='white', markerColor='Red', lineColor='White', colorSpace='rgb',
         font='Arial', labelHeight=0.025,
         flip=False, ori=0.0, depth=-2, readOnly=False)
     lbl_ctrl = visual.TextStim(win=win, name='lbl_ctrl',
-        text='Насколько его исход зависит от вас самих?',
+        text='Насколько его исход зависит от вас?',
         font='Arial',
         pos=(0, -0.08), draggable=False, height=0.03, wrapWidth=1.4, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=-3.0);
     control = visual.Slider(win=win, name='control',
-        startValue=50, size=(1.0, 0.05), pos=(0, -0.2), units=win.units,
+        startValue=None, size=(1.0, 0.05), pos=(0, -0.2), units=win.units,
         labels=['совсем не зависит', 'полностью зависит'], ticks=(0, 100), granularity=1.0,
         style='slider', styleTweaks=[], opacity=None,
         labelColor='white', markerColor='Red', lineColor='White', colorSpace='rgb',
@@ -725,11 +887,14 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         depth=-5
     )
     rating_done.buttonClock = core.Clock()
+    # Run 'Begin Experiment' code from code_rating
+    TXT_RATING_HINT = 'Отметьте ответ на обеих шкалах (щёлкните по шкале), затем нажмите «Готово».'
+    
     
     # --- Initialize components for Routine "tob_instr_after" ---
     tob_instr_text_after = visual.TextBox2(
-         win, text='Пожалуйста, укажите степень Вашего согласия с приведенными утверждениями.\n\n1 — Абсолютно не согласен\n2 — Не согласен\n3 — Скорее не согласен\n4 — Не знаю, не уверен\n5 — Скорее согласен\n6 — Согласен\n7 — Абсолютно согласен\n\nОтвет выбирается стрелками влево и вправо (или клавишами 1–7) и подтверждается пробелом.\n\nНажмите пробел, чтобы продолжить.', placeholder='Type here...', font='Arial',
-         ori=0.0, pos=(0, 0), draggable=False,      letterHeight=0.032,
+         win, text='Сейчас Вам будет предложен опросник из 26 утверждений.\nОцените, насколько Вы согласны с каждым из них, по шкале от 1 до 7:\n\n1 — абсолютно не согласен\n2 — не согласен\n3 — скорее не согласен\n4 — не знаю, не уверен\n5 — скорее согласен\n6 — согласен\n7 — абсолютно согласен\n\nКак отвечать: нажмите клавишу с нужной цифрой от 1 до 7 (или выберите значение стрелками влево и вправо), затем нажмите пробел, чтобы перейти к следующему утверждению. Правильных и неправильных ответов нет.\n\nНажмите пробел, чтобы начать.', placeholder='Type here...', font='Arial',
+         ori=0.0, pos=(0, 0), draggable=False,      letterHeight=0.029,
          size=(1.2, 0.8), borderWidth=2.0,
          color='white', colorSpace='rgb',
          opacity=None,
@@ -759,7 +924,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         style='rating', styleTweaks=[], opacity=None,
         labelColor='white', markerColor='Red', lineColor='White', colorSpace='rgb',
         font='Arial', labelHeight=0.025,
-        flip=False, ori=0.0, depth=-1, readOnly=True)
+        flip=False, ori=0.0, depth=-1, readOnly=False)
     tob_hint_after = visual.TextStim(win=win, name='tob_hint_after',
         text='Стрелки влево и вправо или клавиши 1–7: выбрать ответ.  Пробел: подтвердить',
         font='Arial',
@@ -767,12 +932,56 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         color='lightgrey', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=-2.0);
+    tob_key_after = keyboard.Keyboard(deviceName='tob_key_after')
+    
+    # --- Initialize components for Routine "neu_instr_after" ---
+    neu_instr_text_after = visual.TextBox2(
+         win, text='Сейчас Вам будет предложен опросник из 26 утверждений.\nОцените, насколько Вы согласны с каждым из них, по шкале от 1 до 7:\n\n1 — абсолютно не согласен\n2 — не согласен\n3 — скорее не согласен\n4 — не знаю, не уверен\n5 — скорее согласен\n6 — согласен\n7 — абсолютно согласен\n\nКак отвечать: нажмите клавишу с нужной цифрой от 1 до 7 (или выберите значение стрелками влево и вправо), затем нажмите пробел, чтобы перейти к следующему утверждению. Правильных и неправильных ответов нет.\n\nНажмите пробел, чтобы начать.', placeholder='Type here...', font='Arial',
+         ori=0.0, pos=(0, 0), draggable=False,      letterHeight=0.029,
+         size=(1.2, 0.8), borderWidth=2.0,
+         color='white', colorSpace='rgb',
+         opacity=None,
+         bold=False, italic=False,
+         lineSpacing=1.0, speechPoint=None,
+         padding=0.02, alignment='top-left',
+         anchor='center', overflow='visible',
+         fillColor=None, borderColor=None,
+         flipHoriz=False, flipVert=False, languageStyle='LTR',
+         editable=False,
+         name='neu_instr_text_after',
+         depth=0, autoLog=True,
+    )
+    neu_instr_key_after = keyboard.Keyboard(deviceName='neu_instr_key_after')
+    
+    # --- Initialize components for Routine "neu_item_after" ---
+    neu_text_after = visual.TextStim(win=win, name='neu_text_after',
+        text='',
+        font='Arial',
+        pos=(0, 0.2), draggable=False, height=0.04, wrapWidth=1.3, ori=0.0, 
+        color='white', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=0.0);
+    neu_slider_after = visual.Slider(win=win, name='neu_slider_after',
+        startValue=None, size=(1.3, 0.06), pos=(0, -0.12), units=win.units,
+        labels=['1\nабсолютно\nне согласен', '2\nне согласен', '3\nскорее\nне согласен', '4\nне знаю,\nне уверен', '5\nскорее\nсогласен', '6\nсогласен', '7\nабсолютно\nсогласен'], ticks=(1, 2, 3, 4, 5, 6, 7), granularity=1.0,
+        style='rating', styleTweaks=[], opacity=None,
+        labelColor='white', markerColor='Red', lineColor='White', colorSpace='rgb',
+        font='Arial', labelHeight=0.025,
+        flip=False, ori=0.0, depth=-1, readOnly=False)
+    neu_hint_after = visual.TextStim(win=win, name='neu_hint_after',
+        text='Стрелки влево и вправо или клавиши 1–7: выбрать ответ.  Пробел: подтвердить',
+        font='Arial',
+        pos=(0, -0.4), draggable=False, height=0.026, wrapWidth=1.4, ori=0.0, 
+        color='lightgrey', colorSpace='rgb', opacity=None, 
+        languageStyle='LTR',
+        depth=-2.0);
+    neu_key_after = keyboard.Keyboard(deviceName='neu_key_after')
     
     # --- Initialize components for Routine "suspicion" ---
     susp_text = visual.TextStim(win=win, name='susp_text',
         text='Как вы думаете, что изучалось в этом исследовании? Напишите в свободной форме и нажмите «Готово».',
         font='Arial',
-        pos=(0, 0.3), draggable=False, height=0.032, wrapWidth=1.3, ori=0.0, 
+        pos=(0, 0.3), draggable=False, height=0.03, wrapWidth=1.3, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=0.0);
@@ -814,7 +1023,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     row_text = visual.TextStim(win=win, name='row_text',
         text='Студенты РАНХиГС, которые хотят получить баллы за участие, введите номер вашей строки в списке группы. Если баллы вам не нужны, оставьте поле пустым и нажмите «Готово».',
         font='Arial',
-        pos=(0, 0.25), draggable=False, height=0.032, wrapWidth=1.3, ori=0.0, 
+        pos=(0, 0.25), draggable=False, height=0.03, wrapWidth=1.3, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=0.0);
@@ -854,13 +1063,12 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     
     # --- Initialize components for Routine "thanks" ---
     thanks_text = visual.TextStim(win=win, name='thanks_text',
-        text='Спасибо за участие!\n\nКнопка «Магия» не влияет на события: она использовалась, чтобы изучить, как люди принимают решения в ситуации неопределённости. Задание с буквами измеряло готовность прилагать усилия.\n\nДанные сохраняются, пожалуйста, подождите несколько секунд и не закрывайте окно. Затем нажмите пробел.',
+        text='Спасибо за участие!\n\nКнопка «Магия» не влияет на события: она использовалась, чтобы изучить, как люди принимают решения в ситуации неопределённости. Если вам предлагалось напечатать алфавит, это задание измеряло готовность прилагать усилия.\n\nНажмите пробел, чтобы завершить.',
         font='Arial',
-        pos=(0, 0), draggable=False, height=0.035, wrapWidth=1.4, ori=0.0, 
+        pos=(0, 0), draggable=False, height=0.031, wrapWidth=1.4, ori=0.0, 
         color='white', colorSpace='rgb', opacity=None, 
         languageStyle='LTR',
         depth=-1.0);
-    thanks_key = keyboard.Keyboard(deviceName='thanks_key')
     
     # create some handy timers
     
@@ -1027,6 +1235,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     if welcome_key.keys != None:  # we had a response
         thisExp.addData('welcome_key.rt', welcome_key.rt)
         thisExp.addData('welcome_key.duration', welcome_key.duration)
+    # Run 'End Routine' code from code_assign
+    thisExp.addData('welcome_time', t)
+    
     thisExp.nextEntry()
     # the Routine "welcome" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
@@ -1076,6 +1287,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         dbg3.reset()
         # reset dbg4 to account for continued clicks & clear times on/off
         dbg4.reset()
+        # Run 'Begin Routine' code from code_debug
+        debug_text.text = 'Отладка. Выберите группу для прохождения.\nЛокальный запуск: данные сохраняются в папку data.'
+        
         # store start times for debug_pick
         debug_pick.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
         debug_pick.tStart = globalClock.getTime(format='float')
@@ -1406,6 +1620,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     thisExp.addData('order', order)
     thisExp.addData('cost', cost)
     thisExp.addData('debug', nDebug)
+    thisExp.addData('group_source', 'debug' if nDebug else group_source)
     
     # store start times for setup
     setup.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
@@ -1688,6 +1903,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         if tob_instr_key_before.keys != None:  # we had a response
             tob_block_before.addData('tob_instr_key_before.rt', tob_instr_key_before.rt)
             tob_block_before.addData('tob_instr_key_before.duration', tob_instr_key_before.duration)
+        # Run 'End Routine' code from code_tob_instr_before
+        thisExp.addData('tob_instr_time', t)
+        
         # the Routine "tob_instr_before" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
         
@@ -1729,16 +1947,20 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             # create an object to store info about Routine tob_item_before
             tob_item_before = data.Routine(
                 name='tob_item_before',
-                components=[tob_text_before, tob_slider_before, tob_hint_before],
+                components=[tob_text_before, tob_slider_before, tob_hint_before, tob_key_before],
             )
             tob_item_before.status = NOT_STARTED
             continueRoutine = True
             # update component parameters for each repeat
             tob_text_before.setText(text)
             tob_slider_before.reset()
+            # create starting attributes for tob_key_before
+            tob_key_before.keys = []
+            tob_key_before.rt = []
+            _tob_key_before_allKeys = []
             # Run 'Begin Routine' code from code_tob_before
             resp = None
-            event.clearEvents()
+            key_i = 0
             
             # store start times for tob_item_before
             tob_item_before.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
@@ -1832,19 +2054,51 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 if tob_hint_before.status == STARTED:
                     # update params
                     pass
+                
+                # *tob_key_before* updates
+                waitOnFlip = False
+                
+                # if tob_key_before is starting this frame...
+                if tob_key_before.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # keep track of start time/frame for later
+                    tob_key_before.frameNStart = frameN  # exact frame index
+                    tob_key_before.tStart = t  # local t and not account for scr refresh
+                    tob_key_before.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(tob_key_before, 'tStartRefresh')  # time at next scr refresh
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'tob_key_before.started')
+                    # update status
+                    tob_key_before.status = STARTED
+                    # keyboard checking is just starting
+                    waitOnFlip = True
+                    win.callOnFlip(tob_key_before.clock.reset)  # t=0 on next screen flip
+                    win.callOnFlip(tob_key_before.clearEvents, eventType='keyboard')  # clear events on next screen flip
+                if tob_key_before.status == STARTED and not waitOnFlip:
+                    theseKeys = tob_key_before.getKeys(keyList=['left','right','space','1','2','3','4','5','6','7'], ignoreKeys=["escape"], waitRelease=False)
+                    _tob_key_before_allKeys.extend(theseKeys)
+                    if len(_tob_key_before_allKeys):
+                        tob_key_before.keys = _tob_key_before_allKeys[-1].name  # just the last key pressed
+                        tob_key_before.rt = _tob_key_before_allKeys[-1].rt
+                        tob_key_before.duration = _tob_key_before_allKeys[-1].duration
                 # Run 'Each Frame' code from code_tob_before
-                keys = event.getKeys(keyList=['left', 'right', 'space', '1', '2', '3', '4', '5', '6', '7'])
-                for k in keys:
-                    if k in ['1', '2', '3', '4', '5', '6', '7']:
-                        resp = int(k)
-                    elif k == 'left':
-                        resp = 4 if resp is None else max(1, resp - 1)
-                    elif k == 'right':
-                        resp = 4 if resp is None else min(7, resp + 1)
-                    elif k == 'space' and resp is not None:
+                _r = tob_slider_before.getRating()
+                if _r is not None and int(round(_r)) != resp:
+                    resp = int(round(_r))
+                while key_i < len(_tob_key_before_allKeys):
+                    _k = _tob_key_before_allKeys[key_i].name
+                    key_i += 1
+                    _new = None
+                    if _k in ['1', '2', '3', '4', '5', '6', '7']:
+                        _new = int(_k)
+                    elif _k == 'left':
+                        _new = 4 if resp is None else max(1, resp - 1)
+                    elif _k == 'right':
+                        _new = 4 if resp is None else min(7, resp + 1)
+                    elif _k == 'space' and resp is not None:
                         continueRoutine = False
-                    if resp is not None:
-                        tob_slider_before.markerPos = resp
+                    if _new is not None and _new != resp:
+                        resp = _new
+                        tob_slider_before.recordRating(resp)
                 
                 
                 # check for quit (typically the Esc key)
@@ -1892,6 +2146,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             tob_resp[int(item_n)] = resp
             thisExp.addData('tob_' + str(item_n), resp)
             thisExp.addData('tob_rt_' + str(item_n), t)
+            thisExp.addData('tob_keys_' + str(item_n), key_i)
             
             # the Routine "tob_item_before" was not non-slip safe, so reset the non-slip timer
             routineTimer.reset()
@@ -1933,32 +2188,493 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     tob_block_before.status = FINISHED
     
     
-    # --- Prepare to start Routine "choice_instr" ---
-    # create an object to store info about Routine choice_instr
-    choice_instr = data.Routine(
-        name='choice_instr',
-        components=[choice_instr_text, choice_instr_key],
+    # set up handler to look after randomisation of conditions etc
+    neu_block_before = data.TrialHandler2(
+        name='neu_block_before',
+        nReps=nAfter, 
+        method='sequential', 
+        extraInfo=expInfo, 
+        originPath=-1, 
+        trialList=[None], 
+        seed=None, 
     )
-    choice_instr.status = NOT_STARTED
+    thisExp.addLoop(neu_block_before)  # add the loop to the experiment
+    thisNeu_block_before = neu_block_before.trialList[0]  # so we can initialise stimuli with some values
+    # abbreviate parameter names if possible (e.g. rgb = thisNeu_block_before.rgb)
+    if thisNeu_block_before != None:
+        for paramName in thisNeu_block_before:
+            globals()[paramName] = thisNeu_block_before[paramName]
+    
+    for thisNeu_block_before in neu_block_before:
+        neu_block_before.status = STARTED
+        if hasattr(thisNeu_block_before, 'status'):
+            thisNeu_block_before.status = STARTED
+        currentLoop = neu_block_before
+        thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+        # abbreviate parameter names if possible (e.g. rgb = thisNeu_block_before.rgb)
+        if thisNeu_block_before != None:
+            for paramName in thisNeu_block_before:
+                globals()[paramName] = thisNeu_block_before[paramName]
+        
+        # --- Prepare to start Routine "neu_instr_before" ---
+        # create an object to store info about Routine neu_instr_before
+        neu_instr_before = data.Routine(
+            name='neu_instr_before',
+            components=[neu_instr_text_before, neu_instr_key_before],
+        )
+        neu_instr_before.status = NOT_STARTED
+        continueRoutine = True
+        # update component parameters for each repeat
+        neu_instr_text_before.reset()
+        # create starting attributes for neu_instr_key_before
+        neu_instr_key_before.keys = []
+        neu_instr_key_before.rt = []
+        _neu_instr_key_before_allKeys = []
+        # store start times for neu_instr_before
+        neu_instr_before.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+        neu_instr_before.tStart = globalClock.getTime(format='float')
+        neu_instr_before.status = STARTED
+        thisExp.addData('neu_instr_before.started', neu_instr_before.tStart)
+        neu_instr_before.maxDuration = None
+        # keep track of which components have finished
+        neu_instr_beforeComponents = neu_instr_before.components
+        for thisComponent in neu_instr_before.components:
+            thisComponent.tStart = None
+            thisComponent.tStop = None
+            thisComponent.tStartRefresh = None
+            thisComponent.tStopRefresh = None
+            if hasattr(thisComponent, 'status'):
+                thisComponent.status = NOT_STARTED
+        # reset timers
+        t = 0
+        _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+        frameN = -1
+        
+        # --- Run Routine "neu_instr_before" ---
+        neu_instr_before.forceEnded = routineForceEnded = not continueRoutine
+        while continueRoutine:
+            # if trial has changed, end Routine now
+            if hasattr(thisNeu_block_before, 'status') and thisNeu_block_before.status == STOPPING:
+                continueRoutine = False
+            # get current time
+            t = routineTimer.getTime()
+            tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+            tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+            frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+            # update/draw components on each frame
+            
+            # *neu_instr_text_before* updates
+            
+            # if neu_instr_text_before is starting this frame...
+            if neu_instr_text_before.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # keep track of start time/frame for later
+                neu_instr_text_before.frameNStart = frameN  # exact frame index
+                neu_instr_text_before.tStart = t  # local t and not account for scr refresh
+                neu_instr_text_before.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(neu_instr_text_before, 'tStartRefresh')  # time at next scr refresh
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'neu_instr_text_before.started')
+                # update status
+                neu_instr_text_before.status = STARTED
+                neu_instr_text_before.setAutoDraw(True)
+            
+            # if neu_instr_text_before is active this frame...
+            if neu_instr_text_before.status == STARTED:
+                # update params
+                pass
+            
+            # *neu_instr_key_before* updates
+            waitOnFlip = False
+            
+            # if neu_instr_key_before is starting this frame...
+            if neu_instr_key_before.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # keep track of start time/frame for later
+                neu_instr_key_before.frameNStart = frameN  # exact frame index
+                neu_instr_key_before.tStart = t  # local t and not account for scr refresh
+                neu_instr_key_before.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(neu_instr_key_before, 'tStartRefresh')  # time at next scr refresh
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'neu_instr_key_before.started')
+                # update status
+                neu_instr_key_before.status = STARTED
+                # keyboard checking is just starting
+                waitOnFlip = True
+                win.callOnFlip(neu_instr_key_before.clock.reset)  # t=0 on next screen flip
+                win.callOnFlip(neu_instr_key_before.clearEvents, eventType='keyboard')  # clear events on next screen flip
+            if neu_instr_key_before.status == STARTED and not waitOnFlip:
+                theseKeys = neu_instr_key_before.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
+                _neu_instr_key_before_allKeys.extend(theseKeys)
+                if len(_neu_instr_key_before_allKeys):
+                    neu_instr_key_before.keys = _neu_instr_key_before_allKeys[-1].name  # just the last key pressed
+                    neu_instr_key_before.rt = _neu_instr_key_before_allKeys[-1].rt
+                    neu_instr_key_before.duration = _neu_instr_key_before_allKeys[-1].duration
+                    # a response ends the routine
+                    continueRoutine = False
+            
+            # check for quit (typically the Esc key)
+            if defaultKeyboard.getKeys(keyList=["escape"]):
+                thisExp.status = FINISHED
+            if thisExp.status == FINISHED or endExpNow:
+                endExperiment(thisExp, win=win)
+                return
+            # pause experiment here if requested
+            if thisExp.status == PAUSED:
+                pauseExperiment(
+                    thisExp=thisExp, 
+                    win=win, 
+                    timers=[routineTimer, globalClock], 
+                    currentRoutine=neu_instr_before,
+                )
+                # skip the frame we paused on
+                continue
+            
+            # check if all components have finished
+            if not continueRoutine:  # a component has requested a forced-end of Routine
+                neu_instr_before.forceEnded = routineForceEnded = True
+                break
+            continueRoutine = False  # will revert to True if at least one component still running
+            for thisComponent in neu_instr_before.components:
+                if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                    continueRoutine = True
+                    break  # at least one component has not yet finished
+            
+            # refresh the screen
+            if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+                win.flip()
+        
+        # --- Ending Routine "neu_instr_before" ---
+        for thisComponent in neu_instr_before.components:
+            if hasattr(thisComponent, "setAutoDraw"):
+                thisComponent.setAutoDraw(False)
+        # store stop times for neu_instr_before
+        neu_instr_before.tStop = globalClock.getTime(format='float')
+        neu_instr_before.tStopRefresh = tThisFlipGlobal
+        thisExp.addData('neu_instr_before.stopped', neu_instr_before.tStop)
+        # check responses
+        if neu_instr_key_before.keys in ['', [], None]:  # No response was made
+            neu_instr_key_before.keys = None
+        neu_block_before.addData('neu_instr_key_before.keys',neu_instr_key_before.keys)
+        if neu_instr_key_before.keys != None:  # we had a response
+            neu_block_before.addData('neu_instr_key_before.rt', neu_instr_key_before.rt)
+            neu_block_before.addData('neu_instr_key_before.duration', neu_instr_key_before.duration)
+        # Run 'End Routine' code from code_neu_instr_before
+        thisExp.addData('neu_instr_time', t)
+        
+        # the Routine "neu_instr_before" was not non-slip safe, so reset the non-slip timer
+        routineTimer.reset()
+        
+        # set up handler to look after randomisation of conditions etc
+        neu_items_before = data.TrialHandler2(
+            name='neu_items_before',
+            nReps=1.0, 
+            method='sequential', 
+            extraInfo=expInfo, 
+            originPath=-1, 
+            trialList=data.importConditions('neutral.xlsx'), 
+            seed=None, 
+        )
+        thisExp.addLoop(neu_items_before)  # add the loop to the experiment
+        thisNeu_items_before = neu_items_before.trialList[0]  # so we can initialise stimuli with some values
+        # abbreviate parameter names if possible (e.g. rgb = thisNeu_items_before.rgb)
+        if thisNeu_items_before != None:
+            for paramName in thisNeu_items_before:
+                globals()[paramName] = thisNeu_items_before[paramName]
+        if thisSession is not None:
+            # if running in a Session with a Liaison client, send data up to now
+            thisSession.sendExperimentData()
+        
+        for thisNeu_items_before in neu_items_before:
+            neu_items_before.status = STARTED
+            if hasattr(thisNeu_items_before, 'status'):
+                thisNeu_items_before.status = STARTED
+            currentLoop = neu_items_before
+            thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
+            # abbreviate parameter names if possible (e.g. rgb = thisNeu_items_before.rgb)
+            if thisNeu_items_before != None:
+                for paramName in thisNeu_items_before:
+                    globals()[paramName] = thisNeu_items_before[paramName]
+            
+            # --- Prepare to start Routine "neu_item_before" ---
+            # create an object to store info about Routine neu_item_before
+            neu_item_before = data.Routine(
+                name='neu_item_before',
+                components=[neu_text_before, neu_slider_before, neu_hint_before, neu_key_before],
+            )
+            neu_item_before.status = NOT_STARTED
+            continueRoutine = True
+            # update component parameters for each repeat
+            neu_text_before.setText(text)
+            neu_slider_before.reset()
+            # create starting attributes for neu_key_before
+            neu_key_before.keys = []
+            neu_key_before.rt = []
+            _neu_key_before_allKeys = []
+            # Run 'Begin Routine' code from code_neu_before
+            resp = None
+            key_i = 0
+            
+            # store start times for neu_item_before
+            neu_item_before.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+            neu_item_before.tStart = globalClock.getTime(format='float')
+            neu_item_before.status = STARTED
+            thisExp.addData('neu_item_before.started', neu_item_before.tStart)
+            neu_item_before.maxDuration = None
+            # keep track of which components have finished
+            neu_item_beforeComponents = neu_item_before.components
+            for thisComponent in neu_item_before.components:
+                thisComponent.tStart = None
+                thisComponent.tStop = None
+                thisComponent.tStartRefresh = None
+                thisComponent.tStopRefresh = None
+                if hasattr(thisComponent, 'status'):
+                    thisComponent.status = NOT_STARTED
+            # reset timers
+            t = 0
+            _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+            frameN = -1
+            
+            # --- Run Routine "neu_item_before" ---
+            neu_item_before.forceEnded = routineForceEnded = not continueRoutine
+            while continueRoutine:
+                # if trial has changed, end Routine now
+                if hasattr(thisNeu_items_before, 'status') and thisNeu_items_before.status == STOPPING:
+                    continueRoutine = False
+                # get current time
+                t = routineTimer.getTime()
+                tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+                tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+                frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+                # update/draw components on each frame
+                
+                # *neu_text_before* updates
+                
+                # if neu_text_before is starting this frame...
+                if neu_text_before.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # keep track of start time/frame for later
+                    neu_text_before.frameNStart = frameN  # exact frame index
+                    neu_text_before.tStart = t  # local t and not account for scr refresh
+                    neu_text_before.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(neu_text_before, 'tStartRefresh')  # time at next scr refresh
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'neu_text_before.started')
+                    # update status
+                    neu_text_before.status = STARTED
+                    neu_text_before.setAutoDraw(True)
+                
+                # if neu_text_before is active this frame...
+                if neu_text_before.status == STARTED:
+                    # update params
+                    pass
+                
+                # *neu_slider_before* updates
+                
+                # if neu_slider_before is starting this frame...
+                if neu_slider_before.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # keep track of start time/frame for later
+                    neu_slider_before.frameNStart = frameN  # exact frame index
+                    neu_slider_before.tStart = t  # local t and not account for scr refresh
+                    neu_slider_before.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(neu_slider_before, 'tStartRefresh')  # time at next scr refresh
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'neu_slider_before.started')
+                    # update status
+                    neu_slider_before.status = STARTED
+                    neu_slider_before.setAutoDraw(True)
+                
+                # if neu_slider_before is active this frame...
+                if neu_slider_before.status == STARTED:
+                    # update params
+                    pass
+                
+                # *neu_hint_before* updates
+                
+                # if neu_hint_before is starting this frame...
+                if neu_hint_before.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # keep track of start time/frame for later
+                    neu_hint_before.frameNStart = frameN  # exact frame index
+                    neu_hint_before.tStart = t  # local t and not account for scr refresh
+                    neu_hint_before.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(neu_hint_before, 'tStartRefresh')  # time at next scr refresh
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'neu_hint_before.started')
+                    # update status
+                    neu_hint_before.status = STARTED
+                    neu_hint_before.setAutoDraw(True)
+                
+                # if neu_hint_before is active this frame...
+                if neu_hint_before.status == STARTED:
+                    # update params
+                    pass
+                
+                # *neu_key_before* updates
+                waitOnFlip = False
+                
+                # if neu_key_before is starting this frame...
+                if neu_key_before.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # keep track of start time/frame for later
+                    neu_key_before.frameNStart = frameN  # exact frame index
+                    neu_key_before.tStart = t  # local t and not account for scr refresh
+                    neu_key_before.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(neu_key_before, 'tStartRefresh')  # time at next scr refresh
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'neu_key_before.started')
+                    # update status
+                    neu_key_before.status = STARTED
+                    # keyboard checking is just starting
+                    waitOnFlip = True
+                    win.callOnFlip(neu_key_before.clock.reset)  # t=0 on next screen flip
+                    win.callOnFlip(neu_key_before.clearEvents, eventType='keyboard')  # clear events on next screen flip
+                if neu_key_before.status == STARTED and not waitOnFlip:
+                    theseKeys = neu_key_before.getKeys(keyList=['left','right','space','1','2','3','4','5','6','7'], ignoreKeys=["escape"], waitRelease=False)
+                    _neu_key_before_allKeys.extend(theseKeys)
+                    if len(_neu_key_before_allKeys):
+                        neu_key_before.keys = _neu_key_before_allKeys[-1].name  # just the last key pressed
+                        neu_key_before.rt = _neu_key_before_allKeys[-1].rt
+                        neu_key_before.duration = _neu_key_before_allKeys[-1].duration
+                # Run 'Each Frame' code from code_neu_before
+                _r = neu_slider_before.getRating()
+                if _r is not None and int(round(_r)) != resp:
+                    resp = int(round(_r))
+                while key_i < len(_neu_key_before_allKeys):
+                    _k = _neu_key_before_allKeys[key_i].name
+                    key_i += 1
+                    _new = None
+                    if _k in ['1', '2', '3', '4', '5', '6', '7']:
+                        _new = int(_k)
+                    elif _k == 'left':
+                        _new = 4 if resp is None else max(1, resp - 1)
+                    elif _k == 'right':
+                        _new = 4 if resp is None else min(7, resp + 1)
+                    elif _k == 'space' and resp is not None:
+                        continueRoutine = False
+                    if _new is not None and _new != resp:
+                        resp = _new
+                        neu_slider_before.recordRating(resp)
+                
+                
+                # check for quit (typically the Esc key)
+                if defaultKeyboard.getKeys(keyList=["escape"]):
+                    thisExp.status = FINISHED
+                if thisExp.status == FINISHED or endExpNow:
+                    endExperiment(thisExp, win=win)
+                    return
+                # pause experiment here if requested
+                if thisExp.status == PAUSED:
+                    pauseExperiment(
+                        thisExp=thisExp, 
+                        win=win, 
+                        timers=[routineTimer, globalClock], 
+                        currentRoutine=neu_item_before,
+                    )
+                    # skip the frame we paused on
+                    continue
+                
+                # check if all components have finished
+                if not continueRoutine:  # a component has requested a forced-end of Routine
+                    neu_item_before.forceEnded = routineForceEnded = True
+                    break
+                continueRoutine = False  # will revert to True if at least one component still running
+                for thisComponent in neu_item_before.components:
+                    if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                        continueRoutine = True
+                        break  # at least one component has not yet finished
+                
+                # refresh the screen
+                if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+                    win.flip()
+            
+            # --- Ending Routine "neu_item_before" ---
+            for thisComponent in neu_item_before.components:
+                if hasattr(thisComponent, "setAutoDraw"):
+                    thisComponent.setAutoDraw(False)
+            # store stop times for neu_item_before
+            neu_item_before.tStop = globalClock.getTime(format='float')
+            neu_item_before.tStopRefresh = tThisFlipGlobal
+            thisExp.addData('neu_item_before.stopped', neu_item_before.tStop)
+            neu_items_before.addData('neu_slider_before.response', neu_slider_before.getRating())
+            neu_items_before.addData('neu_slider_before.rt', neu_slider_before.getRT())
+            # Run 'End Routine' code from code_neu_before
+            neu_resp[int(item_n)] = resp
+            thisExp.addData('neu_' + str(item_n), resp)
+            thisExp.addData('neu_rt_' + str(item_n), t)
+            thisExp.addData('neu_keys_' + str(item_n), key_i)
+            
+            # the Routine "neu_item_before" was not non-slip safe, so reset the non-slip timer
+            routineTimer.reset()
+            # mark thisNeu_items_before as finished
+            if hasattr(thisNeu_items_before, 'status'):
+                thisNeu_items_before.status = FINISHED
+            # if awaiting a pause, pause now
+            if neu_items_before.status == PAUSED:
+                thisExp.status = PAUSED
+                pauseExperiment(
+                    thisExp=thisExp, 
+                    win=win, 
+                    timers=[globalClock], 
+                )
+                # once done pausing, restore running status
+                neu_items_before.status = STARTED
+            thisExp.nextEntry()
+            
+        # completed 1.0 repeats of 'neu_items_before'
+        neu_items_before.status = FINISHED
+        
+        if thisSession is not None:
+            # if running in a Session with a Liaison client, send data up to now
+            thisSession.sendExperimentData()
+        # mark thisNeu_block_before as finished
+        if hasattr(thisNeu_block_before, 'status'):
+            thisNeu_block_before.status = FINISHED
+        # if awaiting a pause, pause now
+        if neu_block_before.status == PAUSED:
+            thisExp.status = PAUSED
+            pauseExperiment(
+                thisExp=thisExp, 
+                win=win, 
+                timers=[globalClock], 
+            )
+            # once done pausing, restore running status
+            neu_block_before.status = STARTED
+    # completed nAfter repeats of 'neu_block_before'
+    neu_block_before.status = FINISHED
+    
+    
+    # --- Prepare to start Routine "control_q" ---
+    # create an object to store info about Routine control_q
+    control_q = data.Routine(
+        name='control_q',
+        components=[control_q_instr, btn_control_q_l, btn_control_q_r, control_q_keys],
+    )
+    control_q.status = NOT_STARTED
     continueRoutine = True
     # update component parameters for each repeat
-    # Run 'Begin Routine' code from code_choice_instr
-    instr_txt = (TXT_CHOICE_EASY if cost == 'easy' else TXT_CHOICE_HARD) + TXT_CHOICE_TAIL
+    # Run 'Begin Routine' code from code_control_q
+    control_resp = ''
+    control_rt = -1
+    end_at = None
+    event.clearEvents()
+    _rm = event.Mouse(win=win)
+    _m0 = list(_rm.getPos())
+    _move_t = -1
+    _method = ''
+    _blur0 = blur_count
     
-    choice_instr_text.setText(instr_txt)
-    # create starting attributes for choice_instr_key
-    choice_instr_key.keys = []
-    choice_instr_key.rt = []
-    _choice_instr_key_allKeys = []
-    # store start times for choice_instr
-    choice_instr.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
-    choice_instr.tStart = globalClock.getTime(format='float')
-    choice_instr.status = STARTED
-    thisExp.addData('choice_instr.started', choice_instr.tStart)
-    choice_instr.maxDuration = None
+    # reset btn_control_q_l to account for continued clicks & clear times on/off
+    btn_control_q_l.reset()
+    # reset btn_control_q_r to account for continued clicks & clear times on/off
+    btn_control_q_r.reset()
+    # store start times for control_q
+    control_q.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+    control_q.tStart = globalClock.getTime(format='float')
+    control_q.status = STARTED
+    thisExp.addData('control_q.started', control_q.tStart)
+    control_q.maxDuration = None
     # keep track of which components have finished
-    choice_instrComponents = choice_instr.components
-    for thisComponent in choice_instr.components:
+    control_qComponents = control_q.components
+    for thisComponent in control_q.components:
         thisComponent.tStart = None
         thisComponent.tStop = None
         thisComponent.tStartRefresh = None
@@ -1970,8 +2686,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     _timeToFirstFrame = win.getFutureFlipTime(clock="now")
     frameN = -1
     
-    # --- Run Routine "choice_instr" ---
-    choice_instr.forceEnded = routineForceEnded = not continueRoutine
+    # --- Run Routine "control_q" ---
+    control_q.forceEnded = routineForceEnded = not continueRoutine
     while continueRoutine:
         # get current time
         t = routineTimer.getTime()
@@ -1979,54 +2695,132 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         tThisFlipGlobal = win.getFutureFlipTime(clock=None)
         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
         # update/draw components on each frame
+        # Run 'Each Frame' code from code_control_q
+        if _move_t < 0:
+            _mp = _rm.getPos()
+            if abs(_mp[0] - _m0[0]) > 0.005 or abs(_mp[1] - _m0[1]) > 0.005:
+                _move_t = t
+        if end_at is None:
+            keys = event.getKeys(keyList=['left', 'right'])
+            if 'left' in keys or btn_control_q_l.numClicks > 0:
+                control_resp = 'ceiling'; control_rt = t; end_at = t + 0.35
+                _method = 'key' if 'left' in keys else 'mouse'
+                btn_control_q_l.fillColor = 'goldenrod'
+            elif 'right' in keys or btn_control_q_r.numClicks > 0:
+                control_resp = 'no_ceiling'; control_rt = t; end_at = t + 0.35
+                _method = 'key' if 'right' in keys else 'mouse'
+                btn_control_q_r.fillColor = 'goldenrod'
+        elif t >= end_at:
+            continueRoutine = False
         
-        # *choice_instr_text* updates
         
-        # if choice_instr_text is starting this frame...
-        if choice_instr_text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # *control_q_instr* updates
+        
+        # if control_q_instr is starting this frame...
+        if control_q_instr.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
             # keep track of start time/frame for later
-            choice_instr_text.frameNStart = frameN  # exact frame index
-            choice_instr_text.tStart = t  # local t and not account for scr refresh
-            choice_instr_text.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(choice_instr_text, 'tStartRefresh')  # time at next scr refresh
+            control_q_instr.frameNStart = frameN  # exact frame index
+            control_q_instr.tStart = t  # local t and not account for scr refresh
+            control_q_instr.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(control_q_instr, 'tStartRefresh')  # time at next scr refresh
             # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'choice_instr_text.started')
+            thisExp.timestampOnFlip(win, 'control_q_instr.started')
             # update status
-            choice_instr_text.status = STARTED
-            choice_instr_text.setAutoDraw(True)
+            control_q_instr.status = STARTED
+            control_q_instr.setAutoDraw(True)
         
-        # if choice_instr_text is active this frame...
-        if choice_instr_text.status == STARTED:
+        # if control_q_instr is active this frame...
+        if control_q_instr.status == STARTED:
             # update params
             pass
+        # *btn_control_q_l* updates
         
-        # *choice_instr_key* updates
-        waitOnFlip = False
-        
-        # if choice_instr_key is starting this frame...
-        if choice_instr_key.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # if btn_control_q_l is starting this frame...
+        if btn_control_q_l.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
             # keep track of start time/frame for later
-            choice_instr_key.frameNStart = frameN  # exact frame index
-            choice_instr_key.tStart = t  # local t and not account for scr refresh
-            choice_instr_key.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(choice_instr_key, 'tStartRefresh')  # time at next scr refresh
+            btn_control_q_l.frameNStart = frameN  # exact frame index
+            btn_control_q_l.tStart = t  # local t and not account for scr refresh
+            btn_control_q_l.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(btn_control_q_l, 'tStartRefresh')  # time at next scr refresh
             # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'choice_instr_key.started')
+            thisExp.timestampOnFlip(win, 'btn_control_q_l.started')
             # update status
-            choice_instr_key.status = STARTED
-            # keyboard checking is just starting
-            waitOnFlip = True
-            win.callOnFlip(choice_instr_key.clock.reset)  # t=0 on next screen flip
-            win.callOnFlip(choice_instr_key.clearEvents, eventType='keyboard')  # clear events on next screen flip
-        if choice_instr_key.status == STARTED and not waitOnFlip:
-            theseKeys = choice_instr_key.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
-            _choice_instr_key_allKeys.extend(theseKeys)
-            if len(_choice_instr_key_allKeys):
-                choice_instr_key.keys = _choice_instr_key_allKeys[-1].name  # just the last key pressed
-                choice_instr_key.rt = _choice_instr_key_allKeys[-1].rt
-                choice_instr_key.duration = _choice_instr_key_allKeys[-1].duration
-                # a response ends the routine
-                continueRoutine = False
+            btn_control_q_l.status = STARTED
+            win.callOnFlip(btn_control_q_l.buttonClock.reset)
+            btn_control_q_l.setAutoDraw(True)
+        
+        # if btn_control_q_l is active this frame...
+        if btn_control_q_l.status == STARTED:
+            # update params
+            pass
+            # check whether btn_control_q_l has been pressed
+            if btn_control_q_l.isClicked:
+                if not btn_control_q_l.wasClicked:
+                    # if this is a new click, store time of first click and clicked until
+                    btn_control_q_l.timesOn.append(btn_control_q_l.buttonClock.getTime())
+                    btn_control_q_l.timesOff.append(btn_control_q_l.buttonClock.getTime())
+                elif len(btn_control_q_l.timesOff):
+                    # if click is continuing from last frame, update time of clicked until
+                    btn_control_q_l.timesOff[-1] = btn_control_q_l.buttonClock.getTime()
+                if not btn_control_q_l.wasClicked:
+                    # run callback code when btn_control_q_l is clicked
+                    pass
+        # take note of whether btn_control_q_l was clicked, so that next frame we know if clicks are new
+        btn_control_q_l.wasClicked = btn_control_q_l.isClicked and btn_control_q_l.status == STARTED
+        # *btn_control_q_r* updates
+        
+        # if btn_control_q_r is starting this frame...
+        if btn_control_q_r.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+            # keep track of start time/frame for later
+            btn_control_q_r.frameNStart = frameN  # exact frame index
+            btn_control_q_r.tStart = t  # local t and not account for scr refresh
+            btn_control_q_r.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(btn_control_q_r, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'btn_control_q_r.started')
+            # update status
+            btn_control_q_r.status = STARTED
+            win.callOnFlip(btn_control_q_r.buttonClock.reset)
+            btn_control_q_r.setAutoDraw(True)
+        
+        # if btn_control_q_r is active this frame...
+        if btn_control_q_r.status == STARTED:
+            # update params
+            pass
+            # check whether btn_control_q_r has been pressed
+            if btn_control_q_r.isClicked:
+                if not btn_control_q_r.wasClicked:
+                    # if this is a new click, store time of first click and clicked until
+                    btn_control_q_r.timesOn.append(btn_control_q_r.buttonClock.getTime())
+                    btn_control_q_r.timesOff.append(btn_control_q_r.buttonClock.getTime())
+                elif len(btn_control_q_r.timesOff):
+                    # if click is continuing from last frame, update time of clicked until
+                    btn_control_q_r.timesOff[-1] = btn_control_q_r.buttonClock.getTime()
+                if not btn_control_q_r.wasClicked:
+                    # run callback code when btn_control_q_r is clicked
+                    pass
+        # take note of whether btn_control_q_r was clicked, so that next frame we know if clicks are new
+        btn_control_q_r.wasClicked = btn_control_q_r.isClicked and btn_control_q_r.status == STARTED
+        
+        # *control_q_keys* updates
+        
+        # if control_q_keys is starting this frame...
+        if control_q_keys.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            # keep track of start time/frame for later
+            control_q_keys.frameNStart = frameN  # exact frame index
+            control_q_keys.tStart = t  # local t and not account for scr refresh
+            control_q_keys.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(control_q_keys, 'tStartRefresh')  # time at next scr refresh
+            # add timestamp to datafile
+            thisExp.timestampOnFlip(win, 'control_q_keys.started')
+            # update status
+            control_q_keys.status = STARTED
+            control_q_keys.setAutoDraw(True)
+        
+        # if control_q_keys is active this frame...
+        if control_q_keys.status == STARTED:
+            # update params
+            pass
         
         # check for quit (typically the Esc key)
         if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -2040,17 +2834,17 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 thisExp=thisExp, 
                 win=win, 
                 timers=[routineTimer, globalClock], 
-                currentRoutine=choice_instr,
+                currentRoutine=control_q,
             )
             # skip the frame we paused on
             continue
         
         # check if all components have finished
         if not continueRoutine:  # a component has requested a forced-end of Routine
-            choice_instr.forceEnded = routineForceEnded = True
+            control_q.forceEnded = routineForceEnded = True
             break
         continueRoutine = False  # will revert to True if at least one component still running
-        for thisComponent in choice_instr.components:
+        for thisComponent in control_q.components:
             if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                 continueRoutine = True
                 break  # at least one component has not yet finished
@@ -2059,44 +2853,65 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
     
-    # --- Ending Routine "choice_instr" ---
-    for thisComponent in choice_instr.components:
+    # --- Ending Routine "control_q" ---
+    for thisComponent in control_q.components:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
-    # store stop times for choice_instr
-    choice_instr.tStop = globalClock.getTime(format='float')
-    choice_instr.tStopRefresh = tThisFlipGlobal
-    thisExp.addData('choice_instr.stopped', choice_instr.tStop)
-    # check responses
-    if choice_instr_key.keys in ['', [], None]:  # No response was made
-        choice_instr_key.keys = None
-    thisExp.addData('choice_instr_key.keys',choice_instr_key.keys)
-    if choice_instr_key.keys != None:  # we had a response
-        thisExp.addData('choice_instr_key.rt', choice_instr_key.rt)
-        thisExp.addData('choice_instr_key.duration', choice_instr_key.duration)
+    # store stop times for control_q
+    control_q.tStop = globalClock.getTime(format='float')
+    control_q.tStopRefresh = tThisFlipGlobal
+    thisExp.addData('control_q.stopped', control_q.tStop)
+    # Run 'End Routine' code from code_control_q
+    thisExp.addData('control_resp', control_resp)
+    thisExp.addData('control_rt', control_rt)
+    thisExp.addData('control_q_method', _method)
+    thisExp.addData('control_q_first_move', _move_t)
+    thisExp.addData('control_q_blur', blur_count - _blur0)
+    
+    thisExp.addData('btn_control_q_l.numClicks', btn_control_q_l.numClicks)
+    if btn_control_q_l.numClicks:
+       thisExp.addData('btn_control_q_l.timesOn', btn_control_q_l.timesOn)
+       thisExp.addData('btn_control_q_l.timesOff', btn_control_q_l.timesOff)
+    else:
+       thisExp.addData('btn_control_q_l.timesOn', "")
+       thisExp.addData('btn_control_q_l.timesOff', "")
+    thisExp.addData('btn_control_q_r.numClicks', btn_control_q_r.numClicks)
+    if btn_control_q_r.numClicks:
+       thisExp.addData('btn_control_q_r.timesOn', btn_control_q_r.timesOn)
+       thisExp.addData('btn_control_q_r.timesOff', btn_control_q_r.timesOff)
+    else:
+       thisExp.addData('btn_control_q_r.timesOn', "")
+       thisExp.addData('btn_control_q_r.timesOff', "")
     thisExp.nextEntry()
-    # the Routine "choice_instr" was not non-slip safe, so reset the non-slip timer
+    # the Routine "control_q" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
     
     # --- Prepare to start Routine "choice" ---
     # create an object to store info about Routine choice
     choice = data.Routine(
         name='choice',
-        components=[choice_head, btn_magic, btn_skip, choice_keys, choice_hint],
+        components=[choice_instr, btn_choice_l, btn_choice_r, choice_keys],
     )
     choice.status = NOT_STARTED
     continueRoutine = True
     # update component parameters for each repeat
     # Run 'Begin Routine' code from code_choice
+    instr_txt = TXT_CHOICE_HARD if cost == 'hard' else TXT_CHOICE_EASY
     choice_resp = ''
     choice_rt = -1
     end_at = None
     event.clearEvents()
+    _rm = event.Mouse(win=win)
+    _m0 = list(_rm.getPos())
+    _move_t = -1
+    _method = ''
+    _blur0 = blur_count
     
-    # reset btn_magic to account for continued clicks & clear times on/off
-    btn_magic.reset()
-    # reset btn_skip to account for continued clicks & clear times on/off
-    btn_skip.reset()
+    choice_instr.setText(instr_txt)
+    # reset btn_choice_l to account for continued clicks & clear times on/off
+    btn_choice_l.reset()
+    # reset btn_choice_r to account for continued clicks & clear times on/off
+    btn_choice_r.reset()
     # store start times for choice
     choice.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
     choice.tStart = globalClock.getTime(format='float')
@@ -2127,105 +2942,111 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
         # update/draw components on each frame
         # Run 'Each Frame' code from code_choice
+        if _move_t < 0:
+            _mp = _rm.getPos()
+            if abs(_mp[0] - _m0[0]) > 0.005 or abs(_mp[1] - _m0[1]) > 0.005:
+                _move_t = t
         if end_at is None:
             keys = event.getKeys(keyList=['left', 'right'])
-            if 'left' in keys or btn_magic.numClicks > 0:
+            if 'left' in keys or btn_choice_l.numClicks > 0:
                 choice_resp = 'magic'; choice_rt = t; end_at = t + 0.35
-                btn_magic.fillColor = 'goldenrod'
-            elif 'right' in keys or btn_skip.numClicks > 0:
+                _method = 'key' if 'left' in keys else 'mouse'
+                btn_choice_l.fillColor = 'goldenrod'
+            elif 'right' in keys or btn_choice_r.numClicks > 0:
                 choice_resp = 'skip'; choice_rt = t; end_at = t + 0.35
-                btn_skip.fillColor = 'goldenrod'
+                _method = 'key' if 'right' in keys else 'mouse'
+                btn_choice_r.fillColor = 'goldenrod'
         elif t >= end_at:
             continueRoutine = False
         
         
-        # *choice_head* updates
+        # *choice_instr* updates
         
-        # if choice_head is starting this frame...
-        if choice_head.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+        # if choice_instr is starting this frame...
+        if choice_instr.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
             # keep track of start time/frame for later
-            choice_head.frameNStart = frameN  # exact frame index
-            choice_head.tStart = t  # local t and not account for scr refresh
-            choice_head.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(choice_head, 'tStartRefresh')  # time at next scr refresh
+            choice_instr.frameNStart = frameN  # exact frame index
+            choice_instr.tStart = t  # local t and not account for scr refresh
+            choice_instr.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(choice_instr, 'tStartRefresh')  # time at next scr refresh
             # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'choice_head.started')
+            thisExp.timestampOnFlip(win, 'choice_instr.started')
             # update status
-            choice_head.status = STARTED
-            choice_head.setAutoDraw(True)
+            choice_instr.status = STARTED
+            choice_instr.setAutoDraw(True)
         
-        # if choice_head is active this frame...
-        if choice_head.status == STARTED:
+        # if choice_instr is active this frame...
+        if choice_instr.status == STARTED:
             # update params
             pass
-        # *btn_magic* updates
+        # *btn_choice_l* updates
         
-        # if btn_magic is starting this frame...
-        if btn_magic.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+        # if btn_choice_l is starting this frame...
+        if btn_choice_l.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
             # keep track of start time/frame for later
-            btn_magic.frameNStart = frameN  # exact frame index
-            btn_magic.tStart = t  # local t and not account for scr refresh
-            btn_magic.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(btn_magic, 'tStartRefresh')  # time at next scr refresh
+            btn_choice_l.frameNStart = frameN  # exact frame index
+            btn_choice_l.tStart = t  # local t and not account for scr refresh
+            btn_choice_l.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(btn_choice_l, 'tStartRefresh')  # time at next scr refresh
             # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'btn_magic.started')
+            thisExp.timestampOnFlip(win, 'btn_choice_l.started')
             # update status
-            btn_magic.status = STARTED
-            win.callOnFlip(btn_magic.buttonClock.reset)
-            btn_magic.setAutoDraw(True)
+            btn_choice_l.status = STARTED
+            win.callOnFlip(btn_choice_l.buttonClock.reset)
+            btn_choice_l.setAutoDraw(True)
         
-        # if btn_magic is active this frame...
-        if btn_magic.status == STARTED:
+        # if btn_choice_l is active this frame...
+        if btn_choice_l.status == STARTED:
             # update params
             pass
-            # check whether btn_magic has been pressed
-            if btn_magic.isClicked:
-                if not btn_magic.wasClicked:
+            # check whether btn_choice_l has been pressed
+            if btn_choice_l.isClicked:
+                if not btn_choice_l.wasClicked:
                     # if this is a new click, store time of first click and clicked until
-                    btn_magic.timesOn.append(btn_magic.buttonClock.getTime())
-                    btn_magic.timesOff.append(btn_magic.buttonClock.getTime())
-                elif len(btn_magic.timesOff):
+                    btn_choice_l.timesOn.append(btn_choice_l.buttonClock.getTime())
+                    btn_choice_l.timesOff.append(btn_choice_l.buttonClock.getTime())
+                elif len(btn_choice_l.timesOff):
                     # if click is continuing from last frame, update time of clicked until
-                    btn_magic.timesOff[-1] = btn_magic.buttonClock.getTime()
-                if not btn_magic.wasClicked:
-                    # run callback code when btn_magic is clicked
+                    btn_choice_l.timesOff[-1] = btn_choice_l.buttonClock.getTime()
+                if not btn_choice_l.wasClicked:
+                    # run callback code when btn_choice_l is clicked
                     pass
-        # take note of whether btn_magic was clicked, so that next frame we know if clicks are new
-        btn_magic.wasClicked = btn_magic.isClicked and btn_magic.status == STARTED
-        # *btn_skip* updates
+        # take note of whether btn_choice_l was clicked, so that next frame we know if clicks are new
+        btn_choice_l.wasClicked = btn_choice_l.isClicked and btn_choice_l.status == STARTED
+        # *btn_choice_r* updates
         
-        # if btn_skip is starting this frame...
-        if btn_skip.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
+        # if btn_choice_r is starting this frame...
+        if btn_choice_r.status == NOT_STARTED and tThisFlip >= 0-frameTolerance:
             # keep track of start time/frame for later
-            btn_skip.frameNStart = frameN  # exact frame index
-            btn_skip.tStart = t  # local t and not account for scr refresh
-            btn_skip.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(btn_skip, 'tStartRefresh')  # time at next scr refresh
+            btn_choice_r.frameNStart = frameN  # exact frame index
+            btn_choice_r.tStart = t  # local t and not account for scr refresh
+            btn_choice_r.tStartRefresh = tThisFlipGlobal  # on global time
+            win.timeOnFlip(btn_choice_r, 'tStartRefresh')  # time at next scr refresh
             # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'btn_skip.started')
+            thisExp.timestampOnFlip(win, 'btn_choice_r.started')
             # update status
-            btn_skip.status = STARTED
-            win.callOnFlip(btn_skip.buttonClock.reset)
-            btn_skip.setAutoDraw(True)
+            btn_choice_r.status = STARTED
+            win.callOnFlip(btn_choice_r.buttonClock.reset)
+            btn_choice_r.setAutoDraw(True)
         
-        # if btn_skip is active this frame...
-        if btn_skip.status == STARTED:
+        # if btn_choice_r is active this frame...
+        if btn_choice_r.status == STARTED:
             # update params
             pass
-            # check whether btn_skip has been pressed
-            if btn_skip.isClicked:
-                if not btn_skip.wasClicked:
+            # check whether btn_choice_r has been pressed
+            if btn_choice_r.isClicked:
+                if not btn_choice_r.wasClicked:
                     # if this is a new click, store time of first click and clicked until
-                    btn_skip.timesOn.append(btn_skip.buttonClock.getTime())
-                    btn_skip.timesOff.append(btn_skip.buttonClock.getTime())
-                elif len(btn_skip.timesOff):
+                    btn_choice_r.timesOn.append(btn_choice_r.buttonClock.getTime())
+                    btn_choice_r.timesOff.append(btn_choice_r.buttonClock.getTime())
+                elif len(btn_choice_r.timesOff):
                     # if click is continuing from last frame, update time of clicked until
-                    btn_skip.timesOff[-1] = btn_skip.buttonClock.getTime()
-                if not btn_skip.wasClicked:
-                    # run callback code when btn_skip is clicked
+                    btn_choice_r.timesOff[-1] = btn_choice_r.buttonClock.getTime()
+                if not btn_choice_r.wasClicked:
+                    # run callback code when btn_choice_r is clicked
                     pass
-        # take note of whether btn_skip was clicked, so that next frame we know if clicks are new
-        btn_skip.wasClicked = btn_skip.isClicked and btn_skip.status == STARTED
+        # take note of whether btn_choice_r was clicked, so that next frame we know if clicks are new
+        btn_choice_r.wasClicked = btn_choice_r.isClicked and btn_choice_r.status == STARTED
         
         # *choice_keys* updates
         
@@ -2244,26 +3065,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         
         # if choice_keys is active this frame...
         if choice_keys.status == STARTED:
-            # update params
-            pass
-        
-        # *choice_hint* updates
-        
-        # if choice_hint is starting this frame...
-        if choice_hint.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-            # keep track of start time/frame for later
-            choice_hint.frameNStart = frameN  # exact frame index
-            choice_hint.tStart = t  # local t and not account for scr refresh
-            choice_hint.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(choice_hint, 'tStartRefresh')  # time at next scr refresh
-            # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'choice_hint.started')
-            # update status
-            choice_hint.status = STARTED
-            choice_hint.setAutoDraw(True)
-        
-        # if choice_hint is active this frame...
-        if choice_hint.status == STARTED:
             # update params
             pass
         
@@ -2307,24 +3108,27 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     choice.tStopRefresh = tThisFlipGlobal
     thisExp.addData('choice.stopped', choice.tStop)
     # Run 'End Routine' code from code_choice
-    nEffort = 1 if choice_resp == 'magic' else 0
+    nEffort = 1 if (choice_resp == 'magic' and cost == 'hard') else 0
     thisExp.addData('choice', choice_resp)
     thisExp.addData('choice_rt', choice_rt)
+    thisExp.addData('choice_method', _method)
+    thisExp.addData('choice_first_move', _move_t)
+    thisExp.addData('choice_blur', blur_count - _blur0)
     
-    thisExp.addData('btn_magic.numClicks', btn_magic.numClicks)
-    if btn_magic.numClicks:
-       thisExp.addData('btn_magic.timesOn', btn_magic.timesOn)
-       thisExp.addData('btn_magic.timesOff', btn_magic.timesOff)
+    thisExp.addData('btn_choice_l.numClicks', btn_choice_l.numClicks)
+    if btn_choice_l.numClicks:
+       thisExp.addData('btn_choice_l.timesOn', btn_choice_l.timesOn)
+       thisExp.addData('btn_choice_l.timesOff', btn_choice_l.timesOff)
     else:
-       thisExp.addData('btn_magic.timesOn', "")
-       thisExp.addData('btn_magic.timesOff', "")
-    thisExp.addData('btn_skip.numClicks', btn_skip.numClicks)
-    if btn_skip.numClicks:
-       thisExp.addData('btn_skip.timesOn', btn_skip.timesOn)
-       thisExp.addData('btn_skip.timesOff', btn_skip.timesOff)
+       thisExp.addData('btn_choice_l.timesOn', "")
+       thisExp.addData('btn_choice_l.timesOff', "")
+    thisExp.addData('btn_choice_r.numClicks', btn_choice_r.numClicks)
+    if btn_choice_r.numClicks:
+       thisExp.addData('btn_choice_r.timesOn', btn_choice_r.timesOn)
+       thisExp.addData('btn_choice_r.timesOff', btn_choice_r.timesOff)
     else:
-       thisExp.addData('btn_skip.timesOn', "")
-       thisExp.addData('btn_skip.timesOff', "")
+       thisExp.addData('btn_choice_r.timesOn', "")
+       thisExp.addData('btn_choice_r.timesOff', "")
     thisExp.nextEntry()
     # the Routine "choice" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
@@ -2361,7 +3165,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         # create an object to store info about Routine effort
         effort = data.Routine(
             name='effort',
-            components=[effort_text, effort_box, effort_done],
+            components=[effort_text, effort_box, effort_done, effort_fb],
         )
         effort.status = NOT_STARTED
         continueRoutine = True
@@ -2369,6 +3173,16 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         effort_box.reset()
         # reset effort_done to account for continued clicks & clear times on/off
         effort_done.reset()
+        # Run 'Begin Routine' code from code_effort
+        effort_clicks = 0
+        effort_attempts = 0
+        effort_res = ('empty', 0, 0.0, 0, 0.0, -1, 0.0)
+        effort_start = -1
+        effort_last = -1
+        effort_prev = ''
+        effort_attempt_times = []
+        effort_del = 0
+        
         # store start times for effort
         effort.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
         effort.tStart = globalClock.getTime(format='float')
@@ -2471,13 +3285,46 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         # if click is continuing from last frame, update time of clicked until
                         effort_done.timesOff[-1] = effort_done.buttonClock.getTime()
                     if not effort_done.wasClicked:
-                        # end routine when effort_done is clicked
-                        continueRoutine = False
-                    if not effort_done.wasClicked:
                         # run callback code when effort_done is clicked
                         pass
             # take note of whether effort_done was clicked, so that next frame we know if clicks are new
             effort_done.wasClicked = effort_done.isClicked and effort_done.status == STARTED
+            
+            # *effort_fb* updates
+            
+            # if effort_fb is starting this frame...
+            if effort_fb.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # keep track of start time/frame for later
+                effort_fb.frameNStart = frameN  # exact frame index
+                effort_fb.tStart = t  # local t and not account for scr refresh
+                effort_fb.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(effort_fb, 'tStartRefresh')  # time at next scr refresh
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'effort_fb.started')
+                # update status
+                effort_fb.status = STARTED
+                effort_fb.setAutoDraw(True)
+            
+            # if effort_fb is active this frame...
+            if effort_fb.status == STARTED:
+                # update params
+                pass
+            # Run 'Each Frame' code from code_effort
+            _cur = effort_box.text or ''
+            if _cur != effort_prev:
+                if len(_cur) < len(effort_prev):
+                    effort_del += 1
+                effort_prev = _cur
+                effort_last = t
+                if effort_start < 0:
+                    effort_start = t
+            if effort_done.numClicks > effort_clicks:
+                effort_clicks = effort_done.numClicks
+                effort_attempts += 1
+                effort_attempt_times.append(round(t, 3))
+                effort_res = check_alpha(effort_box.text, True)
+                continueRoutine = False
+            
             
             # check for quit (typically the Esc key)
             if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -2528,8 +3375,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
            effort_loop.addData('effort_done.timesOff', "")
         # Run 'End Routine' code from code_effort
         txt = effort_box.text or ''
+        thisExp.addData('effort_text', txt)
         thisExp.addData('effort_len', len(txt))
-        thisExp.addData('effort_m', txt.lower().count('м'))
+        thisExp.addData('effort_status', effort_res[0])
+        thisExp.addData('effort_letters', effort_res[1])
+        thisExp.addData('effort_passes', round(effort_res[2], 2))
+        thisExp.addData('effort_times', effort_res[3])
+        thisExp.addData('effort_acc_pct', round(effort_res[4], 1))
+        thisExp.addData('effort_dist', effort_res[5])
+        thisExp.addData('effort_upper_pct', round(effort_res[6], 1))
+        thisExp.addData('effort_attempts', effort_attempts)
+        thisExp.addData('effort_start', effort_start)
+        thisExp.addData('effort_last_key', effort_last)
+        thisExp.addData('effort_typing', (effort_last - effort_start) if effort_start >= 0 else -1)
+        thisExp.addData('effort_attempt_times', ';'.join(str(x) for x in effort_attempt_times))
+        thisExp.addData('effort_deletions', effort_del)
         thisExp.addData('effort_time', t)
         
         # the Routine "effort" was not non-slip safe, so reset the non-slip timer
@@ -2564,6 +3424,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     control.reset()
     # reset rating_done to account for continued clicks & clear times on/off
     rating_done.reset()
+    # Run 'Begin Routine' code from code_rating
+    rating_clicks = 0
+    rating_tries = 0
+    
     # store start times for rating
     rating.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
     rating.tStart = globalClock.getTime(format='float')
@@ -2723,13 +3587,20 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     # if click is continuing from last frame, update time of clicked until
                     rating_done.timesOff[-1] = rating_done.buttonClock.getTime()
                 if not rating_done.wasClicked:
-                    # end routine when rating_done is clicked
-                    continueRoutine = False
-                if not rating_done.wasClicked:
                     # run callback code when rating_done is clicked
                     pass
         # take note of whether rating_done was clicked, so that next frame we know if clicks are new
         rating_done.wasClicked = rating_done.isClicked and rating_done.status == STARTED
+        # Run 'Each Frame' code from code_rating
+        if rating_done.numClicks > rating_clicks:
+            rating_clicks = rating_done.numClicks
+            rating_tries += 1
+            if importance.getRating() is not None and control.getRating() is not None:
+                continueRoutine = False
+            else:
+                rating_text.text = TXT_RATING_HINT
+                rating_text.color = 'gold'
+        
         
         # check for quit (typically the Esc key)
         if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -2781,6 +3652,12 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     else:
        thisExp.addData('rating_done.timesOn', "")
        thisExp.addData('rating_done.timesOff', "")
+    # Run 'End Routine' code from code_rating
+    thisExp.addData('rating_time', t)
+    thisExp.addData('rating_tries', rating_tries)
+    thisExp.addData('importance_rating', importance.getRating())
+    thisExp.addData('control_rating', control.getRating())
+    
     thisExp.nextEntry()
     # the Routine "rating" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
@@ -2954,6 +3831,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         if tob_instr_key_after.keys != None:  # we had a response
             tob_block_after.addData('tob_instr_key_after.rt', tob_instr_key_after.rt)
             tob_block_after.addData('tob_instr_key_after.duration', tob_instr_key_after.duration)
+        # Run 'End Routine' code from code_tob_instr_after
+        thisExp.addData('tob_instr_time', t)
+        
         # the Routine "tob_instr_after" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
         
@@ -2995,16 +3875,20 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             # create an object to store info about Routine tob_item_after
             tob_item_after = data.Routine(
                 name='tob_item_after',
-                components=[tob_text_after, tob_slider_after, tob_hint_after],
+                components=[tob_text_after, tob_slider_after, tob_hint_after, tob_key_after],
             )
             tob_item_after.status = NOT_STARTED
             continueRoutine = True
             # update component parameters for each repeat
             tob_text_after.setText(text)
             tob_slider_after.reset()
+            # create starting attributes for tob_key_after
+            tob_key_after.keys = []
+            tob_key_after.rt = []
+            _tob_key_after_allKeys = []
             # Run 'Begin Routine' code from code_tob_after
             resp = None
-            event.clearEvents()
+            key_i = 0
             
             # store start times for tob_item_after
             tob_item_after.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
@@ -3098,19 +3982,51 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 if tob_hint_after.status == STARTED:
                     # update params
                     pass
+                
+                # *tob_key_after* updates
+                waitOnFlip = False
+                
+                # if tob_key_after is starting this frame...
+                if tob_key_after.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # keep track of start time/frame for later
+                    tob_key_after.frameNStart = frameN  # exact frame index
+                    tob_key_after.tStart = t  # local t and not account for scr refresh
+                    tob_key_after.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(tob_key_after, 'tStartRefresh')  # time at next scr refresh
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'tob_key_after.started')
+                    # update status
+                    tob_key_after.status = STARTED
+                    # keyboard checking is just starting
+                    waitOnFlip = True
+                    win.callOnFlip(tob_key_after.clock.reset)  # t=0 on next screen flip
+                    win.callOnFlip(tob_key_after.clearEvents, eventType='keyboard')  # clear events on next screen flip
+                if tob_key_after.status == STARTED and not waitOnFlip:
+                    theseKeys = tob_key_after.getKeys(keyList=['left','right','space','1','2','3','4','5','6','7'], ignoreKeys=["escape"], waitRelease=False)
+                    _tob_key_after_allKeys.extend(theseKeys)
+                    if len(_tob_key_after_allKeys):
+                        tob_key_after.keys = _tob_key_after_allKeys[-1].name  # just the last key pressed
+                        tob_key_after.rt = _tob_key_after_allKeys[-1].rt
+                        tob_key_after.duration = _tob_key_after_allKeys[-1].duration
                 # Run 'Each Frame' code from code_tob_after
-                keys = event.getKeys(keyList=['left', 'right', 'space', '1', '2', '3', '4', '5', '6', '7'])
-                for k in keys:
-                    if k in ['1', '2', '3', '4', '5', '6', '7']:
-                        resp = int(k)
-                    elif k == 'left':
-                        resp = 4 if resp is None else max(1, resp - 1)
-                    elif k == 'right':
-                        resp = 4 if resp is None else min(7, resp + 1)
-                    elif k == 'space' and resp is not None:
+                _r = tob_slider_after.getRating()
+                if _r is not None and int(round(_r)) != resp:
+                    resp = int(round(_r))
+                while key_i < len(_tob_key_after_allKeys):
+                    _k = _tob_key_after_allKeys[key_i].name
+                    key_i += 1
+                    _new = None
+                    if _k in ['1', '2', '3', '4', '5', '6', '7']:
+                        _new = int(_k)
+                    elif _k == 'left':
+                        _new = 4 if resp is None else max(1, resp - 1)
+                    elif _k == 'right':
+                        _new = 4 if resp is None else min(7, resp + 1)
+                    elif _k == 'space' and resp is not None:
                         continueRoutine = False
-                    if resp is not None:
-                        tob_slider_after.markerPos = resp
+                    if _new is not None and _new != resp:
+                        resp = _new
+                        tob_slider_after.recordRating(resp)
                 
                 
                 # check for quit (typically the Esc key)
@@ -3158,6 +4074,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             tob_resp[int(item_n)] = resp
             thisExp.addData('tob_' + str(item_n), resp)
             thisExp.addData('tob_rt_' + str(item_n), t)
+            thisExp.addData('tob_keys_' + str(item_n), key_i)
             
             # the Routine "tob_item_after" was not non-slip safe, so reset the non-slip timer
             routineTimer.reset()
@@ -3197,6 +4114,460 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             tob_block_after.status = STARTED
     # completed nAfter repeats of 'tob_block_after'
     tob_block_after.status = FINISHED
+    
+    
+    # set up handler to look after randomisation of conditions etc
+    neu_block_after = data.TrialHandler2(
+        name='neu_block_after',
+        nReps=nBefore, 
+        method='sequential', 
+        extraInfo=expInfo, 
+        originPath=-1, 
+        trialList=[None], 
+        seed=None, 
+    )
+    thisExp.addLoop(neu_block_after)  # add the loop to the experiment
+    thisNeu_block_after = neu_block_after.trialList[0]  # so we can initialise stimuli with some values
+    # abbreviate parameter names if possible (e.g. rgb = thisNeu_block_after.rgb)
+    if thisNeu_block_after != None:
+        for paramName in thisNeu_block_after:
+            globals()[paramName] = thisNeu_block_after[paramName]
+    
+    for thisNeu_block_after in neu_block_after:
+        neu_block_after.status = STARTED
+        if hasattr(thisNeu_block_after, 'status'):
+            thisNeu_block_after.status = STARTED
+        currentLoop = neu_block_after
+        thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+        # abbreviate parameter names if possible (e.g. rgb = thisNeu_block_after.rgb)
+        if thisNeu_block_after != None:
+            for paramName in thisNeu_block_after:
+                globals()[paramName] = thisNeu_block_after[paramName]
+        
+        # --- Prepare to start Routine "neu_instr_after" ---
+        # create an object to store info about Routine neu_instr_after
+        neu_instr_after = data.Routine(
+            name='neu_instr_after',
+            components=[neu_instr_text_after, neu_instr_key_after],
+        )
+        neu_instr_after.status = NOT_STARTED
+        continueRoutine = True
+        # update component parameters for each repeat
+        neu_instr_text_after.reset()
+        # create starting attributes for neu_instr_key_after
+        neu_instr_key_after.keys = []
+        neu_instr_key_after.rt = []
+        _neu_instr_key_after_allKeys = []
+        # store start times for neu_instr_after
+        neu_instr_after.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+        neu_instr_after.tStart = globalClock.getTime(format='float')
+        neu_instr_after.status = STARTED
+        thisExp.addData('neu_instr_after.started', neu_instr_after.tStart)
+        neu_instr_after.maxDuration = None
+        # keep track of which components have finished
+        neu_instr_afterComponents = neu_instr_after.components
+        for thisComponent in neu_instr_after.components:
+            thisComponent.tStart = None
+            thisComponent.tStop = None
+            thisComponent.tStartRefresh = None
+            thisComponent.tStopRefresh = None
+            if hasattr(thisComponent, 'status'):
+                thisComponent.status = NOT_STARTED
+        # reset timers
+        t = 0
+        _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+        frameN = -1
+        
+        # --- Run Routine "neu_instr_after" ---
+        neu_instr_after.forceEnded = routineForceEnded = not continueRoutine
+        while continueRoutine:
+            # if trial has changed, end Routine now
+            if hasattr(thisNeu_block_after, 'status') and thisNeu_block_after.status == STOPPING:
+                continueRoutine = False
+            # get current time
+            t = routineTimer.getTime()
+            tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+            tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+            frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+            # update/draw components on each frame
+            
+            # *neu_instr_text_after* updates
+            
+            # if neu_instr_text_after is starting this frame...
+            if neu_instr_text_after.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # keep track of start time/frame for later
+                neu_instr_text_after.frameNStart = frameN  # exact frame index
+                neu_instr_text_after.tStart = t  # local t and not account for scr refresh
+                neu_instr_text_after.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(neu_instr_text_after, 'tStartRefresh')  # time at next scr refresh
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'neu_instr_text_after.started')
+                # update status
+                neu_instr_text_after.status = STARTED
+                neu_instr_text_after.setAutoDraw(True)
+            
+            # if neu_instr_text_after is active this frame...
+            if neu_instr_text_after.status == STARTED:
+                # update params
+                pass
+            
+            # *neu_instr_key_after* updates
+            waitOnFlip = False
+            
+            # if neu_instr_key_after is starting this frame...
+            if neu_instr_key_after.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # keep track of start time/frame for later
+                neu_instr_key_after.frameNStart = frameN  # exact frame index
+                neu_instr_key_after.tStart = t  # local t and not account for scr refresh
+                neu_instr_key_after.tStartRefresh = tThisFlipGlobal  # on global time
+                win.timeOnFlip(neu_instr_key_after, 'tStartRefresh')  # time at next scr refresh
+                # add timestamp to datafile
+                thisExp.timestampOnFlip(win, 'neu_instr_key_after.started')
+                # update status
+                neu_instr_key_after.status = STARTED
+                # keyboard checking is just starting
+                waitOnFlip = True
+                win.callOnFlip(neu_instr_key_after.clock.reset)  # t=0 on next screen flip
+                win.callOnFlip(neu_instr_key_after.clearEvents, eventType='keyboard')  # clear events on next screen flip
+            if neu_instr_key_after.status == STARTED and not waitOnFlip:
+                theseKeys = neu_instr_key_after.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
+                _neu_instr_key_after_allKeys.extend(theseKeys)
+                if len(_neu_instr_key_after_allKeys):
+                    neu_instr_key_after.keys = _neu_instr_key_after_allKeys[-1].name  # just the last key pressed
+                    neu_instr_key_after.rt = _neu_instr_key_after_allKeys[-1].rt
+                    neu_instr_key_after.duration = _neu_instr_key_after_allKeys[-1].duration
+                    # a response ends the routine
+                    continueRoutine = False
+            
+            # check for quit (typically the Esc key)
+            if defaultKeyboard.getKeys(keyList=["escape"]):
+                thisExp.status = FINISHED
+            if thisExp.status == FINISHED or endExpNow:
+                endExperiment(thisExp, win=win)
+                return
+            # pause experiment here if requested
+            if thisExp.status == PAUSED:
+                pauseExperiment(
+                    thisExp=thisExp, 
+                    win=win, 
+                    timers=[routineTimer, globalClock], 
+                    currentRoutine=neu_instr_after,
+                )
+                # skip the frame we paused on
+                continue
+            
+            # check if all components have finished
+            if not continueRoutine:  # a component has requested a forced-end of Routine
+                neu_instr_after.forceEnded = routineForceEnded = True
+                break
+            continueRoutine = False  # will revert to True if at least one component still running
+            for thisComponent in neu_instr_after.components:
+                if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                    continueRoutine = True
+                    break  # at least one component has not yet finished
+            
+            # refresh the screen
+            if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+                win.flip()
+        
+        # --- Ending Routine "neu_instr_after" ---
+        for thisComponent in neu_instr_after.components:
+            if hasattr(thisComponent, "setAutoDraw"):
+                thisComponent.setAutoDraw(False)
+        # store stop times for neu_instr_after
+        neu_instr_after.tStop = globalClock.getTime(format='float')
+        neu_instr_after.tStopRefresh = tThisFlipGlobal
+        thisExp.addData('neu_instr_after.stopped', neu_instr_after.tStop)
+        # check responses
+        if neu_instr_key_after.keys in ['', [], None]:  # No response was made
+            neu_instr_key_after.keys = None
+        neu_block_after.addData('neu_instr_key_after.keys',neu_instr_key_after.keys)
+        if neu_instr_key_after.keys != None:  # we had a response
+            neu_block_after.addData('neu_instr_key_after.rt', neu_instr_key_after.rt)
+            neu_block_after.addData('neu_instr_key_after.duration', neu_instr_key_after.duration)
+        # Run 'End Routine' code from code_neu_instr_after
+        thisExp.addData('neu_instr_time', t)
+        
+        # the Routine "neu_instr_after" was not non-slip safe, so reset the non-slip timer
+        routineTimer.reset()
+        
+        # set up handler to look after randomisation of conditions etc
+        neu_items_after = data.TrialHandler2(
+            name='neu_items_after',
+            nReps=1.0, 
+            method='sequential', 
+            extraInfo=expInfo, 
+            originPath=-1, 
+            trialList=data.importConditions('neutral.xlsx'), 
+            seed=None, 
+        )
+        thisExp.addLoop(neu_items_after)  # add the loop to the experiment
+        thisNeu_items_after = neu_items_after.trialList[0]  # so we can initialise stimuli with some values
+        # abbreviate parameter names if possible (e.g. rgb = thisNeu_items_after.rgb)
+        if thisNeu_items_after != None:
+            for paramName in thisNeu_items_after:
+                globals()[paramName] = thisNeu_items_after[paramName]
+        if thisSession is not None:
+            # if running in a Session with a Liaison client, send data up to now
+            thisSession.sendExperimentData()
+        
+        for thisNeu_items_after in neu_items_after:
+            neu_items_after.status = STARTED
+            if hasattr(thisNeu_items_after, 'status'):
+                thisNeu_items_after.status = STARTED
+            currentLoop = neu_items_after
+            thisExp.timestampOnFlip(win, 'thisRow.t', format=globalClock.format)
+            if thisSession is not None:
+                # if running in a Session with a Liaison client, send data up to now
+                thisSession.sendExperimentData()
+            # abbreviate parameter names if possible (e.g. rgb = thisNeu_items_after.rgb)
+            if thisNeu_items_after != None:
+                for paramName in thisNeu_items_after:
+                    globals()[paramName] = thisNeu_items_after[paramName]
+            
+            # --- Prepare to start Routine "neu_item_after" ---
+            # create an object to store info about Routine neu_item_after
+            neu_item_after = data.Routine(
+                name='neu_item_after',
+                components=[neu_text_after, neu_slider_after, neu_hint_after, neu_key_after],
+            )
+            neu_item_after.status = NOT_STARTED
+            continueRoutine = True
+            # update component parameters for each repeat
+            neu_text_after.setText(text)
+            neu_slider_after.reset()
+            # create starting attributes for neu_key_after
+            neu_key_after.keys = []
+            neu_key_after.rt = []
+            _neu_key_after_allKeys = []
+            # Run 'Begin Routine' code from code_neu_after
+            resp = None
+            key_i = 0
+            
+            # store start times for neu_item_after
+            neu_item_after.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
+            neu_item_after.tStart = globalClock.getTime(format='float')
+            neu_item_after.status = STARTED
+            thisExp.addData('neu_item_after.started', neu_item_after.tStart)
+            neu_item_after.maxDuration = None
+            # keep track of which components have finished
+            neu_item_afterComponents = neu_item_after.components
+            for thisComponent in neu_item_after.components:
+                thisComponent.tStart = None
+                thisComponent.tStop = None
+                thisComponent.tStartRefresh = None
+                thisComponent.tStopRefresh = None
+                if hasattr(thisComponent, 'status'):
+                    thisComponent.status = NOT_STARTED
+            # reset timers
+            t = 0
+            _timeToFirstFrame = win.getFutureFlipTime(clock="now")
+            frameN = -1
+            
+            # --- Run Routine "neu_item_after" ---
+            neu_item_after.forceEnded = routineForceEnded = not continueRoutine
+            while continueRoutine:
+                # if trial has changed, end Routine now
+                if hasattr(thisNeu_items_after, 'status') and thisNeu_items_after.status == STOPPING:
+                    continueRoutine = False
+                # get current time
+                t = routineTimer.getTime()
+                tThisFlip = win.getFutureFlipTime(clock=routineTimer)
+                tThisFlipGlobal = win.getFutureFlipTime(clock=None)
+                frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
+                # update/draw components on each frame
+                
+                # *neu_text_after* updates
+                
+                # if neu_text_after is starting this frame...
+                if neu_text_after.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # keep track of start time/frame for later
+                    neu_text_after.frameNStart = frameN  # exact frame index
+                    neu_text_after.tStart = t  # local t and not account for scr refresh
+                    neu_text_after.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(neu_text_after, 'tStartRefresh')  # time at next scr refresh
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'neu_text_after.started')
+                    # update status
+                    neu_text_after.status = STARTED
+                    neu_text_after.setAutoDraw(True)
+                
+                # if neu_text_after is active this frame...
+                if neu_text_after.status == STARTED:
+                    # update params
+                    pass
+                
+                # *neu_slider_after* updates
+                
+                # if neu_slider_after is starting this frame...
+                if neu_slider_after.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # keep track of start time/frame for later
+                    neu_slider_after.frameNStart = frameN  # exact frame index
+                    neu_slider_after.tStart = t  # local t and not account for scr refresh
+                    neu_slider_after.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(neu_slider_after, 'tStartRefresh')  # time at next scr refresh
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'neu_slider_after.started')
+                    # update status
+                    neu_slider_after.status = STARTED
+                    neu_slider_after.setAutoDraw(True)
+                
+                # if neu_slider_after is active this frame...
+                if neu_slider_after.status == STARTED:
+                    # update params
+                    pass
+                
+                # *neu_hint_after* updates
+                
+                # if neu_hint_after is starting this frame...
+                if neu_hint_after.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # keep track of start time/frame for later
+                    neu_hint_after.frameNStart = frameN  # exact frame index
+                    neu_hint_after.tStart = t  # local t and not account for scr refresh
+                    neu_hint_after.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(neu_hint_after, 'tStartRefresh')  # time at next scr refresh
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'neu_hint_after.started')
+                    # update status
+                    neu_hint_after.status = STARTED
+                    neu_hint_after.setAutoDraw(True)
+                
+                # if neu_hint_after is active this frame...
+                if neu_hint_after.status == STARTED:
+                    # update params
+                    pass
+                
+                # *neu_key_after* updates
+                waitOnFlip = False
+                
+                # if neu_key_after is starting this frame...
+                if neu_key_after.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # keep track of start time/frame for later
+                    neu_key_after.frameNStart = frameN  # exact frame index
+                    neu_key_after.tStart = t  # local t and not account for scr refresh
+                    neu_key_after.tStartRefresh = tThisFlipGlobal  # on global time
+                    win.timeOnFlip(neu_key_after, 'tStartRefresh')  # time at next scr refresh
+                    # add timestamp to datafile
+                    thisExp.timestampOnFlip(win, 'neu_key_after.started')
+                    # update status
+                    neu_key_after.status = STARTED
+                    # keyboard checking is just starting
+                    waitOnFlip = True
+                    win.callOnFlip(neu_key_after.clock.reset)  # t=0 on next screen flip
+                    win.callOnFlip(neu_key_after.clearEvents, eventType='keyboard')  # clear events on next screen flip
+                if neu_key_after.status == STARTED and not waitOnFlip:
+                    theseKeys = neu_key_after.getKeys(keyList=['left','right','space','1','2','3','4','5','6','7'], ignoreKeys=["escape"], waitRelease=False)
+                    _neu_key_after_allKeys.extend(theseKeys)
+                    if len(_neu_key_after_allKeys):
+                        neu_key_after.keys = _neu_key_after_allKeys[-1].name  # just the last key pressed
+                        neu_key_after.rt = _neu_key_after_allKeys[-1].rt
+                        neu_key_after.duration = _neu_key_after_allKeys[-1].duration
+                # Run 'Each Frame' code from code_neu_after
+                _r = neu_slider_after.getRating()
+                if _r is not None and int(round(_r)) != resp:
+                    resp = int(round(_r))
+                while key_i < len(_neu_key_after_allKeys):
+                    _k = _neu_key_after_allKeys[key_i].name
+                    key_i += 1
+                    _new = None
+                    if _k in ['1', '2', '3', '4', '5', '6', '7']:
+                        _new = int(_k)
+                    elif _k == 'left':
+                        _new = 4 if resp is None else max(1, resp - 1)
+                    elif _k == 'right':
+                        _new = 4 if resp is None else min(7, resp + 1)
+                    elif _k == 'space' and resp is not None:
+                        continueRoutine = False
+                    if _new is not None and _new != resp:
+                        resp = _new
+                        neu_slider_after.recordRating(resp)
+                
+                
+                # check for quit (typically the Esc key)
+                if defaultKeyboard.getKeys(keyList=["escape"]):
+                    thisExp.status = FINISHED
+                if thisExp.status == FINISHED or endExpNow:
+                    endExperiment(thisExp, win=win)
+                    return
+                # pause experiment here if requested
+                if thisExp.status == PAUSED:
+                    pauseExperiment(
+                        thisExp=thisExp, 
+                        win=win, 
+                        timers=[routineTimer, globalClock], 
+                        currentRoutine=neu_item_after,
+                    )
+                    # skip the frame we paused on
+                    continue
+                
+                # check if all components have finished
+                if not continueRoutine:  # a component has requested a forced-end of Routine
+                    neu_item_after.forceEnded = routineForceEnded = True
+                    break
+                continueRoutine = False  # will revert to True if at least one component still running
+                for thisComponent in neu_item_after.components:
+                    if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
+                        continueRoutine = True
+                        break  # at least one component has not yet finished
+                
+                # refresh the screen
+                if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
+                    win.flip()
+            
+            # --- Ending Routine "neu_item_after" ---
+            for thisComponent in neu_item_after.components:
+                if hasattr(thisComponent, "setAutoDraw"):
+                    thisComponent.setAutoDraw(False)
+            # store stop times for neu_item_after
+            neu_item_after.tStop = globalClock.getTime(format='float')
+            neu_item_after.tStopRefresh = tThisFlipGlobal
+            thisExp.addData('neu_item_after.stopped', neu_item_after.tStop)
+            neu_items_after.addData('neu_slider_after.response', neu_slider_after.getRating())
+            neu_items_after.addData('neu_slider_after.rt', neu_slider_after.getRT())
+            # Run 'End Routine' code from code_neu_after
+            neu_resp[int(item_n)] = resp
+            thisExp.addData('neu_' + str(item_n), resp)
+            thisExp.addData('neu_rt_' + str(item_n), t)
+            thisExp.addData('neu_keys_' + str(item_n), key_i)
+            
+            # the Routine "neu_item_after" was not non-slip safe, so reset the non-slip timer
+            routineTimer.reset()
+            # mark thisNeu_items_after as finished
+            if hasattr(thisNeu_items_after, 'status'):
+                thisNeu_items_after.status = FINISHED
+            # if awaiting a pause, pause now
+            if neu_items_after.status == PAUSED:
+                thisExp.status = PAUSED
+                pauseExperiment(
+                    thisExp=thisExp, 
+                    win=win, 
+                    timers=[globalClock], 
+                )
+                # once done pausing, restore running status
+                neu_items_after.status = STARTED
+            thisExp.nextEntry()
+            
+        # completed 1.0 repeats of 'neu_items_after'
+        neu_items_after.status = FINISHED
+        
+        if thisSession is not None:
+            # if running in a Session with a Liaison client, send data up to now
+            thisSession.sendExperimentData()
+        # mark thisNeu_block_after as finished
+        if hasattr(thisNeu_block_after, 'status'):
+            thisNeu_block_after.status = FINISHED
+        # if awaiting a pause, pause now
+        if neu_block_after.status == PAUSED:
+            thisExp.status = PAUSED
+            pauseExperiment(
+                thisExp=thisExp, 
+                win=win, 
+                timers=[globalClock], 
+            )
+            # once done pausing, restore running status
+            neu_block_after.status = STARTED
+    # completed nBefore repeats of 'neu_block_after'
+    neu_block_after.status = FINISHED
     
     
     # --- Prepare to start Routine "suspicion" ---
@@ -3365,6 +4736,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     else:
        thisExp.addData('susp_done.timesOn', "")
        thisExp.addData('susp_done.timesOff', "")
+    # Run 'End Routine' code from code_susp
+    thisExp.addData('susp_time', t)
+    thisExp.addData('susp_len', len(susp_box.text or ''))
+    
     thisExp.nextEntry()
     # the Routine "suspicion" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
@@ -3537,6 +4912,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
        thisExp.addData('row_done.timesOff', "")
     # Run 'End Routine' code from code_row
     thisExp.addData('row_number', (row_box.text or '').strip())
+    thisExp.addData('row_time', t)
     
     thisExp.nextEntry()
     # the Routine "row_entry" was not non-slip safe, so reset the non-slip timer
@@ -3546,13 +4922,15 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     # create an object to store info about Routine thanks
     thanks = data.Routine(
         name='thanks',
-        components=[thanks_text, thanks_key],
+        components=[thanks_text],
     )
     thanks.status = NOT_STARTED
     continueRoutine = True
     # update component parameters for each repeat
     # Run 'Begin Routine' code from code_score
-    
+    thisExp.addData('total_time', globalClock.getTime())
+    thisExp.addData('blur_count', blur_count)
+    thisExp.addData('neu_n_answered', sum(1 for v in neu_resp.values() if v is not None))
     SUB = {'TRB': [1, 8, 15, 22], 'Psi': [2, 9, 16, 23], 'Witch': [3, 10, 17, 24], 'Super': [4, 11, 18],
            'Spirit': [5, 12, 19, 25], 'ELF': [6, 13, 20], 'Precog': [7, 14, 21, 26]}
     def _v(i):
@@ -3567,10 +4945,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         thisExp.addData('RPBS_total', sum(vals))
         thisExp.addData('RPBS_mean', sum(vals) / 26.0)
     
-    # create starting attributes for thanks_key
-    thanks_key.keys = []
-    thanks_key.rt = []
-    _thanks_key_allKeys = []
+    # Run 'Begin Routine' code from code_datapipe
+    event.clearEvents()
+    
     # store start times for thanks
     thanks.tStartRefresh = win.getFutureFlipTime(clock=globalClock)
     thanks.tStart = globalClock.getTime(format='float')
@@ -3620,34 +4997,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         if thanks_text.status == STARTED:
             # update params
             pass
+        # Run 'Each Frame' code from code_datapipe
+        if event.getKeys(keyList=['space']):
+            continueRoutine = False
         
-        # *thanks_key* updates
-        waitOnFlip = False
-        
-        # if thanks_key is starting this frame...
-        if thanks_key.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
-            # keep track of start time/frame for later
-            thanks_key.frameNStart = frameN  # exact frame index
-            thanks_key.tStart = t  # local t and not account for scr refresh
-            thanks_key.tStartRefresh = tThisFlipGlobal  # on global time
-            win.timeOnFlip(thanks_key, 'tStartRefresh')  # time at next scr refresh
-            # add timestamp to datafile
-            thisExp.timestampOnFlip(win, 'thanks_key.started')
-            # update status
-            thanks_key.status = STARTED
-            # keyboard checking is just starting
-            waitOnFlip = True
-            win.callOnFlip(thanks_key.clock.reset)  # t=0 on next screen flip
-            win.callOnFlip(thanks_key.clearEvents, eventType='keyboard')  # clear events on next screen flip
-        if thanks_key.status == STARTED and not waitOnFlip:
-            theseKeys = thanks_key.getKeys(keyList=['space'], ignoreKeys=["escape"], waitRelease=False)
-            _thanks_key_allKeys.extend(theseKeys)
-            if len(_thanks_key_allKeys):
-                thanks_key.keys = _thanks_key_allKeys[-1].name  # just the last key pressed
-                thanks_key.rt = _thanks_key_allKeys[-1].rt
-                thanks_key.duration = _thanks_key_allKeys[-1].duration
-                # a response ends the routine
-                continueRoutine = False
         
         # check for quit (typically the Esc key)
         if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -3688,13 +5041,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     thanks.tStop = globalClock.getTime(format='float')
     thanks.tStopRefresh = tThisFlipGlobal
     thisExp.addData('thanks.stopped', thanks.tStop)
-    # check responses
-    if thanks_key.keys in ['', [], None]:  # No response was made
-        thanks_key.keys = None
-    thisExp.addData('thanks_key.keys',thanks_key.keys)
-    if thanks_key.keys != None:  # we had a response
-        thisExp.addData('thanks_key.rt', thanks_key.rt)
-        thisExp.addData('thanks_key.duration', thanks_key.duration)
     thisExp.nextEntry()
     # the Routine "thanks" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()

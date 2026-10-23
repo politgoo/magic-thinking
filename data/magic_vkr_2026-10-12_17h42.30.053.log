@@ -1,0 +1,272 @@
+1.6290 	WARNING 	Requested audio device 'LG HDR QHD' that is not available on this hardware. The 'audioDevice' preference should be one of ['HG638J47', 'ZoomAudioDevice', 'Динамики MacBook Air']
+12.1600 	WARNING 	Font Manager failed to load file /System/Library/PrivateFrameworks/FontServices.framework/Resources/Reserved/PingFangUI.ttc
+12.2743 	WARNING 	Font Manager failed to load file /System/Library/PrivateFrameworks/FontServices.framework/Resources/Reserved/PingFangUI.ttc
+15.0689 	INFO 	Loaded monitor calibration from ['2025_10_28 18:09']
+15.0725 	WARNING 	User requested fullscreen with size [1024  768], but screen is actually [1710, 1107]. Using actual size
+15.2049 	INFO 	Using renderer 'Apple M4' for graphics
+15.2049 	INFO 	OpenGL version supported by driver is 2..
+15.2423 	EXP 	Created window1 = Window(allowGUI=True, allowStencil=True, autoLog=True, backendConf=UNKNOWN, backgroundFit=<method-wrapper '__getattribute__' of attributeSetter object at 0x159803160>, backgroundImage=<method-wrapper '__getattribute__' of attributeSetter object at 0x159803100>, bitsMode=UNKNOWN, blendMode='avg', bpc=(8, 8, 8), color=array([-0.2314, -0.2314, -0.2314]), colorSpace='rgb', depthBits=8, fullscr=True, gamma=None, gammaErrorPolicy='raise', infoMsg=UNKNOWN, lms=UNKNOWN, monitor=<psychopy.monitors.calibTools.Monitor object at 0x15964baf0>, multiSample=False, name='window1', numSamples=2, pos=[np.float64(0.0), np.float64(0.0)], screen=0, size=array([3420, 2214]), stencilBits=8, stereo=False, title='PsychoPy', units='height', useFBO=True, useRetina=True, viewOri=0.0, viewPos=None, viewScale=None, waitBlanking=True, winType='pyglet')
+15.2424 	EXP 	window1: backgroundImage = ''
+15.2424 	EXP 	window1: backgroundFit = 'none'
+15.5142 	EXP 	window1: Attempting to measure frame rate of screen (0) ...
+15.5142 	EXP 	window1: recordFrameIntervals = False
+15.7568 	EXP 	window1: recordFrameIntervals = True
+16.0416 	WARNING 	t of last frame was 24.39ms (=1/41)
+16.1584 	WARNING 	t of last frame was 25.22ms (=1/39)
+16.2419 	WARNING 	t of last frame was 25.31ms (=1/39)
+16.2749 	WARNING 	t of last frame was 24.71ms (=1/40)
+16.6324 	EXP 	Screen (0) actual frame rate measured at 120.21Hz
+16.6324 	EXP 	window1: recordFrameIntervals = False
+17.6385 	INFO 	keyboard.Keyboard is using ptb backend.
+17.8128 	INFO 	keyboard.Keyboard is using ptb backend.
+17.9845 	INFO 	keyboard.Keyboard is using ptb backend.
+18.1605 	INFO 	keyboard.Keyboard is using ptb backend.
+18.3330 	INFO 	keyboard.Keyboard is using ptb backend.
+18.5062 	INFO 	keyboard.Keyboard is using ptb backend.
+18.6784 	INFO 	keyboard.Keyboard is using ptb backend.
+18.8522 	INFO 	keyboard.Keyboard is using ptb backend.
+19.0241 	INFO 	keyboard.Keyboard is using ptb backend.
+19.0241 	EXP 	magic_vkr: status = STARTED
+19.0600 	EXP 	Created welcome_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.035), italic=False, languageStyle='LTR', name='welcome_text', opacity=1, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+19.0647 	EXP 	Created demog_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.034), italic=False, languageStyle='LTR', name='demog_text', opacity=1, ori=0.0, pos=array([0.  , 0.38]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.3)
+19.0669 	EXP 	Created lbl_name = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.032), italic=False, languageStyle='LTR', name='lbl_name', opacity=1, ori=0.0, pos=array([-0.45,  0.24]), rgb=UNKNOWN, text='Имя', units='height', win=Window(...), wrapWidth=1.4)
+19.0883 	EXP 	Created lbl_sex = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-3.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.032), italic=False, languageStyle='LTR', name='lbl_sex', opacity=1, ori=0.0, pos=array([-0.45,  0.08]), rgb=UNKNOWN, text='Пол', units='height', win=Window(...), wrapWidth=1.4)
+19.1399 	EXP 	Created lbl_age = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-7.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.032), italic=False, languageStyle='LTR', name='lbl_age', opacity=1, ori=0.0, pos=array([-0.4 , -0.08]), rgb=UNKNOWN, text='Возраст (полных лет)', units='height', win=Window(...), wrapWidth=1.4)
+19.1576 	EXP 	Created demog_fb = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([ 1.        ,  0.68627451, -1.        ]), colorSpace='rgb', contrast=1.0, depth=-10.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.028), italic=False, languageStyle='LTR', name='demog_fb', opacity=1, ori=0.0, pos=array([ 0.  , -0.38]), rgb=UNKNOWN, text='', units='height', win=Window(...), wrapWidth=1.3)
+19.1623 	EXP 	Created debug_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.04), italic=False, languageStyle='LTR', name='debug_text', opacity=1, ori=0.0, pos=array([0. , 0.3]), rgb=UNKNOWN, text='Отладка. Выберите группу для прохождения.', units='height', win=Window(...), wrapWidth=1.4)
+19.1714 	EXP 	Created debug_hint = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.028), italic=False, languageStyle='LTR', name='debug_hint', opacity=1, ori=0.0, pos=array([0.  , 0.17]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+19.2048 	EXP 	Created setup_blank = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.035), italic=False, languageStyle='LTR', name='setup_blank', opacity=1, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text='', units='height', win=Window(...), wrapWidth=1.4)
+19.2488 	EXP 	Created tob_text_before = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.04, italic=False, languageStyle='LTR', name='tob_text_before', opacity=1, ori=0.0, pos=array([0. , 0.2]), rgb=UNKNOWN, text='', units='height', win=Window(...), wrapWidth=1.3)
+19.3372 	EXP 	Created tob_slider_before = Slider(__class__=<class 'psychopy.visual.slider.Slider'>, autoDraw=False, autoLog=True, borderColor=None, color=None, colorSpace='rgb', depth=-1, fillColor=None, flip=False, font='Arial', granularity=1.0, labelColor=None, labelHeight=np.float64(0.025), labelWrapWidth=None, labels=list(...), lineColor=None, markerColor=None, name='tob_slider_before', opacity=None, ori=0.0, pos=array([ 0.  , -0.12]), readOnly=False, self=UNKNOWN, size=array([1.3 , 0.06]), startValue=None, style='rating', styleTweaks=[], ticks=array([1, 2, 3, 4, 5, 6, 7]), units='height', win=Window(...))
+19.3437 	EXP 	Created tob_hint_before = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([0.65490196, 0.65490196, 0.65490196]), colorSpace='rgb', contrast=1.0, depth=-2.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.026), italic=False, languageStyle='LTR', name='tob_hint_before', opacity=1, ori=0.0, pos=array([ 0. , -0.4]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+19.3543 	EXP 	Created control_instr_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.036), italic=False, languageStyle='LTR', name='control_instr_text', opacity=1, ori=0.0, pos=array([0.  , 0.05]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.3)
+19.3563 	EXP 	Created control_q_head = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.045), italic=False, languageStyle='LTR', name='control_q_head', opacity=1, ori=0.0, pos=array([0.  , 0.25]), rgb=UNKNOWN, text='Ваш ответ', units='height', win=Window(...), wrapWidth=1.4)
+19.3832 	EXP 	Created control_q_keys = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([0.65490196, 0.65490196, 0.65490196]), colorSpace='rgb', contrast=1.0, depth=-4.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.028), italic=False, languageStyle='LTR', name='control_q_keys', opacity=1, ori=0.0, pos=array([ 0.  , -0.12]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+19.3898 	EXP 	Created control_q_hint = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([0.65490196, 0.65490196, 0.65490196]), colorSpace='rgb', contrast=1.0, depth=-5.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.028), italic=False, languageStyle='LTR', name='control_q_hint', opacity=1, ori=0.0, pos=array([ 0. , -0.3]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+19.3901 	EXP 	Created choice_instr_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.036, italic=False, languageStyle='LTR', name='choice_instr_text', opacity=1, ori=0.0, pos=array([0.  , 0.05]), rgb=UNKNOWN, text='', units='height', win=Window(...), wrapWidth=1.3)
+19.3914 	EXP 	Created choice_head = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.045), italic=False, languageStyle='LTR', name='choice_head', opacity=1, ori=0.0, pos=array([0.  , 0.25]), rgb=UNKNOWN, text='Ваш выбор', units='height', win=Window(...), wrapWidth=1.4)
+19.4062 	EXP 	Created choice_keys = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([0.65490196, 0.65490196, 0.65490196]), colorSpace='rgb', contrast=1.0, depth=-4.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.028), italic=False, languageStyle='LTR', name='choice_keys', opacity=1, ori=0.0, pos=array([ 0.  , -0.12]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+19.4086 	EXP 	Created choice_hint = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([0.65490196, 0.65490196, 0.65490196]), colorSpace='rgb', contrast=1.0, depth=-5.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.028), italic=False, languageStyle='LTR', name='choice_hint', opacity=1, ori=0.0, pos=array([ 0. , -0.3]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+19.4166 	EXP 	Created effort_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.032), italic=False, languageStyle='LTR', name='effort_text', opacity=1, ori=0.0, pos=array([0. , 0.3]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.3)
+19.4296 	EXP 	Created effort_fb = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([ 1.        ,  0.68627451, -1.        ]), colorSpace='rgb', contrast=1.0, depth=-3.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.028), italic=False, languageStyle='LTR', name='effort_fb', opacity=1, ori=0.0, pos=array([ 0.  , -0.24]), rgb=UNKNOWN, text='', units='height', win=Window(...), wrapWidth=1.3)
+19.4336 	EXP 	Created rating_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.035), italic=False, languageStyle='LTR', name='rating_text', opacity=1, ori=0.0, pos=array([0.  , 0.38]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.3)
+19.4371 	EXP 	Created lbl_imp = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.030000000000000002), italic=False, languageStyle='LTR', name='lbl_imp', opacity=1, ori=0.0, pos=array([0.  , 0.22]), rgb=UNKNOWN, text='Насколько это событие для вас важно?', units='height', win=Window(...), wrapWidth=1.4)
+19.4604 	EXP 	Created importance = Slider(__class__=<class 'psychopy.visual.slider.Slider'>, autoDraw=False, autoLog=True, borderColor=None, color=None, colorSpace='rgb', depth=-2, fillColor=None, flip=False, font='Arial', granularity=1.0, labelColor=None, labelHeight=np.float64(0.025), labelWrapWidth=None, labels=['совсем не важно', 'крайне важно'], lineColor=None, markerColor=None, name='importance', opacity=None, ori=0.0, pos=array([0. , 0.1]), readOnly=False, self=UNKNOWN, size=array([1.  , 0.05]), startValue=50, style='slider', styleTweaks=[], ticks=array([  0, 100]), units='height', win=Window(...))
+19.4650 	EXP 	Created lbl_ctrl = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-3.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.030000000000000002), italic=False, languageStyle='LTR', name='lbl_ctrl', opacity=1, ori=0.0, pos=array([ 0.  , -0.08]), rgb=UNKNOWN, text='Насколько его исход зависит от вас самих?', units='height', win=Window(...), wrapWidth=1.4)
+19.4864 	EXP 	Created control = Slider(__class__=<class 'psychopy.visual.slider.Slider'>, autoDraw=False, autoLog=True, borderColor=None, color=None, colorSpace='rgb', depth=-4, fillColor=None, flip=False, font='Arial', granularity=1.0, labelColor=None, labelHeight=np.float64(0.025), labelWrapWidth=None, labels=['совсем не зависит', 'полностью зависит'], lineColor=None, markerColor=None, name='control', opacity=None, ori=0.0, pos=array([ 0. , -0.2]), readOnly=False, self=UNKNOWN, size=array([1.  , 0.05]), startValue=50, style='slider', styleTweaks=[], ticks=array([  0, 100]), units='height', win=Window(...))
+19.4977 	EXP 	Created tob_text_after = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=0.04, italic=False, languageStyle='LTR', name='tob_text_after', opacity=1, ori=0.0, pos=array([0. , 0.2]), rgb=UNKNOWN, text='', units='height', win=Window(...), wrapWidth=1.3)
+19.5455 	EXP 	Created tob_slider_after = Slider(__class__=<class 'psychopy.visual.slider.Slider'>, autoDraw=False, autoLog=True, borderColor=None, color=None, colorSpace='rgb', depth=-1, fillColor=None, flip=False, font='Arial', granularity=1.0, labelColor=None, labelHeight=np.float64(0.025), labelWrapWidth=None, labels=list(...), lineColor=None, markerColor=None, name='tob_slider_after', opacity=None, ori=0.0, pos=array([ 0.  , -0.12]), readOnly=False, self=UNKNOWN, size=array([1.3 , 0.06]), startValue=None, style='rating', styleTweaks=[], ticks=array([1, 2, 3, 4, 5, 6, 7]), units='height', win=Window(...))
+19.5505 	EXP 	Created tob_hint_after = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([0.65490196, 0.65490196, 0.65490196]), colorSpace='rgb', contrast=1.0, depth=-2.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.026), italic=False, languageStyle='LTR', name='tob_hint_after', opacity=1, ori=0.0, pos=array([ 0. , -0.4]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+19.5562 	EXP 	Created susp_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.032), italic=False, languageStyle='LTR', name='susp_text', opacity=1, ori=0.0, pos=array([0. , 0.3]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.3)
+19.5820 	EXP 	Created row_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=0.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.032), italic=False, languageStyle='LTR', name='row_text', opacity=1, ori=0.0, pos=array([0.  , 0.25]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.3)
+19.6045 	EXP 	Created thanks_text = TextStim(__class__=<class 'psychopy.visual.text.TextStim'>, alignHoriz=method-wrapper(...), alignText='center', alignVert=method-wrapper(...), anchorHoriz='center', anchorVert='center', antialias=True, autoDraw=False, autoLog=True, bold=False, color=array([1., 1., 1.]), colorSpace='rgb', contrast=1.0, depth=-1.0, draggable=False, flipHoriz=False, flipVert=False, font='Arial', fontFiles=[], height=np.float64(0.035), italic=False, languageStyle='LTR', name='thanks_text', opacity=1, ori=0.0, pos=array([0., 0.]), rgb=UNKNOWN, text=str(...), units='height', win=Window(...), wrapWidth=1.4)
+0.0135 	EXP 	name_box: autoLog = True
+0.0135 	EXP 	age_box: autoLog = True
+0.0135 	EXP 	tob_instr_text_before: autoLog = True
+0.0135 	EXP 	tob_slider_before: autoLog = True
+0.0135 	EXP 	tob_slider_before: styleTweaks = []
+0.0135 	EXP 	tob_slider_before: styleTweaks = []
+0.0135 	EXP 	tob_slider_before: styleTweaks = []
+0.0135 	EXP 	tob_slider_before: styleTweaks = []
+0.0135 	EXP 	tob_slider_before: contrast = 1.0
+0.0135 	EXP 	tob_slider_before: markerPos = None
+0.0135 	EXP 	tob_slider_before: autoLog = True
+0.0135 	EXP 	effort_box: autoLog = True
+0.0135 	EXP 	importance: autoLog = True
+0.0135 	EXP 	importance: styleTweaks = []
+0.0135 	EXP 	importance: styleTweaks = []
+0.0135 	EXP 	importance: styleTweaks = []
+0.0135 	EXP 	importance: styleTweaks = []
+0.0135 	EXP 	importance: contrast = 1.0
+0.0135 	EXP 	importance: markerPos = 50
+0.0135 	EXP 	importance: autoLog = True
+0.0135 	EXP 	control: autoLog = True
+0.0135 	EXP 	control: styleTweaks = []
+0.0135 	EXP 	control: styleTweaks = []
+0.0135 	EXP 	control: styleTweaks = []
+0.0135 	EXP 	control: styleTweaks = []
+0.0135 	EXP 	control: contrast = 1.0
+0.0135 	EXP 	control: markerPos = 50
+0.0135 	EXP 	control: autoLog = True
+0.0135 	EXP 	tob_instr_text_after: autoLog = True
+0.0135 	EXP 	tob_slider_after: autoLog = True
+0.0135 	EXP 	tob_slider_after: styleTweaks = []
+0.0135 	EXP 	tob_slider_after: styleTweaks = []
+0.0135 	EXP 	tob_slider_after: styleTweaks = []
+0.0135 	EXP 	tob_slider_after: styleTweaks = []
+0.0135 	EXP 	tob_slider_after: contrast = 1.0
+0.0135 	EXP 	tob_slider_after: markerPos = None
+0.0135 	EXP 	tob_slider_after: autoLog = True
+0.0135 	EXP 	susp_box: autoLog = True
+0.0135 	EXP 	row_box: autoLog = True
+0.0281 	INFO 	Keyboard events cleared
+0.0281 	EXP 	welcome_text: autoDraw = True
+8.5638 	EXP 	Device response: <KeyPress from None: t=7.853506708052009, value=space, duration=None>
+8.5639 	EXP 	Device response: <KeyPress from None: t=7.853506708052009, value=space, duration=0.07030745898373425>
+8.5791 	DATA 	Keypress: space
+8.7282 	EXP 	welcome_text: autoDraw = False
+8.7282 	EXP 	demog_text: autoDraw = True
+8.7282 	EXP 	lbl_name: autoDraw = True
+8.7282 	EXP 	name_box: autoDraw = True
+8.7282 	EXP 	lbl_sex: autoDraw = True
+8.7282 	EXP 	lbl_age: autoDraw = True
+8.7282 	EXP 	age_box: autoDraw = True
+8.7282 	EXP 	demog_fb: autoDraw = True
+8.8706 	EXP 	Device response: <KeyPress from None: t=8.866497416980565, value=space, duration=None>
+8.8781 	DATA 	Keypress: space
+9.0194 	EXP 	Device response: <KeyPress from None: t=8.866497416980565, value=space, duration=0.1522747080307454>
+10.3868 	DATA 	Mouse: Left button down, pos=(657,809)
+10.4524 	DATA 	Mouse:  Left button up, pos=(657,809)
+11.5726 	DATA 	Mouse: Left button down, pos=(644,611)
+11.6535 	DATA 	Mouse:  Left button up, pos=(644,611)
+12.5976 	DATA 	Mouse: Left button down, pos=(953,461)
+12.6879 	DATA 	Mouse:  Left button up, pos=(953,461)
+13.0190 	DATA 	Mouse: Left button down, pos=(999,460)
+13.3853 	DATA 	Mouse:  Left button up, pos=(815,478)
+13.6190 	DATA 	Mouse: Left button down, pos=(910,459)
+13.6855 	DATA 	Mouse:  Left button up, pos=(910,459)
+13.9192 	DATA 	Mouse: Left button down, pos=(880,463)
+13.9714 	DATA 	Mouse:  Left button up, pos=(880,463)
+14.0629 	DATA 	Mouse: Left button down, pos=(880,463)
+14.1299 	DATA 	Mouse:  Left button up, pos=(880,463)
+14.6188 	DATA 	Mouse: Left button down, pos=(669,811)
+14.6978 	DATA 	Mouse:  Left button up, pos=(669,811)
+15.7956 	DATA 	Keypress: lshift
+15.7962 	EXP 	Device response: <KeyPress from None: t=15.790584583068267, value=lshift, duration=None>
+16.0090 	EXP 	Device response: <KeyPress from None: t=16.00056695798412, value=f, duration=None>
+16.0858 	EXP 	Device response: <KeyPress from None: t=15.790584583068267, value=lshift, duration=0.2819645839044824>
+16.1615 	EXP 	Device response: <KeyPress from None: t=16.00056695798412, value=f, duration=0.1603142920648679>
+16.3055 	EXP 	Device response: <KeyPress from None: t=16.303566041984595, value=h, duration=None>
+16.3718 	EXP 	Device response: <KeyPress from None: t=16.303566041984595, value=h, duration=0.06029804109130055>
+16.5301 	EXP 	Device response: <KeyPress from None: t=16.51954462507274, value=b, duration=None>
+16.6194 	EXP 	Device response: <KeyPress from None: t=16.51954462507274, value=b, duration=0.08830712491180748>
+16.7969 	EXP 	Device response: <KeyPress from None: t=16.791543749975972, value=y, duration=None>
+16.8527 	EXP 	Device response: <KeyPress from None: t=16.791543749975972, value=y, duration=0.05631779204122722>
+17.7072 	EXP 	Device response: <KeyPress from None: t=17.701525958022103, value=f, duration=None>
+17.7739 	EXP 	Device response: <KeyPress from None: t=17.701525958022103, value=f, duration=0.06429666699841619>
+19.6259 	DATA 	Mouse: Left button down, pos=(924,451)
+19.7163 	DATA 	Mouse:  Left button up, pos=(924,451)
+19.9566 	DATA 	Mouse: Left button down, pos=(963,464)
+20.0546 	DATA 	Mouse:  Left button up, pos=(963,464)
+20.1690 	DATA 	Mouse: Left button down, pos=(963,464)
+20.2556 	DATA 	Mouse:  Left button up, pos=(961,464)
+20.4549 	DATA 	Mouse: Left button down, pos=(947,462)
+20.5256 	DATA 	Mouse:  Left button up, pos=(947,462)
+20.6119 	DATA 	Mouse: Left button down, pos=(947,462)
+20.6907 	DATA 	Mouse:  Left button up, pos=(947,462)
+21.3024 	EXP 	Device response: <KeyPress from None: t=21.300456958008, value=5, duration=None>
+21.3078 	DATA 	Keypress: 5
+21.4194 	EXP 	Device response: <KeyPress from None: t=21.300456958008, value=5, duration=0.10828291706275195>
+21.4905 	DATA 	Keypress: 5
+21.4957 	EXP 	Device response: <KeyPress from None: t=21.48643345804885, value=5, duration=None>
+21.5948 	EXP 	Device response: <KeyPress from None: t=21.48643345804885, value=5, duration=0.10430287499912083>
+21.7186 	DATA 	Mouse: Left button down, pos=(930,459)
+21.7952 	DATA 	Mouse:  Left button up, pos=(930,459)
+21.9057 	DATA 	Mouse: Left button down, pos=(930,459)
+21.9890 	DATA 	Mouse:  Left button up, pos=(930,459)
+22.1320 	DATA 	Mouse: Left button down, pos=(919,459)
+22.2288 	DATA 	Mouse:  Left button up, pos=(919,459)
+22.3281 	DATA 	Mouse: Left button down, pos=(917,459)
+22.4522 	DATA 	Mouse:  Left button up, pos=(917,459)
+22.8119 	DATA 	Keypress: 1
+22.8189 	EXP 	Device response: <KeyPress from None: t=22.80540558299981, value=1, duration=None>
+22.9050 	EXP 	Device response: <KeyPress from None: t=22.80540558299981, value=1, duration=0.09229779208544642>
+22.9763 	DATA 	Keypress: 1
+22.9858 	EXP 	Device response: <KeyPress from None: t=22.973390166996978, value=1, duration=None>
+23.0617 	EXP 	Device response: <KeyPress from None: t=22.973390166996978, value=1, duration=0.08431408298201859>
+23.5871 	DATA 	Mouse: Left button down, pos=(895,227)
+23.6093 	EXP 	demog_fb: height = np.float64(0.028)
+23.6093 	EXP 	demog_fb: height = np.float64(0.028)
+23.6093 	EXP 	demog_fb: height = np.float64(0.028)
+23.6093 	EXP 	demog_fb: text = 'Пожалуйста, введите возраст числом (от 18 лет).'
+23.6904 	DATA 	Mouse:  Left button up, pos=(895,227)
+25.0024 	DATA 	Mouse: Left button down, pos=(964,435)
+25.0788 	DATA 	Mouse:  Left button up, pos=(964,435)
+25.2822 	DATA 	Mouse: Left button down, pos=(938,467)
+25.3560 	DATA 	Mouse:  Left button up, pos=(938,467)
+25.4691 	DATA 	Mouse: Left button down, pos=(938,467)
+25.5146 	DATA 	Mouse:  Left button up, pos=(938,467)
+26.3022 	DATA 	Keypress: lshift
+26.3029 	EXP 	Device response: <KeyPress from None: t=26.290329958079383, value=lshift, duration=None>
+26.3126 	DATA 	Keypress: lcommand
+26.3132 	EXP 	Device response: <KeyPress from None: t=26.306331292027608, value=lcommand, duration=None>
+26.3132 	EXP 	Device response: <KeyPress from None: t=26.31031950004399, value=z, duration=None>
+26.6390 	EXP 	Device response: <KeyPress from None: t=26.290329958079383, value=lshift, duration=0.3439672499662265>
+26.6525 	EXP 	Device response: <KeyPress from None: t=26.306331292027608, value=lcommand, duration=0.33597308304160833>
+26.6525 	EXP 	Device response: <KeyPress from None: t=26.31031950004399, value=z, duration=0.3403099999995902>
+27.1288 	DATA 	Keypress: lshift
+27.1295 	EXP 	Device response: <KeyPress from None: t=27.124302292009816, value=lshift, duration=None>
+27.1387 	DATA 	Keypress: lcommand
+27.1392 	EXP 	Device response: <KeyPress from None: t=27.13230141706299, value=lcommand, duration=None>
+27.1393 	EXP 	Device response: <KeyPress from None: t=27.136318875011057, value=z, duration=None>
+27.4862 	EXP 	Device response: <KeyPress from None: t=27.13230141706299, value=lcommand, duration=0.34799195791129023>
+27.4863 	EXP 	Device response: <KeyPress from None: t=27.124302292009816, value=lshift, duration=0.3599875409854576>
+27.4963 	EXP 	Device response: <KeyPress from None: t=27.136318875011057, value=z, duration=0.3522652080282569>
+27.7285 	EXP 	Device response: <KeyPress from None: t=27.725292333052494, value=lshift, duration=None>
+27.7294 	DATA 	Keypress: lshift
+27.7380 	DATA 	Keypress: lcommand
+27.7385 	EXP 	Device response: <KeyPress from None: t=27.733287667040713, value=lcommand, duration=None>
+27.7385 	EXP 	Device response: <KeyPress from None: t=27.737338667036965, value=z, duration=None>
+28.1066 	EXP 	Device response: <KeyPress from None: t=27.725292333052494, value=lshift, duration=0.3719877499388531>
+28.1066 	EXP 	Device response: <KeyPress from None: t=27.737338667036965, value=z, duration=0.363939999951981>
+28.1182 	EXP 	Device response: <KeyPress from None: t=27.733287667040713, value=lcommand, duration=0.3771243749652058>
+29.9355 	DATA 	Keypress: lshift
+29.9361 	EXP 	Device response: <KeyPress from None: t=29.92421941703651, value=lshift, duration=None>
+30.0245 	DATA 	Keypress: lcommand
+30.0251 	EXP 	Device response: <KeyPress from None: t=30.0122324579861, value=z, duration=None>
+30.0251 	EXP 	Device response: <KeyPress from None: t=30.020223542000167, value=lcommand, duration=None>
+30.4552 	EXP 	Device response: <KeyPress from None: t=30.020223542000167, value=lcommand, duration=0.4319978749845177>
+30.4693 	EXP 	Device response: <KeyPress from None: t=29.92421941703651, value=lshift, duration=0.5359960000496358>
+30.4693 	EXP 	Device response: <KeyPress from None: t=30.0122324579861, value=z, duration=0.4523337089922279>
+31.0119 	EXP 	Device response: <KeyPress from None: t=31.009211917058565, value=lcommand, duration=None>
+31.0134 	DATA 	Keypress: lcommand
+31.0357 	DATA 	Keypress: lshift
+31.0362 	EXP 	Device response: <KeyPress from None: t=31.02521366707515, value=lshift, duration=None>
+31.0362 	EXP 	Device response: <KeyPress from None: t=31.033207917003892, value=z, duration=None>
+31.3121 	EXP 	Device response: <KeyPress from None: t=31.02521366707515, value=lshift, duration=0.283977415994741>
+31.3216 	EXP 	Device response: <KeyPress from None: t=31.033207917003892, value=z, duration=0.2799703750060871>
+31.3356 	EXP 	Device response: <KeyPress from None: t=31.009211917058565, value=lcommand, duration=0.3122897499706596>
+33.2479 	DATA 	Mouse: Left button down, pos=(848,253)
+33.2686 	EXP 	demog_fb: text = 'Пожалуйста, введите возраст числом (от 18 лет).'
+33.3364 	DATA 	Mouse:  Left button up, pos=(848,253)
+34.3882 	DATA 	Mouse: Left button down, pos=(1023,449)
+34.4713 	DATA 	Mouse:  Left button up, pos=(1023,449)
+34.6226 	DATA 	Mouse: Left button down, pos=(909,481)
+34.7168 	DATA 	Mouse:  Left button up, pos=(909,481)
+34.8065 	DATA 	Mouse: Left button down, pos=(909,481)
+34.8698 	DATA 	Mouse:  Left button up, pos=(903,475)
+34.9684 	DATA 	Mouse: Left button down, pos=(886,457)
+35.0690 	DATA 	Mouse:  Left button up, pos=(886,456)
+35.1583 	DATA 	Mouse: Left button down, pos=(886,456)
+35.2575 	DATA 	Mouse:  Left button up, pos=(897,453)
+35.3477 	DATA 	Mouse: Left button down, pos=(901,454)
+35.4220 	DATA 	Mouse:  Left button up, pos=(902,454)
+35.5116 	DATA 	Mouse: Left button down, pos=(902,454)
+35.6023 	DATA 	Mouse:  Left button up, pos=(902,454)
+35.7159 	DATA 	Mouse: Left button down, pos=(927,452)
+35.8021 	DATA 	Mouse:  Left button up, pos=(928,452)
+35.8794 	DATA 	Mouse: Left button down, pos=(928,452)
+35.9687 	DATA 	Mouse:  Left button up, pos=(928,452)
+37.0709 	DATA 	Keypress: escape
+37.0717 	EXP 	Device response: <KeyPress from None: t=37.05852054199204, value=escape, duration=None>
+37.1226 	EXP 	Device response: <KeyPress from None: t=37.05852054199204, value=escape, duration=0.05428083299193531>
+37.1227 	EXP 	magic_vkr: status = STOPPED
+37.1360 	EXP 	demog_text: autoDraw = False
+37.1360 	EXP 	lbl_name: autoDraw = False
+37.1360 	EXP 	name_box: autoDraw = False
+37.1360 	EXP 	lbl_sex: autoDraw = False
+37.1360 	EXP 	lbl_age: autoDraw = False
+37.1360 	EXP 	age_box: autoDraw = False
+37.1360 	EXP 	demog_fb: autoDraw = False
+37.1360 	EXP 	magic_vkr: status = STOPPED
+37.1397 	INFO 	saved data to '/Users/arinasevruk/Desktop/Магия/ВКР_эксперимент_PsychoPy/data/magic_vkr_2026-10-12_17h42.30.053.csv'
+37.1408 	INFO 	saved data to /Users/arinasevruk/Desktop/Магия/ВКР_эксперимент_PsychoPy/data/magic_vkr_2026-10-12_17h42.30.053.psydat
+37.2424 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.
+37.2425 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.
+37.2425 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.
+37.2425 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.
+37.2425 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.
+37.2425 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.
+37.2425 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.
+37.2425 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.
+37.2425 	WARNING 	Stopping key buffers but this could be dangerous ifother keyboards rely on the same.

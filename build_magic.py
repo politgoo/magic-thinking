@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
 """Сборка эксперимента «Магия» (ВКР) в формате PsychoPy Builder (.psyexp).
-Дизайн 2x2: order (опросник before/after) x cost (easy: бесплатная магия, hard: платная, после нажатия требуется ввести алфавит; экран выбора во всех группах одинаковый, о цене заранее не сообщается). Онлайн, данные через DataPipe в OSF,
-как в курсовом проекте sevr3_calibr_sq3.psyexp."""
+Дизайн 2x2: order (опросник Тобасика before/after) x cost (easy: бесплатная магия; hard: в инструкции перед выбором
+сообщается, что для активации нужно один раз напечатать русский алфавит, после нажатия «Магия» открывается экран ввода).
+Экран с кнопками «Магия» и «Пропустить» одинаков во всех группах. Перед выбором контрольный вопрос того же формата (RT0).
+Версия от 20 октября 2026 года: алфавит печатается один раз; добавлен нейтральный опросник той же длины и формата,
+поэтому все группы проходят оба опросника, а различается только тот, что стоит перед выбором; распределение по группам
+через DataPipe. Онлайн, данные через DataPipe (хранилище Google Drive: DataPipe перестаёт писать в OSF после 16 ноября 2026 года).
+Сборка: python build_magic.py под PsychoPy 2025.2.1, затем файл открывается и пересохраняется PsychoPy 2025.1.1
+(Experiment().loadFromXML, saveToXML), чтобы формат совпадал с версией Builder."""
 import os, json, openpyxl
 from psychopy.experiment import Experiment
 from psychopy.experiment.routines import Routine
@@ -12,37 +18,57 @@ OUT = os.environ.get('MAGIC_OUT', '/tmp/kr/magic_project')
 os.makedirs(OUT, exist_ok=True)
 C = getAllComponents()
 
+# ---------- список рандомизации ----------
+# Блоковая рандомизация: 100 блоков по 4, в каждом блоке группы 1–4 в случайном порядке (фиксированное зерно,
+# список воспроизводим и сохраняется в рандомизационный_список.csv). DataPipe выдаёт номер по кругу 0..399
+# (в настройках эксперимента DataPipe: How many conditions? = 400), номер указывает позицию в списке.
+import random as _rnd
+_rr = _rnd.Random(20261023)
+GROUP_LIST = []
+for _b in range(100):
+    _blk = [1, 2, 3, 4]; _rr.shuffle(_blk); GROUP_LIST += _blk
+with open(os.path.join(OUT, 'рандомизационный_список.csv'), 'w', encoding='utf-8') as _f:
+    _f.write('condition_index,block,group\n')
+    for _i, _g in enumerate(GROUP_LIST):
+        _f.write('%d,%d,%d\n' % (_i, _i // 4 + 1, _g))
+
 # ---------- тексты ----------
-TXT_WELCOME = ("Добрый день! Приглашаем принять участие в исследовании принятия решений.\n\n"
- "Участие займёт около 10 минут. Данные анонимны и используются только в обобщённом виде. "
- "Продолжая, вы даёте согласие на участие.\n\n"
- "Пожалуйста, проходите исследование на компьютере или ноутбуке.\n\n"
- "Чтобы начать, нажмите пробел.")
-TXT_TOB_INSTR = ("Пожалуйста, укажите степень Вашего согласия с приведенными утверждениями.\n\n"
- "1 — Абсолютно не согласен\n2 — Не согласен\n3 — Скорее не согласен\n4 — Не знаю, не уверен\n"
- "5 — Скорее согласен\n6 — Согласен\n7 — Абсолютно согласен\n\n"
- "Ответ выбирается стрелками влево и вправо (или клавишами 1–7) и подтверждается пробелом.\n\n"
- "Нажмите пробел, чтобы продолжить.")
-TXT_CHOICE_EASY = ("В качестве бонуса за участие вы можете нажать на кнопку «Магия» и тем самым повысить вероятность того, "
- "что какое-то важное для вас приятное событие произойдёт в ближайшее время, либо нажать на кнопку «Пропустить» "
+TXT_WELCOME = ("Здравствуйте! Это исследование принятия решений, оно займёт около 10 минут.\n\n"
+ "Данные анонимны и используются только в обобщённом виде. Продолжая, вы даёте согласие на участие.\n\n"
+ "Пожалуйста, проходите исследование на компьютере или ноутбуке.\n\nЧтобы начать, нажмите пробел.")
+TXT_TOB_INSTR = ("Сейчас Вам будет предложен опросник из 26 утверждений.\n"
+ "Оцените, насколько Вы согласны с каждым из них, по шкале от 1 до 7:\n\n"
+ "1 — абсолютно не согласен\n2 — не согласен\n3 — скорее не согласен\n4 — не знаю, не уверен\n"
+ "5 — скорее согласен\n6 — согласен\n7 — абсолютно согласен\n\n"
+ "Как отвечать: нажмите клавишу с нужной цифрой от 1 до 7 (или выберите значение стрелками влево и вправо), "
+ "затем нажмите пробел, чтобы перейти к следующему утверждению. Правильных и неправильных ответов нет.\n\n"
+ "Нажмите пробел, чтобы начать.")
+TXT_CONTROL = ("А сейчас вопрос на внимание. Он кажется простым, но нам важно удостовериться, что вы внимательно читаете текст "
+ "на каждом экране и отвечаете на вопросы осознанно. Поэтому ответьте, есть ли потолок в том месте, где вы сейчас находитесь, "
+ "нажав на кнопку «Потолок», если он есть, или на кнопку «Нет потолка», если его нет, и после этого перейдите к следующему этапу.")
+TXT_CHOICE_EASY = ("А сейчас бонус за участие. Многие древние мистические учения утверждают, что мысли могут влиять на будущее. "
+ "Вы можете повысить вероятность того, что что-то хорошее для вас произойдёт в ближайшее время, совершив простой выбор: "
+ "нажать на кнопку «Магия» или, если не хотите воспользоваться этой возможностью, нажать на кнопку «Пропустить» "
  "и перейти к следующему этапу.")
-TXT_CHOICE_HARD = TXT_CHOICE_EASY  # экран выбора одинаков во всех группах, цена заранее не объявляется
-TXT_CHOICE_TAIL = ("\n\nВыбрать можно ЛИБО мышью, нажав на кнопку, ЛИБО клавишей ВЛЕВО (Магия) или ВПРАВО (Пропустить).\n\n"
- "Нажмите пробел, чтобы перейти к выбору.")
-TXT_EFFORT = ("Вы можете в это верить или не верить, но все древнейшие учения говорят, что действенность магии "
- "зависит от прилагаемых усилий.\n\nДля активации эффекта введите в поле ниже русский алфавит от А до Я "
- "ПРОПИСНЫМИ (заглавными) буквами. Когда закончите, нажмите «Готово». Если не хотите этого делать, нажмите «Отказаться».")
-TXT_BOOST_OFFER = ("Алфавит принят, эффект активирован.\n\nЕсли хотите усилить эффект, введите алфавит ещё раз, "
- "теперь строчными (маленькими) буквами. Это необязательно.")
-TXT_BOOST = ("Для усиления эффекта введите в поле ниже русский алфавит от а до я СТРОЧНЫМИ (маленькими) буквами. "
- "Когда закончите, нажмите «Готово».")
-TXT_RATING = ("Оцените, пожалуйста, то приятное событие, о котором вы думали.")
+TXT_CHOICE_HARD = ("А сейчас бонус за участие. Многие мистические учения утверждают, что мысли могут влиять на будущее, "
+ "но их влияние зависит от приложенных усилий. Вы можете повысить вероятность того, что что-то хорошее для вас произойдёт "
+ "в ближайшее время, нажав на кнопку «Магия» и напечатав в появившемся поле алфавит один раз, или на кнопку «Пропустить» "
+ "и перейти к следующему этапу.")
+TXT_EFFORT = ("Для активации магии введите в поле ниже русский алфавит от А до Я один раз. Затем нажмите «Готово».")
+TXT_RATING = ("Оцените приятное событие, о котором вы думали.")
 TXT_ROW = ("Студенты РАНХиГС, которые хотят получить баллы за участие, введите номер вашей строки в списке группы. "
  "Если баллы вам не нужны, оставьте поле пустым и нажмите «Готово».")
 TXT_SUSP = "Как вы думаете, что изучалось в этом исследовании? Напишите в свободной форме и нажмите «Готово»."
-TXT_THANKS = ("Спасибо за участие!\n\nКнопка «Магия» не влияет на события: она использовалась, чтобы изучить, "
- "как люди принимают решения в ситуации неопределённости. Если вам предлагалось задание с алфавитом, оно измеряло готовность прилагать усилия.\n\n"
- "Данные сохраняются, пожалуйста, подождите несколько секунд и не закрывайте окно. Затем нажмите пробел.")
+TXT_THANKS_BASE = ("Спасибо за участие!\n\nКнопка «Магия» не влияет на события: она использовалась, чтобы изучить, "
+ "как люди принимают решения в ситуации неопределённости. Если вам предлагалось напечатать алфавит, это задание измеряло готовность прилагать усилия.\n\n")
+TXT_SAVING = "Сохраняем ответы, это займёт несколько секунд. Пожалуйста, не закрывайте окно."
+TXT_SAVED = "Ответы сохранены. Нажмите пробел, чтобы завершить."
+TXT_SAVE_FAILED = ("Не удалось сохранить ответы: нет связи с сервером. Проверьте подключение к интернету и нажмите R, "
+ "чтобы попробовать ещё раз, или пробел, чтобы завершить.")
+TXT_SAVE_OFF = ("Ответы не сохранены: эксперимент не подключён к хранилищу данных (не вписан ID DataPipe). "
+ "Пожалуйста, сообщите об этом исследователю. Нажмите пробел, чтобы завершить.")
+TXT_THANKS_LOCAL = TXT_THANKS_BASE + "Нажмите пробел, чтобы завершить."
+TXT_RATING_HINT = "Отметьте ответ на обеих шкалах (щёлкните по шкале), затем нажмите «Готово»."
 
 # ---------- таблица условий для опросника Тобасика ----------
 SUBSCALE = {1:'TRB',8:'TRB',15:'TRB',22:'TRB', 2:'Psi',9:'Psi',16:'Psi',23:'Psi',
@@ -50,17 +76,30 @@ SUBSCALE = {1:'TRB',8:'TRB',15:'TRB',22:'TRB', 2:'Psi',9:'Psi',16:'Psi',23:'Psi'
             5:'Spirit',12:'Spirit',19:'Spirit',25:'Spirit', 6:'ELF',13:'ELF',20:'ELF',
             7:'Precog',14:'Precog',21:'Precog',26:'Precog'}
 wb = openpyxl.Workbook(); ws = wb.active; ws.title = 'items'
-ws.append(['item_n', 'text', 'subscale', 'reverse'])
+ws.append(['item_n', 'text', 'subscale', 'reversed_item'])  # не 'reverse': это служебное имя в PsychoJS
 ITEMS = ['Несмотря на то, что тело может умереть, душа продолжает существовать', 'Некоторые люди способны левитировать (поднимать) объекты силой мысли', 'Черная магия реально существует', 'Черная кошка может принести невезение', 'Ваше сознание или душа могут покидать Ваше тело и путешествовать (астральная проекция)', 'Снежный человек существует', 'Астрология — это способ точного предсказания будущего', 'Дьявол существует', 'Психокинез — передвижение объектов силой мысли, действительно существует', 'Ведьмы (колдуны) существуют', 'Если разбить зеркало, то это принесет несчастье', 'Когда человек спит или находится в состоянии транса, его душа может покинуть тело', 'Лох-несское чудовище существует', 'Гороскоп точно описывает будущее человека', 'Я верю в Бога', 'Мысли человека могут влиять на движение физических объектов', 'Используя заговоры и заклинания, можно заколдовать человека', 'Число «13» — несчастливое', 'Реинкарнация (переселение душ) действительно случается', 'На других планетах есть жизнь', 'Некоторые экстрасенсы могут точно предсказать будущее', 'Рай и ад существуют', 'Мысли читать невозможно', 'Существуют реальные примеры колдовства', 'Общаться с умершими возможно', 'Некоторые люди имеют необъяснимые способности предсказывать будущее']
 for i in range(1, 27):
     ws.append([i, ITEMS[i - 1], SUBSCALE[i], 1 if i == 23 else 0])
 wb.save(os.path.join(OUT, 'tobacyk.xlsx'))
 
+# ---------- таблица нейтрального опросника ----------
+# 26 утверждений о бытовых предпочтениях, формат и шкала как у шкалы Тобасика; без упоминаний будущего, удачи,
+# контроля, неопределённости, эмоций, черт личности, религии, мышления. Назначение: уравнять группы по длительности,
+# утомлению и опыту ответов перед выбором, чтобы условия «до» и «после» различались только содержанием опросника.
+NEU_ITEMS = ['Летом удобнее гулять по городу вечером, чем днём', 'Горячий чай хорошо подходит для холодной погоды', 'В небольших магазинах выбор товаров меньше', 'Общественный транспорт удобен для поездок по городу', 'Бумажные книги удобнее электронных', 'Велосипед подходит для коротких поездок', 'Супы чаще готовят в холодное время года', 'Солнечная сторона дома лучше подходит для спальни', 'Кофе чаще пьют утром', 'Осенью полезно носить с собой зонт', 'В парках больше людей в выходные дни', 'Фрукты удобно брать с собой в дорогу', 'Летние веранды кафе популярны в тёплых городах', 'Карты в телефоне удобнее бумажных карт', 'Собакам нужны ежедневные прогулки', 'Обувь на плоской подошве удобна для долгой ходьбы', 'Свежий хлеб продают в пекарнях с утра', 'В музеях спокойнее в будние дни', 'Комнатным растениям нужен регулярный полив', 'Поезд удобнее самолёта для коротких поездок', 'На рынке выбор овощей шире, чем в супермаркете', 'Светлая одежда подходит для жаркой погоды', 'В шахматы играют люди разного возраста', 'Вещи удобнее хранить в закрытых шкафах', 'Пешие прогулки популярны среди горожан', 'Мягкое кресло удобнее стула для чтения']
+wb = openpyxl.Workbook(); ws = wb.active; ws.title = 'items'
+ws.append(['item_n', 'text'])
+for i in range(1, 27):
+    ws.append([i, NEU_ITEMS[i - 1]])
+wb.save(os.path.join(OUT, 'neutral.xlsx'))
+
 # ---------- эксперимент ----------
 exp = Experiment()
 S = exp.settings.params
 S['expName'].val = 'magic_vkr'
-S['Experiment info'].val = "{'фамилия': '', 'возраст': ''}"
+# Стартовый диалог собирает имя, пол и возраст (поля обязательные, |req), передаёт параметр group из ссылки
+# и даёт браузеру разрешение на полный экран. Имя «0» включает отладочный выбор группы.
+S['Experiment info'].val = "{'имя|req': '', 'пол|req': ['женский', 'мужской', 'не указывать'], 'возраст|req': ''}"
 S['Show info dlg'].val = True
 S['Full-screen window'].val = True
 S['Units'].val = 'height'
@@ -74,8 +113,9 @@ S['Enable Escape'].val = True
 S['Show mouse'].val = True
 S['frameRateMsg'].val = 'Экран загружается, подождите секунду, пожалуйста'
 S['exportHTML'].val = 'on Sync'
+S['runMode'].val = 1  # режим Run, как выбрано в Builder
 
-def text(r, name, txt, pos=(0, 0.15), h=0.035, wrap=1.4, **kw):
+def text(r, name, txt, pos=(0, 0.15), h=0.031, wrap=1.4, **kw):
     c = C['TextComponent'](exp, r, name=name)
     c.params['text'].val = txt; c.params['pos'].val = str(tuple(pos)); c.params['letterHeight'].val = h
     c.params['wrapWidth'].val = wrap; c.params['color'].val = 'white'; c.params['font'].val = 'Arial'
@@ -135,45 +175,191 @@ def routine(name):
 
 # --- 0. welcome: разбор группы из диалога; 0 = отладочный выбор группы ---
 r = routine('welcome'); text(r, 'welcome_text', TXT_WELCOME, pos=(0, 0)); key(r, 'welcome_key')
-code(r, 'code_assign',
- **{'Begin Experiment':
-"""import random
+_cw = code(r, 'code_assign',
+ **{'End Routine': "thisExp.addData('welcome_time', t)\n",
+    'End JS Routine': "psychoJS.experiment.addData('welcome_time', t);\npsychoJS.experiment.addData('cond_wait', cond_wait_t);\n",
+    'Begin JS Routine': "cond_wait_t = 0;\n",
+    # пока ждём номер группы от DataPipe (не дольше 5 с), экран приветствия не закрывается, даже если пробел уже нажат
+    'Each JS Frame': "if (cond_pending && t < 5) { continueRoutine = true; cond_wait_t = t; }\n",
+    'Begin Experiment':
+"""import random, uuid
 g = str(expInfo.get('group', '')).strip()
-nDebug = 1 if str(expInfo.get('фамилия', '')).strip() == '0' else 0
-thisExp.addData('surname', str(expInfo.get('фамилия', '')).strip())
-thisExp.addData('age', str(expInfo.get('возраст', '')).strip())
+group_source = 'url'
+_name = str(expInfo.get('имя', '')).strip()
+_sex = str(expInfo.get('пол', '')).strip()
+_age = str(expInfo.get('возраст', '')).strip()
+nDebug = 1 if _name == '0' else 0
+thisExp.addData('name', _name)
+thisExp.addData('sex', {'женский': 'f', 'мужской': 'm', 'не указывать': 'na'}.get(_sex, _sex))
+thisExp.addData('age', _age)
+thisExp.addData('age_ok', 1 if (_age.isdigit() and 18 <= int(_age) <= 99) else 0)
 if g not in ['1', '2', '3', '4']:
     g = random.choice(['1', '2', '3', '4'])
+    group_source = 'random'
 group = int(g)
+# среда прохождения (для отсева повторов и проверки качества)
+import platform, uuid, time as _time
+thisExp.addData('browser_id', 'local-' + uuid.uuid4().hex[:12])
+thisExp.addData('user_agent', 'PsychoPy/' + platform.platform())
+thisExp.addData('screen_w', int(win.size[0])); thisExp.addData('screen_h', int(win.size[1]))
+thisExp.addData('win_w', int(win.size[0])); thisExp.addData('win_h', int(win.size[1]))
+thisExp.addData('lang', ''); thisExp.addData('tz_offset_min', -_time.timezone // 60); thisExp.addData('touch', 0)
+blur_count = 0
 choice_resp = ''
 choice_rt = -1
+control_resp = ''
+control_rt = -1
 nEffort = 0
-nBoost = 0
 nBefore = 0
 nAfter = 0
 tob_resp = {}
+neu_resp = {}
+# повторные прохождения отслеживаются только онлайн (хранилище браузера); локально всегда 0
+session_id = uuid.uuid4().hex[:12]
+prev_starts = 0
+prev_choice_seen = 0
+prev_completed = 0
+thisExp.addData('session_id', session_id)
+thisExp.addData('prev_starts', 0); thisExp.addData('prev_choice_seen', 0); thisExp.addData('prev_completed', 0)
+thisExp.addData('name_hash', ''); thisExp.addData('browser_prev_starts', 0)
+cond_pending = False
 """,
  'Begin JS Experiment':
-"""var g = String(expInfo['group'] || '').trim();
-nDebug = (String(expInfo['фамилия'] || '').trim() === '0') ? 1 : 0;
-psychoJS.experiment.addData('surname', String(expInfo['фамилия'] || '').trim());
-psychoJS.experiment.addData('age', String(expInfo['возраст'] || '').trim());
-if (['1','2','3','4'].indexOf(g) < 0) { g = ['1','2','3','4'][Math.floor(Math.random()*4)]; }
+"""var _gi = function(k) { var v = expInfo[k]; if (v === undefined) { v = expInfo[k + '|req']; } return String(v === undefined || v === null ? '' : v).trim(); };
+var g = String(expInfo['group'] || '').trim();
+// ID эксперимента в DataPipe (pipe.jspsych.org): один и тот же для распределения по группам и для отправки данных
+DATAPIPE_ID = 'ВСТАВИТЬ_ID_DATAPIPE';
+group_source = 'url'; group_locked = false; cond_pending = false; cond_wait_t = 0; cond_index = -1;
+var _name = _gi('имя'); var _sex = _gi('пол'); var _age = _gi('возраст');
+nDebug = (_name === '0') ? 1 : 0;
+psychoJS.experiment.addData('name', _name);
+psychoJS.experiment.addData('sex', ({'женский': 'f', 'мужской': 'm', 'не указывать': 'na'})[_sex] || _sex);
+psychoJS.experiment.addData('age', _age);
+psychoJS.experiment.addData('age_ok', (/^[0-9]{1,3}$/.test(_age) && parseInt(_age) >= 18 && parseInt(_age) <= 99) ? 1 : 0);
+// История прохождений в хранилище браузера. Записи ведутся отдельно для каждого имени из стартового диалога
+// (имя хранится только в виде хеша), чтобы разные люди за одним компьютером не считались повторами друг друга.
+// Ошибки доступа к хранилищу не мешают эксперименту.
+ls_get = function(k) { try { return window.localStorage.getItem(k); } catch (e) { return null; } };
+ls_set = function(k, v) { try { window.localStorage.setItem(k, String(v)); } catch (e) {} };
+var _nm = _name.toLowerCase().replace(/ё/g, 'е').replace(/[^a-zа-я0-9]/g, '');
+var _h = 2166136261; for (var _i = 0; _i < _nm.length; _i++) { _h ^= _nm.charCodeAt(_i); _h = Math.imul(_h, 16777619) >>> 0; }
+name_hash = _h.toString(16);
+hist_update = function(field, value) {
+  if (nDebug) { return; }
+  var hs = {}; try { hs = JSON.parse(ls_get('magic_vkr_hist') || '{}') || {}; } catch (e) { hs = {}; }
+  var rc = hs[name_hash] || {s: 0, c: 0, d: 0, g: null};
+  if (value === undefined) { rc[field] = (rc[field] || 0) + 1; } else { rc[field] = value; }
+  hs[name_hash] = rc; ls_set('magic_vkr_hist', JSON.stringify(hs));
+};
+var _hs = {}; try { _hs = JSON.parse(ls_get('magic_vkr_hist') || '{}') || {}; } catch (e) { _hs = {}; }
+var _rc = _hs[name_hash] || {s: 0, c: 0, d: 0, g: null};
+var _all = 0; for (var _k in _hs) { if (_hs.hasOwnProperty(_k)) { _all += (_hs[_k].s || 0); } }
+session_id = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+prev_starts = _rc.s || 0; prev_choice_seen = _rc.c || 0; prev_completed = _rc.d || 0;
+psychoJS.experiment.addData('session_id', session_id);
+psychoJS.experiment.addData('name_hash', name_hash);
+psychoJS.experiment.addData('prev_starts', prev_starts);
+psychoJS.experiment.addData('prev_choice_seen', prev_choice_seen);
+psychoJS.experiment.addData('prev_completed', prev_completed);
+psychoJS.experiment.addData('browser_prev_starts', _all);
+hist_update('s');
+if (['1','2','3','4'].indexOf(g) < 0) {
+  // без параметра в ссылке: при повторном входе с того же браузера под тем же именем берётся прежняя группа;
+  // при первом входе сначала случайная группа, затем номер от DataPipe по кругу (0..399), который указывает
+  // позицию в списке блоковой рандомизации GROUP_LIST (блоки по 4, группы в случайном порядке).
+  // В режиме отладки DataPipe не запрашивается, чтобы не сбивать очерёдность групп.
+  var _sg = nDebug ? null : String(_rc.g);
+  if (['1','2','3','4'].indexOf(_sg) >= 0) {
+    g = _sg; group_source = 'stored';
+  } else {
+    g = ['1','2','3','4'][Math.floor(Math.random()*4)]; group_source = 'random';
+    if (!nDebug && DATAPIPE_ID.indexOf('ВСТАВИТЬ') < 0) {
+      cond_pending = true;
+      try {
+        fetch('https://pipe.jspsych.org/api/condition/', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: '*/*' },
+          body: JSON.stringify({ experimentID: DATAPIPE_ID }) })
+          .then(function(r) { return r.json(); })
+          .then(function(d) { cond_pending = false; if (!group_locked && d && typeof d.condition === 'number') { cond_index = d.condition; group = GROUP_LIST[d.condition % GROUP_LIST.length]; group_source = 'datapipe'; } })
+          .catch(function(e) { cond_pending = false; console.error('DataPipe condition:', e); });
+      } catch (e) { cond_pending = false; console.error('DataPipe condition:', e); }
+    }
+  }
+}
 group = parseInt(g);
-choice_resp = ''; choice_rt = -1; nEffort = 0; nBoost = 0; nBefore = 0; nAfter = 0; tob_resp = {};
+// среда прохождения: постоянный код браузера (для отсева повторов), user agent, экран, язык, часовой пояс, сенсорный экран
+var _bid = '';
+try { _bid = window.localStorage.getItem('magic_vkr_bid') || ''; if (!_bid) { _bid = Math.random().toString(36).slice(2, 10) + Date.now().toString(36); window.localStorage.setItem('magic_vkr_bid', _bid); } } catch (e) { _bid = 'nostorage-' + Math.random().toString(36).slice(2, 10); }
+psychoJS.experiment.addData('browser_id', _bid);
+psychoJS.experiment.addData('user_agent', window.navigator.userAgent);
+psychoJS.experiment.addData('screen_w', window.screen.width); psychoJS.experiment.addData('screen_h', window.screen.height);
+psychoJS.experiment.addData('win_w', window.innerWidth); psychoJS.experiment.addData('win_h', window.innerHeight);
+psychoJS.experiment.addData('lang', window.navigator.language || '');
+psychoJS.experiment.addData('tz_offset_min', -new Date().getTimezoneOffset());
+psychoJS.experiment.addData('touch', ('ontouchstart' in window || navigator.maxTouchPoints > 0) ? 1 : 0);
+// число уходов со вкладки за время прохождения
+blur_count = 0;
+try { document.addEventListener('visibilitychange', function() { if (document.hidden) { blur_count += 1; } }); } catch (e) {}
+// Esc у участников не прерывает эксперимент (выход по Esc остаётся только в отладке, имя 0);
+// повторы зажатой стрелки не засчитываются как новое нажатие на экранах с двумя кнопками
+try {
+  window.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && !nDebug) { e.stopImmediatePropagation(); return; }
+    if (e.repeat && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) { e.stopImmediatePropagation(); }
+  }, true);
+} catch (e) {}
+// отправка данных в DataPipe: уникальное имя файла, повтор при сбое сети, состояние для последнего экрана
+dp_state = 'idle'; dp_error = ''; dp_attempts = 0;
+dp_send = function(tag) {
+  if (DATAPIPE_ID.indexOf('ВСТАВИТЬ') >= 0) { dp_state = 'off'; return; }
+  var rows = psychoJS.experiment._trialsData.slice();
+  var cur = psychoJS.experiment._currentTrialData;
+  if (cur && Object.keys(cur).length > 0) { rows.push(Object.assign({}, cur)); }
+  var SEP = ';'; var headers = [];
+  rows.forEach(function(row) { if (row && typeof row === 'object') { Object.keys(row).forEach(function(k) { if (headers.indexOf(k) < 0) { headers.push(k); } }); } });
+  var fmt = function(val) {
+    if (val === null || val === undefined) { return ''; }
+    var x = (typeof val === 'object') ? JSON.stringify(val) : String(val);
+    if (x.indexOf(SEP) >= 0 || x.indexOf('"') >= 0 || x.indexOf('\\n') >= 0 || x.indexOf('\\r') >= 0) { x = '"' + x.replace(/"/g, '""') + '"'; }
+    return x;
+  };
+  var lines = [headers.join(SEP)];
+  rows.forEach(function(row) { lines.push(headers.map(function(h) { return fmt((row || {})[h]); }).join(SEP)); });
+  var fname = 'magic_vkr_' + String(expInfo['date'] || '').replace(/[^0-9A-Za-z_.-]/g, '') + '_' + session_id + (tag ? '_' + tag : '') + '.csv';
+  var body = JSON.stringify({ experimentID: DATAPIPE_ID, filename: fname, data: lines.join('\\n') });
+  dp_state = 'sending'; dp_attempts = 0;
+  var attempt = function() {
+    dp_attempts += 1;
+    fetch('https://pipe.jspsych.org/api/data', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: '*/*' }, body: body })
+      .then(function(r) { return r.json().then(function(d) { return [r.status, d]; }, function() { return [r.status, {}]; }); })
+      .then(function(res) {
+        var st = res[0], d = res[1] || {};
+        // 201 сохранено, 202 принято в очередь; FILE_EXISTS при повторе значит, что первая попытка дошла
+        if (st === 201 || st === 202 || d.error === 'FILE_EXISTS') { dp_state = 'ok'; dp_error = ''; console.log('DataPipe:', st, d); return; }
+        dp_error = d.error || ('HTTP ' + st);
+        if ((st >= 500 || st === 429) && dp_attempts < 4) { setTimeout(attempt, 1500 * dp_attempts); } else { dp_state = 'failed'; console.error('DataPipe:', st, d); }
+      })
+      .catch(function(e) { dp_error = 'network'; if (dp_attempts < 4) { setTimeout(attempt, 1500 * dp_attempts); } else { dp_state = 'failed'; console.error('DataPipe:', e); } });
+  };
+  attempt();
+};
+choice_resp = ''; choice_rt = -1; control_resp = ''; control_rt = -1; nEffort = 0; nBefore = 0; nAfter = 0; tob_resp = {}; neu_resp = {};
 """})
+_cw.params['Begin JS Experiment'].val = 'GROUP_LIST = %s;\n' % json.dumps(GROUP_LIST) + _cw.params['Begin JS Experiment'].val
 exp.flow.addRoutine(r, pos=len(exp.flow))
 
-# --- 1а. отладочный выбор группы (только если в диалоге group = 0) ---
+
+# --- 1а. отладочный выбор группы (только если в стартовом диалоге имя = 0) ---
 r = routine('debug_pick')
 text(r, 'debug_text', 'Отладка. Выберите группу для прохождения.', pos=(0, 0.3), h=0.04)
-text(r, 'debug_hint', '1: опросник до, бесплатная магия      2: опросник до, платная магия (алфавит после нажатия)\n3: опросник после, бесплатная магия      4: опросник после, платная магия (алфавит после нажатия)', pos=(0, 0.17), h=0.028)
+text(r, 'debug_hint', '1: опросник до, бесплатная магия      2: опросник до, платная магия (алфавит объявлен в инструкции)\n3: опросник после, бесплатная магия      4: опросник после, платная магия (алфавит объявлен в инструкции)', pos=(0, 0.17), h=0.028)
 button(r, 'dbg1', 'Группа 1', pos=(-0.45, -0.05), size=(0.26, 0.1))
 button(r, 'dbg2', 'Группа 2', pos=(-0.15, -0.05), size=(0.26, 0.1))
 button(r, 'dbg3', 'Группа 3', pos=(0.15, -0.05), size=(0.26, 0.1))
 button(r, 'dbg4', 'Группа 4', pos=(0.45, -0.05), size=(0.26, 0.1))
 code(r, 'code_debug',
- **{'End Routine': """for i, b in enumerate([dbg1, dbg2, dbg3, dbg4]):
+ **{'Begin Routine': "debug_text.text = 'Отладка. Выберите группу для прохождения.\\nЛокальный запуск: данные сохраняются в папку data.'\n",
+    'Begin JS Routine': "debug_text.setText('Отладка. Выберите группу для прохождения.\\nDataPipe: ' + ((DATAPIPE_ID.indexOf('ВСТАВИТЬ') >= 0) ? 'ID не вписан, данные онлайн не сохранятся' : 'ID ' + DATAPIPE_ID + ', группа DataPipe не запрашивается'));\n",
+    'End Routine': """for i, b in enumerate([dbg1, dbg2, dbg3, dbg4]):
     if b.numClicks > 0:
         group = i + 1
 """,
@@ -196,8 +382,11 @@ thisExp.addData('group', group)
 thisExp.addData('order', order)
 thisExp.addData('cost', cost)
 thisExp.addData('debug', nDebug)
+thisExp.addData('group_source', 'debug' if nDebug else group_source)
+thisExp.addData('cond_index', -1)
 """,
-    'Begin JS Routine': """order = (group === 1 || group === 2) ? 'before' : 'after';
+    'Begin JS Routine': """group_locked = true;
+order = (group === 1 || group === 2) ? 'before' : 'after';
 cost = (group === 1 || group === 3) ? 'easy' : 'hard';
 nBefore = (order === 'before') ? 1 : 0;
 nAfter = 1 - nBefore;
@@ -205,132 +394,168 @@ psychoJS.experiment.addData('group', group);
 psychoJS.experiment.addData('order', order);
 psychoJS.experiment.addData('cost', cost);
 psychoJS.experiment.addData('debug', nDebug);
+psychoJS.experiment.addData('group_source', nDebug ? 'debug' : group_source);
+psychoJS.experiment.addData('cond_index', cond_index);
+if (group_source === 'datapipe' || group_source === 'random') { hist_update('g', group); }
 """})
 exp.flow.addRoutine(r, pos=len(exp.flow))
 
 # --- 3. опросник Тобасика ДО (цикл с nReps = nBefore) ---
-def add_tobacyk_block(tag, nrepsVar):
-    ri = routine('tob_instr_' + tag); statictext(ri, 'tob_instr_text_' + tag, TXT_TOB_INSTR, pos=(0, 0), size=(1.2, 0.8)); key(ri, 'tob_instr_key_' + tag)
-    rt = routine('tob_item_' + tag)
-    tt = text(rt, 'tob_text_' + tag, '$text', pos=(0, 0.2), h=0.04, wrap=1.3); tt.params['text'].updates = 'set every repeat'
-    sl = slider(rt, 'tob_slider_' + tag, '(1, 2, 3, 4, 5, 6, 7)',
+def add_questionnaire_block(tag, nrepsVar, pre='tob', cond='tobacyk.xlsx', store='tob_resp'):
+    """Блок опросника: экран инструкции и 26 пунктов. pre задаёт имена рутин и столбцов (tob_*, neu_*)."""
+    ri = routine(pre + '_instr_' + tag); statictext(ri, pre + '_instr_text_' + tag, TXT_TOB_INSTR, pos=(0, 0), size=(1.2, 0.8), h=0.029); key(ri, pre + '_instr_key_' + tag)
+    code(ri, 'code_' + pre + '_instr_' + tag, **{'End Routine': "thisExp.addData('%s_instr_time', t)\n" % pre, 'End JS Routine': "psychoJS.experiment.addData('%s_instr_time', t);\n" % pre})
+    rt = routine(pre + '_item_' + tag)
+    tt = text(rt, pre + '_text_' + tag, '$text', pos=(0, 0.2), h=0.04, wrap=1.3); tt.params['text'].updates = 'set every repeat'
+    sl = slider(rt, pre + '_slider_' + tag, '(1, 2, 3, 4, 5, 6, 7)',
            "'1\\nабсолютно\\nне согласен', '2\\nне согласен', '3\\nскорее\\nне согласен', '4\\nне знаю,\\nне уверен', '5\\nскорее\\nсогласен', '6\\nсогласен', '7\\nабсолютно\\nсогласен'",
            pos=(0, -0.12), size=(1.3, 0.06), style='rating', end=False)
     # readOnly=False: ответ мышью работает и офлайн, и онлайн (PsychoJS всё равно игнорирует readOnly)
     sl.params['readOnly'].val = False
-    text(rt, 'tob_hint_' + tag, 'Стрелки влево и вправо или клавиши 1\u20137: выбрать ответ.  Пробел: подтвердить', pos=(0, -0.4), h=0.026, color='lightgrey')
+    text(rt, pre + '_hint_' + tag, 'Стрелки влево и вправо или клавиши 1\u20137: выбрать ответ.  Пробел: подтвердить', pos=(0, -0.4), h=0.026, color='lightgrey')
     # отдельный Keyboard-компонент: он читает event.code и работает при любой раскладке,
     # в отличие от event.getKeys()/eventManager (там пробел ловится ненадёжно)
-    kb = key(rt, 'tob_key_' + tag, keys="'left','right','space','1','2','3','4','5','6','7'")
+    kb = key(rt, pre + '_key_' + tag, keys="'left','right','space','1','2','3','4','5','6','7'")
     kb.params['forceEndRoutine'].val = False
     kb.params['store'].val = 'nothing'
     kb.params['storeCorrect'].val = False
-    sname = 'tob_slider_' + tag
-    kname = '_tob_key_' + tag + '_allKeys'
-    code(rt, 'code_tob_' + tag,
-         **{'Begin Routine': "resp = None\nslider_seen = None\nkey_i = 0\n",
-            'Begin JS Routine': "resp = null;\nsliderSeen = null;\nkeyI = 0;\n",
+    sname = pre + '_slider_' + tag
+    kname = '_' + pre + '_key_' + tag + '_allKeys'
+    code(rt, 'code_' + pre + '_' + tag,
+         **{'Begin Routine': "resp = None\nkey_i = 0\n",
+            'Begin JS Routine': "resp = null;\nkeyI = 0;\n",
+            # Ответ мышью шкала записывает сама, когда кнопка мыши отпущена; код только читает его.
+            # Ответ клавишами записывается в шкалу (recordRating), поэтому маркер и ответ всегда совпадают,
+            # а маркер не возвращается каждый кадр на прежнее место и не мешает щелчку или перетаскиванию.
             'Each Frame': """_r = {s}.getRating()
-if _r is not None and _r != slider_seen:
-    slider_seen = _r
+if _r is not None and int(round(_r)) != resp:
     resp = int(round(_r))
 while key_i < len({k}):
     _k = {k}[key_i].name
     key_i += 1
+    _new = None
     if _k in ['1', '2', '3', '4', '5', '6', '7']:
-        resp = int(_k)
+        _new = int(_k)
     elif _k == 'left':
-        resp = 4 if resp is None else max(1, resp - 1)
+        _new = 4 if resp is None else max(1, resp - 1)
     elif _k == 'right':
-        resp = 4 if resp is None else min(7, resp + 1)
+        _new = 4 if resp is None else min(7, resp + 1)
     elif _k == 'space' and resp is not None:
         continueRoutine = False
-if resp is not None:
-    {s}.markerPos = resp
+    if _new is not None and _new != resp:
+        resp = _new
+        {s}.recordRating(resp)
 """.format(s=sname, k=kname),
             'Each JS Frame': """var _r = {s}.getRating();
-if (typeof _r !== 'undefined' && _r !== null && _r !== sliderSeen) {{
-  sliderSeen = _r;
-  resp = Math.round(_r);
-}}
+if (typeof _r !== 'undefined' && _r !== null && Math.round(_r) !== resp) {{ resp = Math.round(_r); }}
 while (keyI < {k}.length) {{
   var _k = {k}[keyI].name;
   keyI += 1;
-  if (['1','2','3','4','5','6','7'].indexOf(_k) >= 0) {{ resp = parseInt(_k); }}
-  else if (_k === 'left') {{ resp = ((resp === null) || (typeof resp === 'undefined')) ? 4 : Math.max(1, resp - 1); }}
-  else if (_k === 'right') {{ resp = ((resp === null) || (typeof resp === 'undefined')) ? 4 : Math.min(7, resp + 1); }}
+  var _new = null;
+  if (['1','2','3','4','5','6','7'].indexOf(_k) >= 0) {{ _new = parseInt(_k); }}
+  else if (_k === 'left') {{ _new = ((resp === null) || (typeof resp === 'undefined')) ? 4 : Math.max(1, resp - 1); }}
+  else if (_k === 'right') {{ _new = ((resp === null) || (typeof resp === 'undefined')) ? 4 : Math.min(7, resp + 1); }}
   else if (_k === 'space' && resp !== null && typeof resp !== 'undefined') {{ continueRoutine = false; }}
+  if (_new !== null && _new !== resp) {{ resp = _new; {s}.recordRating(resp); }}
 }}
-if (resp !== null && typeof resp !== 'undefined') {{ {s}.setMarkerPos(resp); }}
 """.format(s=sname, k=kname),
-            'End Routine': "tob_resp[int(item_n)] = resp\nthisExp.addData('tob_' + str(item_n), resp)\nthisExp.addData('tob_rt_' + str(item_n), t)\n",
-            'End JS Routine': "tob_resp[Number(item_n)] = resp;\npsychoJS.experiment.addData('tob_' + String(item_n), resp);\npsychoJS.experiment.addData('tob_rt_' + String(item_n), t);\n"})
-    outer = TrialHandler(exp, name='tob_block_' + tag, loopType='sequential', nReps=nrepsVar, isTrials=False); outer.params['nReps'].valType='code'
+            'End Routine': "{st}[int(item_n)] = resp\nthisExp.addData('{p}_' + str(item_n), resp)\nthisExp.addData('{p}_rt_' + str(item_n), t)\nthisExp.addData('{p}_keys_' + str(item_n), key_i)\n".format(st=store, p=pre),
+            'End JS Routine': "{st}[Number(item_n)] = resp;\npsychoJS.experiment.addData('{p}_' + String(item_n), resp);\npsychoJS.experiment.addData('{p}_rt_' + String(item_n), t);\npsychoJS.experiment.addData('{p}_keys_' + String(item_n), keyI);\n".format(st=store, p=pre)})
+    outer = TrialHandler(exp, name=pre + '_block_' + tag, loopType='sequential', nReps=nrepsVar, isTrials=False); outer.params['nReps'].valType='code'
     exp.flow.addLoop(outer, startPos=len(exp.flow), endPos=len(exp.flow))
     exp.flow.addRoutine(ri, pos=len(exp.flow) - 1)
-    inner = TrialHandler(exp, name='tob_items_' + tag, loopType='sequential', nReps=1,
-                         conditionsFile='tobacyk.xlsx', isTrials=True)
+    inner = TrialHandler(exp, name=pre + '_items_' + tag, loopType='sequential', nReps=1,
+                         conditionsFile=cond, isTrials=True)
     exp.flow.addLoop(inner, startPos=len(exp.flow) - 1, endPos=len(exp.flow) - 1)
     exp.flow.addRoutine(rt, pos=len(exp.flow) - 2)
 
+def add_tobacyk_block(tag, nrepsVar):
+    add_questionnaire_block(tag, nrepsVar, 'tob', 'tobacyk.xlsx', 'tob_resp')
+
+def add_neutral_block(tag, nrepsVar):
+    add_questionnaire_block(tag, nrepsVar, 'neu', 'neutral.xlsx', 'neu_resp')
+
+# перед выбором: группы 1 и 2 заполняют шкалу Тобасика, группы 3 и 4 нейтральный опросник
 add_tobacyk_block('before', 'nBefore')
+add_neutral_block('before', 'nAfter')
 
-# --- 4а. инструкция к выбору (отдельный экран) ---
-r = routine('choice_instr')
-code(r, 'code_choice_instr',
- **{'Begin Experiment': "TXT_CHOICE_EASY = %r\nTXT_CHOICE_HARD = %r\nTXT_CHOICE_TAIL = %r\n" % (TXT_CHOICE_EASY, TXT_CHOICE_HARD, TXT_CHOICE_TAIL),
-    'Begin JS Experiment': "TXT_CHOICE_EASY = %s;\nTXT_CHOICE_HARD = %s;\nTXT_CHOICE_TAIL = %s;\n" % (json.dumps(TXT_CHOICE_EASY, ensure_ascii=False), json.dumps(TXT_CHOICE_HARD, ensure_ascii=False), json.dumps(TXT_CHOICE_TAIL, ensure_ascii=False)),
-    'Begin Routine': "instr_txt = TXT_CHOICE_EASY + TXT_CHOICE_TAIL\n",
-    'Begin JS Routine': "instr_txt = TXT_CHOICE_EASY + TXT_CHOICE_TAIL;\n"})
-tc = text(r, 'choice_instr_text', '$instr_txt', pos=(0, 0.05), h=0.036, wrap=1.3); tc.params['text'].updates = 'set every repeat'
-key(r, 'choice_instr_key')
-exp.flow.addRoutine(r, pos=len(exp.flow))
 
-# --- 4б. экран выбора: только кнопки, мышь либо стрелки ---
-r = routine('choice')
-code(r, 'code_choice',
- **{'Begin Routine': "choice_resp = ''\nchoice_rt = -1\nend_at = None\nevent.clearEvents()\n",
-    'Begin JS Routine': "choice_resp = ''; choice_rt = -1; end_at = null;\npsychoJS.eventManager.clearEvents();\n",
-    'Each Frame': """if end_at is None:
+def two_button_routine(name, instr_expr, left_label, right_label, left_val, right_val, resp_var, rt_var, col_resp, col_rt, end_py='', end_js='', begin_py='', begin_js=''):
+    """Экран с инструкцией сверху (некрупно) и двумя кнопками под ней; формат одинаков для контрольного вопроса и выбора.
+    Ответ мышью либо стрелками. Время от появления экрана (то есть включая чтение инструкции) до ответа пишется в col_rt;
+    выбранная кнопка подсвечивается на 0,35 с. instr_expr: строка текста либо '$переменная', заданная в begin_py/begin_js."""
+    r = routine(name)
+    bl, br = 'btn_' + name + '_l', 'btn_' + name + '_r'
+    code(r, 'code_' + name,
+     **{'Begin Routine': begin_py + "%s = ''\n%s = -1\nend_at = None\nevent.clearEvents()\n_rm = event.Mouse(win=win)\n_m0 = list(_rm.getPos())\n_move_t = -1\n_method = ''\n_blur0 = blur_count\n" % (resp_var, rt_var),
+        'Begin JS Routine': begin_js + "%s = ''; %s = -1; end_at = null;\npsychoJS.eventManager.clearEvents();\n_rm = new core.Mouse({win: psychoJS.window});\n_m0 = _rm.getPos().slice();\n_move_t = -1; _method = ''; _blur0 = blur_count;\n" % (resp_var, rt_var),
+        'Each Frame': """if _move_t < 0:
+    _mp = _rm.getPos()
+    if abs(_mp[0] - _m0[0]) > 0.005 or abs(_mp[1] - _m0[1]) > 0.005:
+        _move_t = t
+if end_at is None:
     keys = event.getKeys(keyList=['left', 'right'])
-    if 'left' in keys or btn_magic.numClicks > 0:
-        choice_resp = 'magic'; choice_rt = t; end_at = t + 0.35
-        btn_magic.fillColor = 'goldenrod'
-    elif 'right' in keys or btn_skip.numClicks > 0:
-        choice_resp = 'skip'; choice_rt = t; end_at = t + 0.35
-        btn_skip.fillColor = 'goldenrod'
+    if 'left' in keys or {bl}.numClicks > 0:
+        {rv} = '{lv}'; {tv} = t; end_at = t + 0.35
+        _method = 'key' if 'left' in keys else 'mouse'
+        {bl}.fillColor = 'goldenrod'
+    elif 'right' in keys or {br}.numClicks > 0:
+        {rv} = '{rvl}'; {tv} = t; end_at = t + 0.35
+        _method = 'key' if 'right' in keys else 'mouse'
+        {br}.fillColor = 'goldenrod'
 elif t >= end_at:
     continueRoutine = False
-""",
-    'Each JS Frame': """if (end_at === null) {
-  var keys = psychoJS.eventManager.getKeys({keyList: ['left', 'right']});
-  if (keys.indexOf('left') >= 0 || btn_magic.numClicks > 0) {
-    choice_resp = 'magic'; choice_rt = t; end_at = t + 0.35;
-    btn_magic.setFillColor(new util.Color('goldenrod'));
-  } else if (keys.indexOf('right') >= 0 || btn_skip.numClicks > 0) {
-    choice_resp = 'skip'; choice_rt = t; end_at = t + 0.35;
-    btn_skip.setFillColor(new util.Color('goldenrod'));
-  }
-} else if (t >= end_at) {
+""".format(bl=bl, br=br, rv=resp_var, tv=rt_var, lv=left_val, rvl=right_val),
+        'Each JS Frame': """if (_move_t < 0) {{
+  var _mp = _rm.getPos();
+  if (Math.abs(_mp[0] - _m0[0]) > 0.005 || Math.abs(_mp[1] - _m0[1]) > 0.005) {{ _move_t = t; }}
+}}
+if (end_at === null) {{
+  var keys = psychoJS.eventManager.getKeys({{keyList: ['left', 'right']}});
+  if (keys.indexOf('left') >= 0 || {bl}.numClicks > 0) {{
+    {rv} = '{lv}'; {tv} = t; end_at = t + 0.35;
+    _method = (keys.indexOf('left') >= 0) ? 'key' : 'mouse';
+    {bl}.setFillColor(new util.Color('goldenrod'));
+  }} else if (keys.indexOf('right') >= 0 || {br}.numClicks > 0) {{
+    {rv} = '{rvl}'; {tv} = t; end_at = t + 0.35;
+    _method = (keys.indexOf('right') >= 0) ? 'key' : 'mouse';
+    {br}.setFillColor(new util.Color('goldenrod'));
+  }}
+}} else if (t >= end_at) {{
   continueRoutine = false;
-}
-""",
-    'End Routine': """nEffort = 1 if (choice_resp == 'magic' and cost == 'hard') else 0
-thisExp.addData('choice', choice_resp)
-thisExp.addData('choice_rt', choice_rt)
-""",
-    'End JS Routine': """nEffort = (choice_resp === 'magic' && cost === 'hard') ? 1 : 0;
-psychoJS.experiment.addData('choice', choice_resp);
-psychoJS.experiment.addData('choice_rt', choice_rt);
-"""})
-text(r, 'choice_head', 'Ваш выбор', pos=(0, 0.25), h=0.045)
-button(r, 'btn_magic', 'Магия', pos=(-0.25, 0.0), size=(0.36, 0.14), end=False)
-button(r, 'btn_skip', 'Пропустить', pos=(0.25, 0.0), size=(0.36, 0.14), end=False)
-text(r, 'choice_keys', '← стрелка влево                                стрелка вправо →', pos=(0, -0.12), h=0.028, color='lightgrey')
-text(r, 'choice_hint', 'Нажмите на кнопку мышью ЛИБО клавишу ВЛЕВО (Магия) или ВПРАВО (Пропустить)', pos=(0, -0.3), h=0.028, color='lightgrey')
+}}
+""".format(bl=bl, br=br, rv=resp_var, tv=rt_var, lv=left_val, rvl=right_val),
+        'End Routine': end_py + "thisExp.addData('%s', %s)\nthisExp.addData('%s', %s)\nthisExp.addData('%s_method', _method)\nthisExp.addData('%s_first_move', _move_t)\nthisExp.addData('%s_blur', blur_count - _blur0)\n" % (col_resp, resp_var, col_rt, rt_var, name, name, name),
+        'End JS Routine': end_js + "psychoJS.experiment.addData('%s', %s);\npsychoJS.experiment.addData('%s', %s);\npsychoJS.experiment.addData('%s_method', _method);\npsychoJS.experiment.addData('%s_first_move', _move_t);\npsychoJS.experiment.addData('%s_blur', blur_count - _blur0);\n" % (col_resp, resp_var, col_rt, rt_var, name, name, name)})
+    ti = text(r, name + '_instr', instr_expr, pos=(0, 0.22), h=0.027, wrap=1.5)
+    if instr_expr.startswith('$'):
+        ti.params['text'].updates = 'set every repeat'
+    button(r, bl, left_label, pos=(-0.25, -0.12), size=(0.36, 0.14), end=False)
+    button(r, br, right_label, pos=(0.25, -0.12), size=(0.36, 0.14), end=False)
+    text(r, name + '_keys', '← клавиша влево                                клавиша вправо →', pos=(0, -0.26), h=0.026, color='lightgrey')
+    return r
+
+# --- 3б. контрольный вопрос: инструкция и две кнопки на одном экране, формат тот же, что у выбора (RT0) ---
+r = two_button_routine('control_q', TXT_CONTROL, 'Потолок', 'Нет потолка', 'ceiling', 'no_ceiling',
+                       'control_resp', 'control_rt', 'control_resp', 'control_rt')
 exp.flow.addRoutine(r, pos=len(exp.flow))
 
-# --- 5. effort (цикл nReps = nEffort): алфавит прописными, проверка с допуском ---
+# --- 4б. экран выбора: только кнопки, мышь либо стрелки (RT1) ---
+r = two_button_routine('choice', '$instr_txt', 'Магия', 'Пропустить', 'magic', 'skip',
+                       'choice_resp', 'choice_rt', 'choice', 'choice_rt',
+                       end_py="nEffort = 1 if (choice_resp == 'magic' and cost == 'hard') else 0\n",
+                       end_js="nEffort = (choice_resp === 'magic' && cost === 'hard') ? 1 : 0;\n",
+                       begin_py="instr_txt = TXT_CHOICE_HARD if cost == 'hard' else TXT_CHOICE_EASY\n",
+                       begin_js="instr_txt = (cost === 'hard') ? TXT_CHOICE_HARD : TXT_CHOICE_EASY;\nhist_update('c');\n")
+# тексты инструкций доступны в коде обоих вариантов
+_c = [C for C in r if C.getType() == 'CodeComponent'][0]
+_c.params['Begin Experiment'].val = "TXT_CHOICE_EASY = %r\nTXT_CHOICE_HARD = %r\n" % (TXT_CHOICE_EASY, TXT_CHOICE_HARD)
+_c.params['Begin JS Experiment'].val = "TXT_CHOICE_EASY = %s;\nTXT_CHOICE_HARD = %s;\n" % (json.dumps(TXT_CHOICE_EASY, ensure_ascii=False), json.dumps(TXT_CHOICE_HARD, ensure_ascii=False))
+exp.flow.addRoutine(r, pos=len(exp.flow))
+
+# --- 5. effort (цикл nReps = nEffort, только нажавшие «Магия» в группах 2 и 4) ---
+# Ввод не ограничивается ни ошибками, ни числом знаков: «Готово» всегда ведёт дальше. В данные пишется аналитика:
+# сколько букв напечатано, сколько раз (в проходах алфавита) и насколько правильно.
 PY_ALPHA_CHECK = """RU_ALPHA = 'абвгдежзийклмнопрстуфхцчшщъыьэюя'
 def _lev(a, b):
     prev = list(range(len(b) + 1))
@@ -341,18 +566,21 @@ def _lev(a, b):
         prev = cur
     return prev[-1]
 def check_alpha(s, want_upper):
+    # возвращает: статус (empty/typed), число букв, проходы (букв / 32), целое число проходов,
+    # процент правильности, расстояние до эталона, доля прописных
     letters = ''.join(ch for ch in (s or '') if ch.isalpha())
     if not letters:
-        return ('empty', 99, 0.0)
+        return ('empty', 0, 0.0, 0, 0.0, -1, 0.0)
+    upper = 100.0 * sum(1 for ch in letters if ch.isupper()) / len(letters)
     low = letters.lower().replace('ё', '')
-    d = _lev(low, RU_ALPHA)
-    if d > 3:
-        return ('wrong', d, 0.0)
-    n_case = sum(1 for ch in letters if (ch.isupper() if want_upper else ch.islower()))
-    frac = n_case / float(len(letters))
-    if frac < 0.9:
-        return ('case', d, frac)
-    return ('ok', d, frac)
+    n = len(low)
+    passes = n / float(len(RU_ALPHA))
+    k = max(1, int(passes + 0.5))  # округление как Math.round в JS
+    k_cmp = min(k, 20)
+    target = RU_ALPHA * k_cmp
+    d = _lev(low[:len(target) + 32], target)
+    acc = max(0.0, 100.0 * (1.0 - d / float(len(target))))
+    return ('typed', len(letters), passes, k, acc, d, upper)
 """
 JS_ALPHA_CHECK = """RU_ALPHA = 'абвгдежзийклмнопрстуфхцчшщъыьэюя';
 _lev = function(a, b) {
@@ -368,18 +596,18 @@ _lev = function(a, b) {
 };
 check_alpha = function(s, want_upper) {
   var letters = (s || '').replace(/[^A-Za-zА-Яа-яЁё]/g, '');
-  if (letters.length === 0) { return ['empty', 99, 0.0]; }
+  if (letters.length === 0) { return ['empty', 0, 0.0, 0, 0.0, -1, 0.0]; }
+  var nUp = 0; for (var q = 0; q < letters.length; q++) { var ch = letters[q]; if (ch !== ch.toLowerCase()) { nUp += 1; } }
+  var upper = 100.0 * nUp / letters.length;
   var low = letters.toLowerCase().replace(/ё/g, '');
-  var d = _lev(low, RU_ALPHA);
-  if (d > 3) { return ['wrong', d, 0.0]; }
-  var n_case = 0;
-  for (var k = 0; k < letters.length; k++) {
-    var ch = letters[k];
-    if (want_upper ? (ch === ch.toUpperCase() && ch !== ch.toLowerCase()) : (ch === ch.toLowerCase() && ch !== ch.toUpperCase())) { n_case += 1; }
-  }
-  var frac = n_case / letters.length;
-  if (frac < 0.9) { return ['case', d, frac]; }
-  return ['ok', d, frac];
+  var n = low.length;
+  var passes = n / RU_ALPHA.length;
+  var k = Math.max(1, Math.round(passes));
+  var kCmp = Math.min(k, 20);
+  var target = ''; for (var r = 0; r < kCmp; r++) { target += RU_ALPHA; }
+  var d = _lev(low.slice(0, target.length + 32), target);
+  var acc = Math.max(0.0, 100.0 * (1.0 - d / target.length));
+  return ['typed', letters.length, passes, k, acc, d, upper];
 };
 """
 MSG = {'empty': 'Поле пустое. Введите алфавит и нажмите «Готово».',
@@ -387,156 +615,167 @@ MSG = {'empty': 'Поле пустое. Введите алфавит и наж�
        'case_upper': 'Пожалуйста, введите алфавит ПРОПИСНЫМИ (заглавными) буквами.',
        'case_lower': 'Пожалуйста, введите алфавит строчными (маленькими) буквами.'}
 
-def alpha_routine(name, box, btn, fb, prefix, want_upper, txt, refuse=None):
-    """Экран с вводом алфавита: кнопка Готово не завершает рутину сама, код проверяет ввод.
-    После 3 неудачных попыток ввод принимается как есть (prefix_ok = 0), чтобы участник не застрял."""
+def alpha_routine(name, box, btn, fb, prefix, want_upper, txt):
+    """Экран с вводом алфавита: нажатие «Готово» всегда завершает экран, ввод не блокирует прохождение.
+    Код считает аналитику ввода (число букв, проходов, процент правильности) и пишет её в данные; ввод ничем не ограничен."""
     r = routine(name)
-    text(r, name + '_text', txt, pos=(0, 0.3), h=0.032, wrap=1.3)
-    textbox(r, box, pos=(0, -0.02), size=(1.2, 0.26), placeholder='нажмите сюда и печатайте', h=0.035)
-    button(r, btn, 'Готово', pos=(-0.3 if refuse else 0, -0.36), end=False)
-    if refuse:
-        button(r, refuse, 'Отказаться', pos=(0.3, -0.36), end=False)
+    text(r, name + '_text', txt, pos=(0, 0.3), h=0.03, wrap=1.3)
+    textbox(r, box, pos=(0, -0.02), size=(1.2, 0.3), placeholder='нажмите сюда и печатайте', h=0.03)
+    button(r, btn, 'Готово', pos=(0, -0.36), end=False)
     fbc = text(r, fb, '', pos=(0, -0.24), h=0.028, wrap=1.3, color='gold')
-    refuse_py = ("if %s.numClicks > 0:\n    %s_ok = 0\n    %s_status = 'refused'\n    continueRoutine = False\n" % (refuse, prefix, prefix)) if refuse else ''
-    refuse_js = ("if (%s.numClicks > 0) {\n  %s_ok = 0;\n  %s_status = 'refused';\n  continueRoutine = false;\n}\n" % (refuse, prefix, prefix)) if refuse else ''
+    # время первого нажатия клавиши в поле: начало печати
+    start_py = ("_cur = %s.text or ''\nif _cur != %s_prev:\n    if len(_cur) < len(%s_prev):\n        %s_del += 1\n    %s_prev = _cur\n    %s_last = t\n    if %s_start < 0:\n        %s_start = t\n" % (box, prefix, prefix, prefix, prefix, prefix, prefix, prefix))
+    start_js = ("var _cur = %s.text || '';\nif (_cur !== %s_prev) { if (_cur.length < %s_prev.length) { %s_del += 1; } %s_prev = _cur; %s_last = t; if (%s_start < 0) { %s_start = t; } }\n" % (box, prefix, prefix, prefix, prefix, prefix, prefix, prefix))
     case_msg = MSG['case_upper'] if want_upper else MSG['case_lower']
     wu_py = 'True' if want_upper else 'False'
     wu_js = 'true' if want_upper else 'false'
     code(r, 'code_' + name,
      **{'Begin Experiment': PY_ALPHA_CHECK,
         'Begin JS Experiment': JS_ALPHA_CHECK,
-        'Begin Routine': "%s_clicks = 0\n%s_attempts = 0\n%s_ok = 0\n%s_dist = 99\n%s_status = ''\n" % ((prefix,) * 5),
-        'Begin JS Routine': "%s_clicks = 0; %s_attempts = 0; %s_ok = 0; %s_dist = 99; %s_status = '';\n" % ((prefix,) * 5),
-        'Each Frame': refuse_py + """if {btn}.numClicks > {p}_clicks:
+        'Begin Routine': "%s_clicks = 0\n%s_attempts = 0\n%s_res = ('empty', 0, 0.0, 0, 0.0, -1, 0.0)\n%s_start = -1\n%s_last = -1\n%s_prev = ''\n%s_attempt_times = []\n%s_del = 0\n" % ((prefix,) * 8),
+        'Begin JS Routine': "%s_clicks = 0; %s_attempts = 0; %s_res = ['empty', 0, 0.0, 0, 0.0, -1, 0.0]; %s_start = -1; %s_last = -1; %s_prev = ''; %s_attempt_times = []; %s_del = 0;\n" % ((prefix,) * 8),
+        'Each Frame': start_py + """if {btn}.numClicks > {p}_clicks:
     {p}_clicks = {btn}.numClicks
     {p}_attempts += 1
-    _res = check_alpha({box}.text, {wu})
-    {p}_status = _res[0]; {p}_dist = _res[1]
-    if _res[0] == 'ok':
-        {p}_ok = 1
-        continueRoutine = False
-    elif {p}_attempts >= 3:
-        {p}_ok = 0
-        continueRoutine = False
-    else:
-        {fb}.text = {{'empty': {m_empty!r}, 'wrong': {m_wrong!r}, 'case': {m_case!r}}}[_res[0]]
+    {p}_attempt_times.append(round(t, 3))
+    {p}_res = check_alpha({box}.text, {wu})
+    continueRoutine = False
 """.format(btn=btn, p=prefix, box=box, wu=wu_py, fb=fb, m_empty=MSG['empty'], m_wrong=MSG['wrong'], m_case=case_msg),
-        'Each JS Frame': refuse_js + """if ({btn}.numClicks > {p}_clicks) {{
+        'Each JS Frame': start_js + """if ({btn}.numClicks > {p}_clicks) {{
   {p}_clicks = {btn}.numClicks;
   {p}_attempts += 1;
-  var _res = check_alpha({box}.text, {wu});
-  {p}_status = _res[0]; {p}_dist = _res[1];
-  if (_res[0] === 'ok') {{
-    {p}_ok = 1;
-    continueRoutine = false;
-  }} else if ({p}_attempts >= 3) {{
-    {p}_ok = 0;
-    continueRoutine = false;
-  }} else {{
-    {fb}.setText({{'empty': {m_empty}, 'wrong': {m_wrong}, 'case': {m_case}}}[_res[0]]);
-  }}
+  {p}_attempt_times.push(Math.round(t * 1000) / 1000);
+  {p}_res = check_alpha({box}.text, {wu});
+  continueRoutine = false;
 }}
 """.format(btn=btn, p=prefix, box=box, wu=wu_js, fb=fb, m_empty=json.dumps(MSG['empty'], ensure_ascii=False), m_wrong=json.dumps(MSG['wrong'], ensure_ascii=False), m_case=json.dumps(case_msg, ensure_ascii=False)),
         'End Routine': """txt = {box}.text or ''
 thisExp.addData('{p}_text', txt)
 thisExp.addData('{p}_len', len(txt))
-thisExp.addData('{p}_ok', {p}_ok)
-thisExp.addData('{p}_dist', {p}_dist)
-thisExp.addData('{p}_status', {p}_status)
+thisExp.addData('{p}_status', {p}_res[0])
+thisExp.addData('{p}_letters', {p}_res[1])
+thisExp.addData('{p}_passes', round({p}_res[2], 2))
+thisExp.addData('{p}_times', {p}_res[3])
+thisExp.addData('{p}_acc_pct', round({p}_res[4], 1))
+thisExp.addData('{p}_dist', {p}_res[5])
+thisExp.addData('{p}_upper_pct', round({p}_res[6], 1))
 thisExp.addData('{p}_attempts', {p}_attempts)
+thisExp.addData('{p}_start', {p}_start)
+thisExp.addData('{p}_last_key', {p}_last)
+thisExp.addData('{p}_typing', ({p}_last - {p}_start) if {p}_start >= 0 else -1)
+thisExp.addData('{p}_attempt_times', ';'.join(str(x) for x in {p}_attempt_times))
+thisExp.addData('{p}_deletions', {p}_del)
 thisExp.addData('{p}_time', t)
 """.format(box=box, p=prefix),
         'End JS Routine': """var txt = {box}.text || '';
 psychoJS.experiment.addData('{p}_text', txt);
 psychoJS.experiment.addData('{p}_len', txt.length);
-psychoJS.experiment.addData('{p}_ok', {p}_ok);
-psychoJS.experiment.addData('{p}_dist', {p}_dist);
-psychoJS.experiment.addData('{p}_status', {p}_status);
+psychoJS.experiment.addData('{p}_status', {p}_res[0]);
+psychoJS.experiment.addData('{p}_letters', {p}_res[1]);
+psychoJS.experiment.addData('{p}_passes', Math.round({p}_res[2] * 100) / 100);
+psychoJS.experiment.addData('{p}_times', {p}_res[3]);
+psychoJS.experiment.addData('{p}_acc_pct', Math.round({p}_res[4] * 10) / 10);
+psychoJS.experiment.addData('{p}_dist', {p}_res[5]);
+psychoJS.experiment.addData('{p}_upper_pct', Math.round({p}_res[6] * 10) / 10);
 psychoJS.experiment.addData('{p}_attempts', {p}_attempts);
+psychoJS.experiment.addData('{p}_start', {p}_start);
+psychoJS.experiment.addData('{p}_last_key', {p}_last);
+psychoJS.experiment.addData('{p}_typing', ({p}_start >= 0) ? ({p}_last - {p}_start) : -1);
+psychoJS.experiment.addData('{p}_attempt_times', {p}_attempt_times.join(';'));
+psychoJS.experiment.addData('{p}_deletions', {p}_del);
 psychoJS.experiment.addData('{p}_time', t);
 """.format(box=box, p=prefix)})
     return r
 
-r = alpha_routine('effort', 'effort_box', 'effort_done', 'effort_fb', 'effort', True, TXT_EFFORT, refuse='effort_refuse')
+r = alpha_routine('effort', 'effort_box', 'effort_done', 'effort_fb', 'effort', True, TXT_EFFORT)
 lp = TrialHandler(exp, name='effort_loop', loopType='sequential', nReps='nEffort', isTrials=False); lp.params['nReps'].valType='code'
 exp.flow.addLoop(lp, startPos=len(exp.flow), endPos=len(exp.flow))
 exp.flow.addRoutine(r, pos=len(exp.flow) - 1)
 
-# --- 5б. предложение усилить (внутри effort_loop) ---
-r = routine('boost_offer')
-text(r, 'boost_offer_text', TXT_BOOST_OFFER, pos=(0, 0.2), h=0.034, wrap=1.3)
-button(r, 'btn_boost', 'Усилить', pos=(-0.25, -0.12), size=(0.36, 0.14))
-button(r, 'btn_finish', 'Завершить', pos=(0.25, -0.12), size=(0.36, 0.14))
-code(r, 'code_boost_offer',
- **{'Begin Routine': "nBoost = 0\nif effort_ok == 0:\n    continueRoutine = False\n",
-    'Begin JS Routine': "nBoost = 0;\nif (effort_ok === 0) { continueRoutine = false; }\n",
-    'End Routine': """nBoost = 1 if btn_boost.numClicks > 0 else 0
-thisExp.addData('boost_choice', 'boost' if nBoost else 'finish')
-thisExp.addData('boost_rt', t)
-""",
-    'End JS Routine': """nBoost = (btn_boost.numClicks > 0) ? 1 : 0;
-psychoJS.experiment.addData('boost_choice', nBoost ? 'boost' : 'finish');
-psychoJS.experiment.addData('boost_rt', t);
-"""})
-exp.flow.addRoutine(r, pos=len(exp.flow) - 1)
-
-# --- 5в. усиление: алфавит строчными (вложенный цикл nReps = nBoost) ---
-r = alpha_routine('boost', 'boost_box', 'boost_done', 'boost_fb', 'boost', False, TXT_BOOST)
-lpb = TrialHandler(exp, name='boost_loop', loopType='sequential', nReps='nBoost', isTrials=False); lpb.params['nReps'].valType='code'
-exp.flow.addLoop(lpb, startPos=len(exp.flow) - 1, endPos=len(exp.flow) - 1)
-exp.flow.addRoutine(r, pos=len(exp.flow) - 2)
-
 # --- 6. rating ---
 r = routine('rating')
-text(r, 'rating_text', TXT_RATING, pos=(0, 0.38), h=0.035, wrap=1.3)
-text(r, 'lbl_imp', 'Насколько это событие для вас важно?', pos=(0, 0.22), h=0.03)
-slider(r, 'importance', '(0, 100)', "'совсем не важно', 'крайне важно'", pos=(0, 0.1), size=(1.0, 0.05), style='slider', gran=1, init=50)
-text(r, 'lbl_ctrl', 'Насколько его исход зависит от вас самих?', pos=(0, -0.08), h=0.03)
-slider(r, 'control', '(0, 100)', "'совсем не зависит', 'полностью зависит'", pos=(0, -0.2), size=(1.0, 0.05), style='slider', gran=1, init=50)
-button(r, 'rating_done', 'Готово', pos=(0, -0.4))
+text(r, 'rating_text', TXT_RATING, pos=(0, 0.38), h=0.031, wrap=1.3)
+text(r, 'lbl_imp', 'Насколько оно для вас важно?', pos=(0, 0.22), h=0.03)
+slider(r, 'importance', '(0, 100)', "'совсем не важно', 'крайне важно'", pos=(0, 0.1), size=(1.0, 0.05), style='slider', gran=1)
+text(r, 'lbl_ctrl', 'Насколько его исход зависит от вас?', pos=(0, -0.08), h=0.03)
+slider(r, 'control', '(0, 100)', "'совсем не зависит', 'полностью зависит'", pos=(0, -0.2), size=(1.0, 0.05), style='slider', gran=1)
+button(r, 'rating_done', 'Готово', pos=(0, -0.4), end=False)
+code(r, 'code_rating', **{
+    'Begin Experiment': "TXT_RATING_HINT = %r\n" % TXT_RATING_HINT,
+    'Begin JS Experiment': "TXT_RATING_HINT = %s;\n" % json.dumps(TXT_RATING_HINT, ensure_ascii=False),
+    'Begin Routine': "rating_clicks = 0\nrating_tries = 0\n",
+    'Begin JS Routine': "rating_clicks = 0; rating_tries = 0;\n",
+    'Each Frame': """if rating_done.numClicks > rating_clicks:
+    rating_clicks = rating_done.numClicks
+    rating_tries += 1
+    if importance.getRating() is not None and control.getRating() is not None:
+        continueRoutine = False
+    else:
+        rating_text.text = TXT_RATING_HINT
+        rating_text.color = 'gold'
+""",
+    'Each JS Frame': """if (rating_done.numClicks > rating_clicks) {
+  rating_clicks = rating_done.numClicks;
+  rating_tries += 1;
+  var _ri = importance.getRating(), _rc = control.getRating();
+  if (_ri !== undefined && _ri !== null && _rc !== undefined && _rc !== null) { continueRoutine = false; }
+  else { rating_text.setText(TXT_RATING_HINT); rating_text.setColor(new util.Color('gold')); }
+}
+""",
+    'End Routine': "thisExp.addData('rating_time', t)\nthisExp.addData('rating_tries', rating_tries)\nthisExp.addData('importance_rating', importance.getRating())\nthisExp.addData('control_rating', control.getRating())\n",
+    'End JS Routine': "psychoJS.experiment.addData('rating_time', t);\npsychoJS.experiment.addData('rating_tries', rating_tries);\npsychoJS.experiment.addData('importance_rating', importance.getRating());\npsychoJS.experiment.addData('control_rating', control.getRating());\n"})
 exp.flow.addRoutine(r, pos=len(exp.flow))
 
-# --- 7. опросник Тобасика ПОСЛЕ ---
+# --- 7. после выбора: группы 3 и 4 заполняют шкалу Тобасика, группы 1 и 2 нейтральный опросник ---
 add_tobacyk_block('after', 'nAfter')
+add_neutral_block('after', 'nBefore')
 
 # --- 8. suspicion ---
 r = routine('suspicion')
-text(r, 'susp_text', TXT_SUSP, pos=(0, 0.3), h=0.032, wrap=1.3)
+text(r, 'susp_text', TXT_SUSP, pos=(0, 0.3), h=0.03, wrap=1.3)
 textbox(r, 'susp_box', pos=(0, -0.02), size=(1.2, 0.26), placeholder='нажмите сюда и печатайте', h=0.03)
 button(r, 'susp_done', 'Готово', pos=(0, -0.36))
+code(r, 'code_susp', **{'End Routine': "thisExp.addData('susp_time', t)\nthisExp.addData('susp_len', len(susp_box.text or ''))\n", 'End JS Routine': "psychoJS.experiment.addData('susp_time', t);\npsychoJS.experiment.addData('susp_len', (susp_box.text || '').length);\n"})
 exp.flow.addRoutine(r, pos=len(exp.flow))
 
 # --- 8а. номер строки для студентов РАНХиГС (предпоследний экран) ---
 r = routine('row_entry')
-text(r, 'row_text', TXT_ROW, pos=(0, 0.25), h=0.032, wrap=1.3)
+text(r, 'row_text', TXT_ROW, pos=(0, 0.25), h=0.03, wrap=1.3)
 textbox(r, 'row_box', pos=(0, 0.0), size=(0.5, 0.08), placeholder='номер строки', h=0.035)
 button(r, 'row_done', 'Готово', pos=(0, -0.2))
 code(r, 'code_row',
- **{'End Routine': "thisExp.addData('row_number', (row_box.text or '').strip())\n",
-    'End JS Routine': "psychoJS.experiment.addData('row_number', (row_box.text || '').trim());\n"})
+ **{'End Routine': "thisExp.addData('row_number', (row_box.text or '').strip())\nthisExp.addData('row_time', t)\n",
+    'End JS Routine': "psychoJS.experiment.addData('row_number', (row_box.text || '').trim());\npsychoJS.experiment.addData('row_time', t);\n"})
 exp.flow.addRoutine(r, pos=len(exp.flow))
 
-# --- 9. thanks + отправка в OSF через DataPipe ---
+# --- 9. thanks + отправка данных через DataPipe ---
 r = routine('thanks')
-code(r, 'code_score', **{'Begin Routine': "\nSUB = {'TRB': [1, 8, 15, 22], 'Psi': [2, 9, 16, 23], 'Witch': [3, 10, 17, 24], 'Super': [4, 11, 18],\n       'Spirit': [5, 12, 19, 25], 'ELF': [6, 13, 20], 'Precog': [7, 14, 21, 26]}\ndef _v(i):\n    x = tob_resp.get(i)\n    if x is None: return None\n    x = float(x)\n    return 8 - x if i == 23 else x\nvals = [_v(i) for i in range(1, 27)]\nif all(v is not None for v in vals):\n    for k, idx in SUB.items():\n        thisExp.addData('RPBS_' + k, sum(_v(i) for i in idx))\n    thisExp.addData('RPBS_total', sum(vals))\n    thisExp.addData('RPBS_mean', sum(vals) / 26.0)\n", 'Begin JS Routine': "\nvar SUB = {'TRB': [1, 8, 15, 22], 'Psi': [2, 9, 16, 23], 'Witch': [3, 10, 17, 24], 'Super': [4, 11, 18],\n       'Spirit': [5, 12, 19, 25], 'ELF': [6, 13, 20], 'Precog': [7, 14, 21, 26]};\nfunction _v(i) { var x = tob_resp[i]; if (x === undefined || x === null) return null; x = Number(x); return (i === 23) ? 8 - x : x; }\nvar vals = []; var ok = true;\nfor (var i = 1; i <= 26; i++) { var v = _v(i); if (v === null) ok = false; vals.push(v); }\nif (ok) {\n  for (var k in SUB) { var ssum = 0; for (var j = 0; j < SUB[k].length; j++) { ssum += _v(SUB[k][j]); } psychoJS.experiment.addData('RPBS_' + k, ssum); }\n  var tot = vals.reduce(function(a, b) { return a + b; }, 0);\n  psychoJS.experiment.addData('RPBS_total', tot);\n  psychoJS.experiment.addData('RPBS_mean', tot / 26.0);\n}\n"})
-text(r, 'thanks_text', TXT_THANKS, pos=(0, 0)); key(r, 'thanks_key')
-code(r, 'code_datapipe', **{'Code Type': 'JS',
- 'End JS Experiment':
-"""// Отправка данных в OSF через DataPipe (pipe.jspsych.org). Замените experimentID на ID нового эксперимента.
+code(r, 'code_score', **{'Begin Routine': "thisExp.addData('total_time', globalClock.getTime())\nthisExp.addData('blur_count', blur_count)\nthisExp.addData('neu_n_answered', sum(1 for v in neu_resp.values() if v is not None))\nSUB = {'TRB': [1, 8, 15, 22], 'Psi': [2, 9, 16, 23], 'Witch': [3, 10, 17, 24], 'Super': [4, 11, 18],\n       'Spirit': [5, 12, 19, 25], 'ELF': [6, 13, 20], 'Precog': [7, 14, 21, 26]}\ndef _v(i):\n    x = tob_resp.get(i)\n    if x is None: return None\n    x = float(x)\n    return 8 - x if i == 23 else x\nvals = [_v(i) for i in range(1, 27)]\nif all(v is not None for v in vals):\n    for k, idx in SUB.items():\n        thisExp.addData('RPBS_' + k, sum(_v(i) for i in idx))\n    thisExp.addData('RPBS_total', sum(vals))\n    thisExp.addData('RPBS_mean', sum(vals) / 26.0)\n", 'Begin JS Routine': "psychoJS.experiment.addData('total_time', globalClock.getTime());\npsychoJS.experiment.addData('blur_count', blur_count);\nvar _nn = 0; for (var _k in neu_resp) { if (neu_resp[_k] !== null && neu_resp[_k] !== undefined) _nn += 1; } psychoJS.experiment.addData('neu_n_answered', _nn);\nvar SUB = {'TRB': [1, 8, 15, 22], 'Psi': [2, 9, 16, 23], 'Witch': [3, 10, 17, 24], 'Super': [4, 11, 18],\n       'Spirit': [5, 12, 19, 25], 'ELF': [6, 13, 20], 'Precog': [7, 14, 21, 26]};\nfunction _v(i) { var x = tob_resp[i]; if (x === undefined || x === null) return null; x = Number(x); return (i === 23) ? 8 - x : x; }\nvar vals = []; var ok = true;\nfor (var i = 1; i <= 26; i++) { var v = _v(i); if (v === null) ok = false; vals.push(v); }\nif (ok) {\n  for (var k in SUB) { var ssum = 0; for (var j = 0; j < SUB[k].length; j++) { ssum += _v(SUB[k][j]); } psychoJS.experiment.addData('RPBS_' + k, ssum); }\n  var tot = vals.reduce(function(a, b) { return a + b; }, 0);\n  psychoJS.experiment.addData('RPBS_total', tot);\n  psychoJS.experiment.addData('RPBS_mean', tot / 26.0);\n}\n"})
+text(r, 'thanks_text', TXT_THANKS_LOCAL, pos=(0, 0))
+# Онлайн данные отправляются в начале этого экрана, а не после нажатия пробела: участник видит, что ответы сохранены,
+# и только после этого может завершить. При сбое сети отправка повторяется, клавиша R запускает её ещё раз.
+code(r, 'code_datapipe', **{
+ 'Begin JS Experiment': "TXT_THANKS_BASE = %s;\nTXT_SAVING = %s;\nTXT_SAVED = %s;\nTXT_SAVE_FAILED = %s;\nTXT_SAVE_OFF = %s;\n" % tuple(
+     json.dumps(x, ensure_ascii=False) for x in (TXT_THANKS_BASE, TXT_SAVING, TXT_SAVED, TXT_SAVE_FAILED, TXT_SAVE_OFF)),
+ 'Begin Routine': "event.clearEvents()\n",
+ 'Begin JS Routine': """psychoJS.eventManager.clearEvents();
+hist_update('d');
+dp_shown = '';
+dp_send('');
+""",
+ 'Each Frame': """if event.getKeys(keyList=['space']):
+    continueRoutine = False
+""",
+ 'Each JS Frame': """var _msg = (dp_state === 'ok') ? TXT_SAVED : ((dp_state === 'failed') ? TXT_SAVE_FAILED : ((dp_state === 'off') ? TXT_SAVE_OFF : TXT_SAVING));
+if (_msg !== dp_shown) { thanks_text.setText(TXT_THANKS_BASE + _msg); dp_shown = _msg; }
+var _tk = psychoJS.eventManager.getKeys({keyList: ['space', 'r']});
+if (dp_state === 'failed' && _tk.indexOf('r') >= 0) { dp_send(''); }
+else if (dp_state !== 'sending' && _tk.indexOf('space') >= 0) { continueRoutine = false; }
+""",
+ 'End JS Experiment': """// Отправка уже выполнена на последнем экране. Если эксперимент закрыт раньше (отладочный выход по Esc),
+// отправляется то, что успело накопиться, с пометкой partial в имени файла.
+if (typeof dp_send === 'function' && dp_state === 'idle' && psychoJS.experiment._trialsData.length > 0) { dp_send('partial'); }
 psychoJS._saveResults = 0;
-let filename = psychoJS._experiment._experimentName + '_' + psychoJS._experiment._datetime + '.csv';
-let dataObj = psychoJS._experiment._trialsData;
-const SEP = ';';
-let headers = [];
-dataObj.forEach((trial) => { if (trial && typeof trial === 'object') { Object.keys(trial).forEach(k => { if (!headers.includes(k)) headers.push(k); }); } });
-const formatCell = (val) => { if (val === null || val === undefined) return ''; let s = (typeof val === 'object') ? JSON.stringify(val) : String(val);
-  if (s.includes(SEP) || s.includes('"') || s.includes('\\n') || s.includes('\\r')) { s = '"' + s.replace(/"/g, '""') + '"'; } return s; };
-let csvRows = [headers.join(SEP)];
-dataObj.forEach((row) => { csvRows.push((row && typeof row === 'object') ? headers.map(h => formatCell(row[h])).join(SEP) : new Array(headers.length).fill('').join(SEP)); });
-let data = csvRows.join('\\n');
-fetch('https://pipe.jspsych.org/api/data', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: '*/*' },
-  body: JSON.stringify({ experimentID: 'ВСТАВИТЬ_ID_DATAPIPE', filename: filename, data: data }) })
-  .then(r => r.json()).then(d => { console.log('DataPipe:', d); }).catch(e => { console.error('Save failed:', e); });
 """})
 exp.flow.addRoutine(r, pos=len(exp.flow))
 
