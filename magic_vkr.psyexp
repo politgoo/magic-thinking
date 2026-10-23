@@ -117,7 +117,7 @@
         <Param val="duration (s)" valType="str" updates="None" name="stopType"/>
         <Param val="" valType="code" updates="constant" name="stopVal"/>
         <Param val="True" valType="bool" updates="None" name="syncScreenRefresh"/>
-        <Param val="Здравствуйте! Это исследование принятия решений, оно займёт около 10 минут.&amp;#10;&amp;#10;Данные анонимны и используются только в обобщённом виде. Продолжая, вы даёте согласие на участие.&amp;#10;&amp;#10;Пожалуйста, проходите исследование на компьютере или ноутбуке.&amp;#10;&amp;#10;Чтобы начать, нажмите пробел." valType="str" updates="constant" name="text"/>
+        <Param val="Здравствуйте! Это исследование принятия решений, прохождение займёт от 10 до 15 минут.&amp;#10;&amp;#10;Данные анонимны и используются только в обобщённом виде. Продолжая, вы даёте согласие на участие.&amp;#10;&amp;#10;Пожалуйста, проходите исследование на компьютере или ноутбуке.&amp;#10;&amp;#10;Чтобы начать, нажмите пробел." valType="str" updates="constant" name="text"/>
         <Param val="from exp settings" valType="str" updates="None" name="units"/>
         <Param val="" valType="code" updates="None" name="validator"/>
         <Param val="1.4" valType="num" updates="constant" name="wrapWidth"/>
