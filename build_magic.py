@@ -55,7 +55,6 @@ TXT_CHOICE_HARD = ("А сейчас бонус за участие. Многие
  "в ближайшее время, нажав на кнопку «Магия» и напечатав в появившемся поле алфавит один раз, или на кнопку «Пропустить» "
  "и перейти к следующему этапу.")
 TXT_EFFORT = ("Для активации магии введите в поле ниже русский алфавит от А до Я один раз. Затем нажмите «Готово».")
-TXT_RATING = ("Оцените приятное событие, о котором вы думали.")
 TXT_ROW = ("Студенты РАНХиГС, которые хотят получить баллы за участие, введите номер вашей строки в списке группы. "
  "Если баллы вам не нужны, оставьте поле пустым и нажмите «Готово».")
 TXT_SUSP = "Как вы думаете, что изучалось в этом исследовании? Напишите в свободной форме и нажмите «Готово»."
@@ -68,7 +67,6 @@ TXT_SAVE_FAILED = ("Не удалось сохранить ответы: нет 
 TXT_SAVE_OFF = ("Ответы не сохранены: эксперимент не подключён к хранилищу данных (не вписан ID DataPipe). "
  "Пожалуйста, сообщите об этом исследователю. Нажмите пробел, чтобы завершить.")
 TXT_THANKS_LOCAL = TXT_THANKS_BASE + "Нажмите пробел, чтобы завершить."
-TXT_RATING_HINT = "Отметьте ответ на обеих шкалах (щёлкните по шкале), затем нажмите «Готово»."
 
 # ---------- таблица условий для опросника Тобасика ----------
 SUBSCALE = {1:'TRB',8:'TRB',15:'TRB',22:'TRB', 2:'Psi',9:'Psi',16:'Psi',23:'Psi',
@@ -228,7 +226,7 @@ cond_pending = False
 """var _gi = function(k) { var v = expInfo[k]; if (v === undefined) { v = expInfo[k + '|req']; } return String(v === undefined || v === null ? '' : v).trim(); };
 var g = String(expInfo['group'] || '').trim();
 // ID эксперимента в DataPipe (pipe.jspsych.org): один и тот же для распределения по группам и для отправки данных
-DATAPIPE_ID = 'ВСТАВИТЬ_ID_DATAPIPE';
+DATAPIPE_ID = 'NXKsy6NvrnLs';   // вписан Ариной 23 октября 2026 (эксперимент magic_vkr, хранилище Google Drive)
 group_source = 'url'; group_locked = false; cond_pending = false; cond_wait_t = 0; cond_index = -1;
 var _name = _gi('имя'); var _sex = _gi('пол'); var _age = _gi('возраст');
 nDebug = (_name === '0') ? 1 : 0;
@@ -691,40 +689,6 @@ r = alpha_routine('effort', 'effort_box', 'effort_done', 'effort_fb', 'effort', 
 lp = TrialHandler(exp, name='effort_loop', loopType='sequential', nReps='nEffort', isTrials=False); lp.params['nReps'].valType='code'
 exp.flow.addLoop(lp, startPos=len(exp.flow), endPos=len(exp.flow))
 exp.flow.addRoutine(r, pos=len(exp.flow) - 1)
-
-# --- 6. rating ---
-r = routine('rating')
-text(r, 'rating_text', TXT_RATING, pos=(0, 0.38), h=0.031, wrap=1.3)
-text(r, 'lbl_imp', 'Насколько оно для вас важно?', pos=(0, 0.22), h=0.03)
-slider(r, 'importance', '(0, 100)', "'совсем не важно', 'крайне важно'", pos=(0, 0.1), size=(1.0, 0.05), style='slider', gran=1)
-text(r, 'lbl_ctrl', 'Насколько его исход зависит от вас?', pos=(0, -0.08), h=0.03)
-slider(r, 'control', '(0, 100)', "'совсем не зависит', 'полностью зависит'", pos=(0, -0.2), size=(1.0, 0.05), style='slider', gran=1)
-button(r, 'rating_done', 'Готово', pos=(0, -0.4), end=False)
-code(r, 'code_rating', **{
-    'Begin Experiment': "TXT_RATING_HINT = %r\n" % TXT_RATING_HINT,
-    'Begin JS Experiment': "TXT_RATING_HINT = %s;\n" % json.dumps(TXT_RATING_HINT, ensure_ascii=False),
-    'Begin Routine': "rating_clicks = 0\nrating_tries = 0\n",
-    'Begin JS Routine': "rating_clicks = 0; rating_tries = 0;\n",
-    'Each Frame': """if rating_done.numClicks > rating_clicks:
-    rating_clicks = rating_done.numClicks
-    rating_tries += 1
-    if importance.getRating() is not None and control.getRating() is not None:
-        continueRoutine = False
-    else:
-        rating_text.text = TXT_RATING_HINT
-        rating_text.color = 'gold'
-""",
-    'Each JS Frame': """if (rating_done.numClicks > rating_clicks) {
-  rating_clicks = rating_done.numClicks;
-  rating_tries += 1;
-  var _ri = importance.getRating(), _rc = control.getRating();
-  if (_ri !== undefined && _ri !== null && _rc !== undefined && _rc !== null) { continueRoutine = false; }
-  else { rating_text.setText(TXT_RATING_HINT); rating_text.setColor(new util.Color('gold')); }
-}
-""",
-    'End Routine': "thisExp.addData('rating_time', t)\nthisExp.addData('rating_tries', rating_tries)\nthisExp.addData('importance_rating', importance.getRating())\nthisExp.addData('control_rating', control.getRating())\n",
-    'End JS Routine': "psychoJS.experiment.addData('rating_time', t);\npsychoJS.experiment.addData('rating_tries', rating_tries);\npsychoJS.experiment.addData('importance_rating', importance.getRating());\npsychoJS.experiment.addData('control_rating', control.getRating());\n"})
-exp.flow.addRoutine(r, pos=len(exp.flow))
 
 # --- 7. после выбора: группы 3 и 4 заполняют шкалу Тобасика, группы 1 и 2 нейтральный опросник ---
 add_tobacyk_block('after', 'nAfter')

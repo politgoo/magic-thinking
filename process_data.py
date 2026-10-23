@@ -11,10 +11,9 @@ KEEP = ['session_id', 'cond_index', 'name_hash', 'prev_starts', 'prev_choice_see
         'name', 'sex', 'age', 'age_ok', 'row_number', 'group', 'group_source', 'order', 'cost',
         'browser_id', 'user_agent', 'screen_w', 'screen_h', 'win_w', 'win_h', 'lang', 'tz_offset_min', 'touch', 'blur_count', 'total_time',
         'welcome_time', 'tob_instr_time', 'neu_instr_time', 'neu_n_answered', 'control_q_method', 'control_q_first_move', 'choice_method', 'choice_first_move', 'effort_deletions',
-        'rating_time', 'rating_tries', 'importance_rating', 'control_rating', 'control_q_blur', 'choice_blur', 'susp_len', 'susp_time', 'row_time',
+        'control_q_blur', 'choice_blur', 'susp_len', 'susp_time', 'row_time',
         'control_resp', 'control_rt', 'choice', 'choice_rt',
         'effort_status', 'effort_letters', 'effort_times', 'effort_acc_pct', 'effort_upper_pct', 'effort_dist', 'effort_attempts', 'effort_len', 'effort_start', 'effort_last_key', 'effort_typing', 'effort_attempt_times', 'effort_passes', 'effort_time', 'effort_text',
-        'importance.response', 'control.response',
         'susp_box.text', 'debug', 'RPBS_TRB', 'RPBS_Psi', 'RPBS_Witch', 'RPBS_Super', 'RPBS_Spirit',
         'RPBS_ELF', 'RPBS_Precog', 'RPBS_total', 'RPBS_mean', 'date', 'expName', 'psychopyVersion', 'frameRate']
 SUB = {'TRB': [1, 8, 15, 22], 'Psi': [2, 9, 16, 23], 'Witch': [3, 10, 17, 24], 'Super': [4, 11, 18],
@@ -95,7 +94,15 @@ out.loc[done, 'repeat_dup'] = out[done].duplicated('person_key', keep='first').a
 out['attempt_n'] = out.groupby('person_key').cumcount() + 1
 print('прохождений после уже увиденного выбора (repeat_prior):', int(out['repeat_prior'].sum()))
 print('повторных завершённых прохождений одного человека (repeat_dup):', int(out['repeat_dup'].sum()))
-out['analysis_ok'] = ((out['complete'] == 1) & (out['repeat_prior'] == 0) & (out['repeat_dup'] == 0)).astype(int)
+# 4. возраст: в диалоге он не проверяется, поэтому число извлекается из записи («27 лет» -> 27);
+#    age_flag = 1, если числа нет или оно вне 18–99 (критерий выборки «от 18 лет»)
+if 'age' in out.columns:
+    out['age_num'] = pd.to_numeric(out['age'].astype(str).str.extract(r'(\d+)')[0], errors='coerce')
+    out['age_flag'] = (out['age_num'].isna() | (out['age_num'] < 18) | (out['age_num'] > 99)).astype(int)
+else:
+    out['age_num'] = None; out['age_flag'] = 1
+print('возраст отсутствует или вне 18–99 (age_flag):', int(out['age_flag'].sum()))
+out['analysis_ok'] = ((out['complete'] == 1) & (out['repeat_prior'] == 0) & (out['repeat_dup'] == 0) & (out['age_flag'] == 0)).astype(int)
 out.to_csv(os.path.join(folder, 'participants.csv'), index=False, encoding='utf-8-sig')
 # версия для публикации: без имени, его хеша (по нему имя восстанавливается перебором), номера строки в списке группы,
 # кода и строки браузера
